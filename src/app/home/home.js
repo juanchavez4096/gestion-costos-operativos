@@ -3,24 +3,28 @@
 // All of the Node.js APIs are available in this process.
 console.log(process);
 const { net } = require('electron').remote;
+var logOut = document.getElementById('logout')
 const Store = require('electron-store');
 const store = new Store();
-var submit = document.getElementById('submit')
+
+ 
 
 
 
 
-submit.addEventListener('click', login);
+function logout(){
 
-
-
-if (store.get('token', false) != false) {
-    sessionStorage.setItem('token', store.get('token'));
-    sessionStorage.setItem('nombre', store.get('nombre'));
+    console.log("f");
     
-    window.location.replace('../home/home.html');
+    sessionStorage.clear();
+    store.delete('token');
+    store.delete('nombre');
+
+    window.location.replace('../login/login.html');
+            
 }
 
+logOut.addEventListener('click', logout);
 
 function login() {
     var email = document.getElementById('email');
@@ -50,21 +54,14 @@ function login() {
         console.log(response.statusCode);
         if (response.statusCode != 200) {
             alert("Email o contraseña inválida")
-            return;
-        }else if(response.statusCode == 200){
-            var body = JSON.parse(new TextDecoder('utf-8').decode(response.data[0]))
-        
-            store.set('token', body.token);
-            store.set('nombre', body.nombre);
-            
-            
-            sessionStorage.setItem('token', body.token);
-            sessionStorage.setItem('nombre', body.nombre);
-    
-            window.location.replace('../home/home.html');
-            
-            
         }
+        
+        var body = JSON.parse(new TextDecoder('utf-8').decode(response.data[0]))
+        
+        sessionStorage.setItem('token', body.token);
+        sessionStorage.setItem('nombre', body.nombre);
+
+        
         
         
         response.on('error', (error) => {
