@@ -8,7 +8,12 @@ const store = new Store();
 var submit = document.getElementById('submit')
 
 
-
+document.addEventListener("keypress", (e) =>{
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        login();
+    }
+})
 
 submit.addEventListener('click', login);
 
@@ -25,6 +30,7 @@ if (store.get('token', false) != false) {
 function login() {
     var email = document.getElementById('email');
     var password = document.getElementById('password');
+    
 
     if (!email.checkValidity()) {
         alert('Ingrese un email válido')
