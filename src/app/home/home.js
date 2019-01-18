@@ -3,12 +3,15 @@
 // All of the Node.js APIs are available in this process.
 console.log(process);
 const { net } = require('electron').remote;
-var logOut = document.getElementById('logout')
+var logOut = document.getElementById('logout');
+var productosBotton = document.getElementById('productos');
 const Store = require('electron-store');
 const store = new Store();
 
- 
+const token = sessionStorage.getItem('token');
 
+
+productosBotton.addEventListener('click', getProductos);
 
 
 
@@ -22,6 +25,42 @@ function logout(){
 
     window.location.replace('../login/login.html');
             
+}
+
+function getProductos(){
+    const request = net.request({
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        protocol: 'http:',
+        hostname: 'localhost',
+        port: 8080,
+        path: '/api/productos/all',
+    })
+       
+    request.on('response', (response) => {
+        console.log(response.statusCode);
+        if (response.statusCode != 200) {
+            alert("Error de Red");
+        }else{
+            var body = JSON.parse(new TextDecoder('utf-8').decode(response.data[0]))
+        
+            console.log(body);
+            
+            
+        }
+        
+        
+        
+        
+        response.on('error', (error) => {
+            console.log(`ERROR: ${JSON.stringify(error)}`)
+        })
+        
+    })
+    request.end();
 }
 
 logOut.addEventListener('click', logout);
