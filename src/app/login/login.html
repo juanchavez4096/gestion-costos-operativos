@@ -10,7 +10,7 @@
   <title>Signin Template for Bootstrap</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="../../resources/libraries/css/bootstrap-material-design.css" rel="stylesheet">
+  <link href="../../resources/libraries/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="signin.css" rel="stylesheet">
@@ -18,13 +18,23 @@
 
 <body >
   <form   >
-    <h1 >Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="email"  placeholder="Email address" required  autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="password"  placeholder="Password" required >
+    <h1 class="text-center">Please sign in</h1>
+    <br>
+    <div class="form-group">
+      <label for="inputEmail">Dirección de Email</label>
+      <input type="email" id="email" class="form-control"  placeholder="cualquiera@ejemplo.com" required  autofocus>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword">Contraseña</label>
+      <input type="password" id="password" class="form-control"  placeholder="Contraseña" required >
+    </div>
     
-    <button  type="button" id="submit">Sign in</button>
+    <div class="d-flex justify-content-around">
+      <button  type="button" id="forgotPassword" class="btn btn-info mx-2">Recuperar contraseña</button>
+      <button  type="button" id="submit" class="btn btn-primary mx-2">Sign in</button>
+    </div>
+   
+    
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
   </form>
   <script>
@@ -32,7 +42,8 @@
     require('./login.js')
   </script>
   <script src="../../resources/libraries/js/jquery.min.js"></script>
-  <script src="../../resources/libraries/js/bootstrap-material-design.js"></script>
+  <script src="../../resources/libraries/js/popper.min.js"></script>
+  <script src="../../resources/libraries/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -11,9 +11,18 @@ const store = new Store();
 const token = sessionStorage.getItem('token');
 
 
-productosBotton.addEventListener('click', getProductos);
-
-
+//productosBotton.addEventListener('click', getProductos);
+var productosVue = new Vue({
+    el: '#producto-list',
+    data: {
+      object: [],
+      token:token
+    },
+    methods: {
+        getProductos: getProductos
+    }
+  })
+  
 
 function logout(){
 
@@ -26,8 +35,9 @@ function logout(){
     window.location.replace('../login/login.html');
             
 }
+getProductos('0', '20');
 
-function getProductos(){
+function getProductos(page, size){
     const request = net.request({
         method: 'GET',
         headers: {
@@ -37,7 +47,7 @@ function getProductos(){
         protocol: 'http:',
         hostname: 'localhost',
         port: 8080,
-        path: '/api/productos/all',
+        path: '/api/productos/all?page='+page+'&size='+size,
     })
        
     request.on('response', (response) => {
@@ -48,7 +58,7 @@ function getProductos(){
             var body = JSON.parse(new TextDecoder('utf-8').decode(response.data[0]))
         
             console.log(body);
-            
+            productosVue.object = body
             
         }
         
