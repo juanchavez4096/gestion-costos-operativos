@@ -55,12 +55,12 @@
             <div class="container" >
               <div class="row" >
                 <div class="col" v-for="(item, index) in object.content">
-                    <div class="card" style="width: 12rem;">
+                    <div class="card mt-3" style="width: 12rem;">
                         <img class="card-img-top" :src="'http://localhost:8080/api/productos/file/download?token='+token+'&productoId='+item.productoId+'&size=128x128'" alt="">
                         <div class="card-body">
                           <h5 class="card-title">{{item.nombre}}</h5>
-                          <p class="card-text">Costo: {{item.costo}}</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                          <p class="card-text" data-toggle="tooltip" data-placement="bottom" title="Si éste producto tiene un costo de 0 significa que no tiene materiales asociados">Costo: {{item.costo}}</p>
+                          <a v-on:click="getProductosMateriales(item.productoId, '0', '20')" class="btn btn-primary">Materiales</a>
                         </div>
                       </div>
                 </div>
@@ -71,22 +71,66 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                   <li class="page-item" v-if="!object.first">
-                    <a class="page-link" v-on:click="getProductos(object.number - 1, '1')" >Previous</a>
+                    <a class="page-link" v-on:click="getProductos(object.number - 1, '20')" >Previous</a>
                   </li>
-                  <li v-if="(object.number - 2) != 0 && (object.number - 2) > 0" class="page-item"><a class="page-link" v-on:click="getProductos(object.number - 3, '1')">{{object.number - 2}}</a></li>
-                  <li v-if="(object.number - 1) != 0 && (object.number - 1) > 0" class="page-item"><a class="page-link" v-on:click="getProductos(object.number - 2, '1')">{{object.number - 1}}</a></li>
-                  <li v-if="(object.number) != 0 && (object.number) > 0" class="page-item"><a class="page-link" v-on:click="getProductos(object.number - 1, '1')">{{object.number}}</a></li>
+                  <li v-if="(object.number - 2) != 0 && (object.number - 2) > 0" class="page-item"><a class="page-link" v-on:click="getProductos(object.number - 3, '20')">{{object.number - 2}}</a></li>
+                  <li v-if="(object.number - 1) != 0 && (object.number - 1) > 0" class="page-item"><a class="page-link" v-on:click="getProductos(object.number - 2, '20')">{{object.number - 1}}</a></li>
+                  <li v-if="(object.number) != 0 && (object.number) > 0" class="page-item"><a class="page-link" v-on:click="getProductos(object.number - 1, '20')">{{object.number}}</a></li>
                   <li class="page-item active">
                       <span class="page-link">
                           {{object.number + 1}}
                         <span class="sr-only">(current)</span>
                       </span>
                     </li>
-                  <li v-if="(object.number + 2) != object.totalPages && (object.number + 2) < object.totalPages" class="page-item"><a class="page-link" v-on:click="getProductos(object.number + 1, '1')">{{object.number + 2}}</a></li>
-                  <li v-if="(object.number + 3) != object.totalPages && (object.number + 3) < object.totalPages" class="page-item"><a class="page-link" v-on:click="getProductos(object.number + 2, '1')">{{object.number + 3}}</a></li>
-                  <li v-if="(object.number + 4) != object.totalPages && (object.number + 4) < object.totalPages" class="page-item"><a class="page-link" v-on:click="getProductos(object.number + 3, '1')">{{object.number + 4}}</a></li>
+                  <li v-if="(object.number + 2) != object.totalPages && (object.number + 2) < object.totalPages" class="page-item"><a class="page-link" v-on:click="getProductos(object.number + 1, '20')">{{object.number + 2}}</a></li>
+                  <li v-if="(object.number + 3) != object.totalPages && (object.number + 3) < object.totalPages" class="page-item"><a class="page-link" v-on:click="getProductos(object.number + 2, '20')">{{object.number + 3}}</a></li>
+                  <li v-if="(object.number + 4) != object.totalPages && (object.number + 4) < object.totalPages" class="page-item"><a class="page-link" v-on:click="getProductos(object.number + 3, '20')">{{object.number + 4}}</a></li>
                   <li v-if="!object.last" class="page-item">
-                    <a class="page-link" v-on:click="getProductos(object.number + 1, '1')">Next</a>
+                    <a class="page-link" v-on:click="getProductos(object.number + 1, '20')">Next</a>
+                  </li>
+                </ul>
+              </nav>
+          </div>
+
+          <h2>Materiales de Producto</h2>
+          
+          <div id="producto-material-list" >
+
+            <div class="container" >
+              <div class="row" >
+                <div class="col" v-for="(item, index) in object.content">
+                    <div class="card mt-3" style="width: 12rem;">
+                        <img class="card-img-top" :src="'http://localhost:8080/api/materiales/file/download?token='+token+'&materialId='+item.material.materialId+'&size=128x128'" alt="">
+                        <div class="card-body">
+                          <h5 class="card-title">{{item.material.nombre}}</h5>
+                          <p class="card-text" data-toggle="tooltip" data-placement="bottom" >Cantidad: {{item.cantidad}}{{item.tipoUnidad.unidad}} ({{item.tipoUnidad.tipo}})</p>
+                          <!-- <a href="#" class="btn btn-primary">Materiales</a> -->
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item" v-if="!object.first">
+                    <a class="page-link" v-on:click="getProductosMateriales(object.productoId,object.number - 1, '20')" >Previous</a>
+                  </li>
+                  <li v-if="(object.number - 2) != 0 && (object.number - 2) > 0" class="page-item"><a class="page-link" v-on:click="getProductosMateriales(object.productoId,object.number - 3, '20')">{{object.number - 2}}</a></li>
+                  <li v-if="(object.number - 1) != 0 && (object.number - 1) > 0" class="page-item"><a class="page-link" v-on:click="getProductosMateriales(object.productoId,object.number - 2, '20')">{{object.number - 1}}</a></li>
+                  <li v-if="(object.number) != 0 && (object.number) > 0" class="page-item"><a class="page-link" v-on:click="getProductosMateriales(object.productoId,object.number - 1, '20')">{{object.number}}</a></li>
+                  <li class="page-item active">
+                      <span class="page-link">
+                          {{object.number + 1}}
+                        <span class="sr-only">(current)</span>
+                      </span>
+                    </li>
+                  <li v-if="(object.number + 2) != object.totalPages && (object.number + 2) < object.totalPages" class="page-item"><a class="page-link" v-on:click="getProductosMateriales(object.productoId,object.number + 1, '20')">{{object.number + 2}}</a></li>
+                  <li v-if="(object.number + 3) != object.totalPages && (object.number + 3) < object.totalPages" class="page-item"><a class="page-link" v-on:click="getProductosMateriales(object.productoId,object.number + 2, '20')">{{object.number + 3}}</a></li>
+                  <li v-if="(object.number + 4) != object.totalPages && (object.number + 4) < object.totalPages" class="page-item"><a class="page-link" v-on:click="getProductosMateriales(object.productoId,object.number + 3, '20')">{{object.number + 4}}</a></li>
+                  <li v-if="!object.last" class="page-item">
+                    <a class="page-link" v-on:click="getProductosMateriales(object.productoId,object.number + 1, '20')">Next</a>
                   </li>
                 </ul>
               </nav>

@@ -4,7 +4,6 @@
 console.log(process);
 const { net } = require('electron').remote;
 var logOut = document.getElementById('logout');
-var productosBotton = document.getElementById('productos');
 const Store = require('electron-store');
 const store = new Store();
 
@@ -19,7 +18,21 @@ var productosVue = new Vue({
       token:token
     },
     methods: {
-        getProductos: getProductos
+        getProductos: getProductos,
+        getProductosMateriales: getProductosMateriales
+    }
+  })
+
+  //For ProductoMaterial
+  var productoMaterialVue = new Vue({
+    el: '#producto-material-list',
+    data: {
+      object: [],
+      token:token,
+      productoId: '',
+    },
+    methods: {
+        getProductosMateriales: getProductosMateriales
     }
   })
   
@@ -59,6 +72,47 @@ function getProductos(page, size){
         
             console.log(body);
             productosVue.object = body
+            
+        }
+        
+        
+        
+        
+        response.on('error', (error) => {
+            console.log(`ERROR: ${JSON.stringify(error)}`)
+        })
+        
+    })
+    request.end();
+}
+
+function getProductosMateriales(productoId,page, size){
+
+    if (productoId == null) {
+        return;
+    }
+    const request = net.request({
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        protocol: 'http:',
+        hostname: 'localhost',
+        port: 8080,
+        path: '/api/productoMaterial/all?productoId='+productoId+'&page='+page+'&size='+size,
+    })
+       
+    request.on('response', (response) => {
+        console.log(response.statusCode);
+        if (response.statusCode != 200) {
+            alert("Error de Red");
+        }else{
+            var body = JSON.parse(new TextDecoder('utf-8').decode(response.data[0]))
+        
+            console.log(body);
+            productoMaterialVue.object = body;
+            productoMaterialVue.productoId = productoId;
             
         }
         
