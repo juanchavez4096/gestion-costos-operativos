@@ -78,6 +78,7 @@ function login() {
         })
         
     })
+    
     request.end(JSON.stringify({email:email.value, password: password.value}),"utf-8");
     //request.write(JSON.stringify({email:"jjchavez@urbe.edu.ve", password: "1956784juan"}),"utf-8")
     
