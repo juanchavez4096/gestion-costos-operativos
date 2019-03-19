@@ -12,7 +12,6 @@
 
   <!-- Bootstrap core CSS -->
   <!-- <link href="../../resources/libraries/css/bootstrap.min.css" rel="stylesheet"> -->
-  <link href="../../resources/libraries/css/photon.min.css" rel="stylesheet">
   <!-- <link rel="stylesheet" href="navbar.css"> -->
 
   <!-- Custom styles for this template -->
@@ -20,51 +19,144 @@
 </head>
 
 <body>
+  <ph-window>
+    <!--Top header bar here-->
+    <tool-bar type="header">
+      <h1 class="title">Gestion de costos</h1>
+      <div class="toolbar-actions" style="text-align: center;">
+        <btn-group class="component-groups" type="absolute">
+          <button class="btn btn-default active" data-view="#swipe">Components</button>
+          <button class="btn btn-default" data-view="#frames">Frames & Panes</button>
+          <button class="btn btn-default" data-view="#table">Table</button>
+          <button class="btn btn-default" data-view="#messages">Messages</button>
+        </btn-group>
+        <button class="btn btn-default pull-left" id="logout">Logout</button>
+        <!-- <button class="btn btn-default pull-left btn-show-menu">Drop Down Menu</button> -->
+        <input type="search" class="pull-right" style="margin-right: 6px;" placeholder="Search">
+      </div>
+    </tool-bar>
+    <!--Window content here-->
+    <window-content>
+      <div class="pane-group">
+        <div class="pane-sm sidebar resize-drag">
+          <list-group>
+            <list-item>
+              <img class="img-circle media-object center" src="../../resources/assets/500x500.png" width="128" height="128">
+            </list-item>
 
-    <div class="window">
-        <!-- .toolbar-header sits at the top of your app -->
-        <header class="toolbar toolbar-header">
-          <h1 class="title">Gestion de costos</h1>
-        </header>
-  
-        <!-- Your app's content goes inside .window-content -->
-        <div class="window-content">
-            <div class="pane-group">
-                <div class="pane-sm sidebar resize-drag">
-                    <ul class="list-group">
-                        <li class="list-group-header">
-                          <img class="img-circle media-object center" src="../../resources/assets/500x500.png" width="128" height="128">
-                        </li>
-                        
-                        <p style="margin-left: 10px">Juan Chavez</p>
-                            
-                          
-                        
-                      </ul>
-                      <hr>
-                    
-                    <nav class="nav-group">
-                        <h5 class="nav-group-title">Opciones</h5>
-                        <a class="nav-group-item active">
-                          <span class="icon icon-bag"></span>
-                          Productos
-                        </a>
-                        <span class="nav-group-item">
-                          <span class="icon icon-tools"></span>
-                          Materiales
-                        </span>
-                        <span class="nav-group-item">
-                          <span class="icon icon-folder" data-tooltip="Materiales de un Producto."></span>
-                          Materiales de un Producto
-                        </span>
-                      </nav>
-                </div>
-                <div class="pane">
 
-                </div>
-              </div>
+
+
+
+          </list-group>
+          <p style="margin-left: 10px">Juan Chavez</p>
+          <hr>
+
+          <nav-group>
+            <h5 class="nav-group-title">Opciones</h5>
+            <nav-item class="active">
+              <span class="icon icon-bag"></span>
+              Productos
+            </nav-item>
+            <nav-item>
+              <span class="icon icon-tools"></span>
+              Materiales
+            </nav-item>
+            <nav-item>
+              <span class="icon icon-folder" data-tooltip="Materiales de un Producto."></span>
+              Materiales de un Producto
+            </nav-item>
+          </nav-group>
+        </div>
+        <div class="pane">
+
+          <div id="producto-list">
+            <table class="table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Costo</th>
+                  <th>Imagen</th>
+                </tr>
+              </thead>
+
+                <!-- <div class="container">
+                  <div class="row">
+                    <div class="col" v-for="(item, index) in object.content">
+                      <div class="card mt-3" style="width: 12rem;">
+                        <img class="card-img-top" :src="'http://localhost:8080/api/productos/file/download?token='+token+'&productoId='+item.productoId+'&size=128x128'"
+                          alt="">
+                        <div class="card-body">
+                          <h5 class="card-title">{{item.nombre}}</h5>
+                          <p class="card-text" data-toggle="tooltip" data-placement="bottom" title="Si éste producto tiene un costo de 0 significa que no tiene materiales asociados">Costo:
+                            {{item.costo}}</p>
+                          <a v-on:click="getProductosMateriales(item.productoId, '0', '20')" class="btn btn-primary">Materiales</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+
+
+                <tbody v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+                  <tr v-for="(item, index) in content">
+                    <td>{{item.nombre}}</td>
+                    <td>{{item.costo}}</td>
+                    <td><img class="card-img-top" :src="'http://localhost:8080/api/productos/file/download?token='+token+'&productoId='+item.productoId+'&size=128x128'"
+                        alt=""></td>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
+    </window-content>
+
+  </ph-window>
+
+  <!-- <div class="window">
+    <header class="toolbar toolbar-header">
+      <h1 class="title">Gestion de costos</h1>
+    </header>
+
+    <div class="window-content">
+      <div class="pane-group">
+        <div class="pane-sm sidebar resize-drag">
+          <ul class="list-group">
+            <li class="list-group-header">
+              <img class="img-circle media-object center" src="../../resources/assets/500x500.png" width="128" height="128">
+            </li>
+
+            <p style="margin-left: 10px">Juan Chavez</p>
+
+
+
+          </ul>
+          <hr>
+
+          <nav class="nav-group">
+            <h5 class="nav-group-title">Opciones</h5>
+            <a class="nav-group-item active">
+              <span class="icon icon-bag"></span>
+              Productos
+            </a>
+            <span class="nav-group-item">
+              <span class="icon icon-tools"></span>
+              Materiales
+            </span>
+            <span class="nav-group-item">
+              <span class="icon icon-folder" data-tooltip="Materiales de un Producto."></span>
+              Materiales de un Producto
+            </span>
+          </nav>
+        </div>
+        <div class="pane">
+
+        </div>
+      </div>
+    </div>
+  </div> -->
 
   <!-- <div class="grid grid-gap--xs" style="height: inherit">
     <div class="col--3 resize-drag">
@@ -297,47 +389,46 @@
   <script src="../../resources/libraries/js/jquery.min.js"></script>
   <script src="../../resources/libraries/js/popper.min.js"></script>
   <script src="../../resources/libraries/js/vue.min.js"></script>
-  <script src="../../resources/libraries/js/interact.min.js"></script>
-  <script>
+  <!-- <script>
     interact('.resize-drag')
-  .resizable({
-    // resize from all edges and corners
-    edges: { left: true, right: true, bottom: false, top: false },
+      .resizable({
+        // resize from all edges and corners
+        edges: { left: true, right: true, bottom: false, top: false },
 
-    // keep the edges inside the parent
-    restrictEdges: {
-      outer: 'parent',
-      endOnly: true,
-    },
+        // keep the edges inside the parent
+        restrictEdges: {
+          outer: 'parent',
+          endOnly: true,
+        },
 
-    // minimum size
-    // restrictSize: {
-    //   min: { width: 100, height: 50 },
-    // },
+        // minimum size
+        // restrictSize: {
+        //   min: { width: 100, height: 50 },
+        // },
 
-    inertia: true,
-  })
-  .on('resizemove', function (event) {
-    var target = event.target,
-        x = (parseFloat(target.getAttribute('data-x')) || 0),
-        y = (parseFloat(target.getAttribute('data-y')) || 0);
+        inertia: true,
+      })
+      .on('resizemove', function (event) {
+        var target = event.target,
+          x = (parseFloat(target.getAttribute('data-x')) || 0),
+          y = (parseFloat(target.getAttribute('data-y')) || 0);
 
-    // update the element's style
-    target.style.width  = event.rect.width + 'px';
-    target.style.height = event.rect.height + 'px';
+        // update the element's style
+        target.style.width = event.rect.width + 'px';
+        target.style.height = event.rect.height + 'px';
 
-    // translate when resizing from top or left edges
-    x += event.deltaRect.left;
-    y += event.deltaRect.top;
+        // translate when resizing from top or left edges
+        x += event.deltaRect.left;
+        y += event.deltaRect.top;
 
-    target.style.webkitTransform = target.style.transform =
-        'translate(' + x + 'px,' + y + 'px)';
+        target.style.webkitTransform = target.style.transform =
+          'translate(' + x + 'px,' + y + 'px)';
 
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
-    //target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height);
-  });
-  </script>
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+        //target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height);
+      });
+  </script> -->
   <script>
     // You can also require other files to run in this process
     require('./home.js')
