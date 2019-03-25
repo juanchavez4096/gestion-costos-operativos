@@ -1,18 +1,19 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="h-100">
     <div fxFlex="0 1 auto">
         <mat-card class="w-100 h-100">
-            <form fxLayout="column" fxLayoutAlign="start start">
+            <form fxLayout="column" fxLayoutAlign="start start" [formGroup]="loginForm" (submit)="onSubmit(loginForm)"
+                novalidate>
                 <mat-form-field appearance="fill" fxFlex="1 1 100" class="w-100">
                     <mat-label>Usuario</mat-label>
-                    <input matInput placeholder="Placeholder">
-                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    <input matInput type="email" placeholder="ejemplo@ejemplo.com" formControlName="username" required>
+                    <mat-icon matSuffix>person</mat-icon>
                 </mat-form-field>
-                <mat-form-field appearance="fill" fxFlex="1 1 100"  class="w-100">
+                <mat-form-field appearance="fill" fxFlex="1 1 100" class="w-100">
                     <mat-label>Contraseña</mat-label>
-                    <input matInput placeholder="Placeholder">
-                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    <input matInput placeholder="******" type="password" formControlName="password" required>
+                    <mat-icon matSuffix>lock</mat-icon>
                 </mat-form-field>
-                <button mat-button fxFlex="0 1 auto" fxFlexAlign="end">INICIAR</button>
+                <button type="submit" mat-button fxFlex="0 1 auto" fxFlexAlign="end">INICIAR</button>
             </form>
         </mat-card>
     </div>

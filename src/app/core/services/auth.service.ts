@@ -3,13 +3,9 @@ import { Router } from '@angular/router';
 import { StorageService } from './storage.service';
 
 
-export const STORAGE_KEY = 'intelenz-manager-jwt';
-export const FIELD_NAME_SERVICE_ID = 'serviceId';
-export const FIELD_NAME_USER_ID = 'userId';
-export const FIELD_NAME_ROL_ID = 'roles';
-export const FIELD_NAME_EXPIRATION_DATE = 'exp';
+export const STORAGE_KEY = 'ingreso-egreso-jwt';
 export const FIELD_NAME_USER_EMAIL = 'email';
-export const FIELD_NAME_USER_DISPLAY = 'displayName';
+export const FIELD_NAME_USER_DISPLAY = 'nombre';
 
 @Injectable({
   providedIn: 'root'
@@ -44,27 +40,13 @@ export class AuthService {
   }
 
   /** Returns the username (usually email) of the current user*/
-  getUserName() {
+  getUserEmail() {
     return this.getValue(FIELD_NAME_USER_EMAIL);
   }
 
-  /** Returns the user's ServiceId*/
-  getUserGroup() {
-    return +this.getValue(FIELD_NAME_SERVICE_ID);
-  }
-
-  /** Returns the user's Id*/
-  getUserId() {
-    return +this.getValue(FIELD_NAME_USER_ID);
-  }
-
   /** Returns the user's display name */
-  getUserDisplay() {
+  getUserDisplayName() {
     return this.getValue(FIELD_NAME_USER_DISPLAY);
-  }
-
-  getExpirationAt() {
-    return this.getValue(FIELD_NAME_EXPIRATION_DATE);
   }
 
   getValue(field: string): string {
