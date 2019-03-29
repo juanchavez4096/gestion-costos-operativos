@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginForm.disable();
     this.userService.authenticate(values.username, values.password).pipe(takeUntil(this.destroy$)).subscribe(data => {
       this.auth.setToken(data.token);
+      this.router.navigate(['/products']);
     }, error => {
       this.loginForm.enable();
       console.log(error);

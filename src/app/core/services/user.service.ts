@@ -4,9 +4,7 @@ import { AuthService } from './auth.service';
 import { environment } from './../../../environments/environment';
 import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }

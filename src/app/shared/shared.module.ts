@@ -7,9 +7,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './dependencies/material.module';
 import { CovalentModule } from './dependencies/covalent.module';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
-  declarations: [LayoutComponent],
+  declarations: [LayoutComponent, SidenavComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,6 +29,7 @@ import { CovalentModule } from './dependencies/covalent.module';
     RouterModule,
     LayoutComponent,
     FlexLayoutModule,
+    SidenavComponent
   ]
 })
 export class SharedModule { }

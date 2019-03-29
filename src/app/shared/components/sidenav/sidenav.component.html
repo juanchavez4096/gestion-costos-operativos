@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutALign="start center" class="h-100">
+  <mat-nav-list class="pt-0" fxFlex="calc(100% - 30px)">
+    <button mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('products')">
+      <mat-icon>home</mat-icon><span class="ml-3 pt-1">PRODUCTOS</span>
+    </button>
+    <button mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2 text-danger">
+      <mat-icon>exit_to_app</mat-icon><span class="ml-3 pt-1" (click)="logOut()">CERRAR SESION</span>
+    </button>
+  </mat-nav-list>
+</div>
