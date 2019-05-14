@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { TdLayoutComponent } from '@covalent/core/layout';
+import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -11,8 +12,18 @@ import { TdLayoutComponent } from '@covalent/core/layout';
 export class LayoutComponent implements OnInit {
   public name: string;
   public email: string;
+  public actualSite: string;
   @ViewChild(TdLayoutComponent) layout: TdLayoutComponent;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { 
+    router.events.subscribe( val => {
+      if (val instanceof NavigationEnd) {
+        if(val.url === '/materials')
+          this.actualSite = 'Materiales';
+        if(val.url === '/products')
+          this.actualSite = 'Productos';
+      }
+    })
+  }
 
   ngOnInit() {
     this.name = this.authService.getUserDisplayName();

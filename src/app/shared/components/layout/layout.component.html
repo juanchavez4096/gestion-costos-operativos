@@ -1,12 +1,12 @@
 <td-layout>
-    <td-navigation-drawer flex sidenavTitle="Covalent" [name]="name" [email]="email">
+    <td-navigation-drawer flex [sidenavTitle]="actualSite" [name]="name" [email]="email">
         <app-sidenav (optionClick)="closeSidebar()"></app-sidenav>
     </td-navigation-drawer>
     <td-layout-nav toolbarTitle="Gestion de Costos Operativos">
         <button mat-icon-button td-menu-button tdLayoutToggle *ngIf="isLoggedIn()">
             <mat-icon>menu</mat-icon>
         </button>
-        <td-layout-card-over cardTitle="Covalent" class="h-100" *ngIf="isLoggedIn(); else logIn">
+        <td-layout-card-over [cardTitle]="actualSite" class="h-100" *ngIf="isLoggedIn(); else logIn">
             <div class="pt-3 w-100 main-height">
                 <router-outlet></router-outlet>
             </div>

@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'products',
     loadChildren: './products/products.module#ProductsModule'
   },
+  {
+    path: 'materials',
+    loadChildren: './materials/materials.module#MaterialsModule'
+  },
 ];
 
 @NgModule({

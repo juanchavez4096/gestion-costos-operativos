@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MaterialComponent } from './material/material.component';
+import { ListMaterialsComponent } from './list-materials/list-materials.component';
+import { SharedModule } from '../shared/shared.module';
+import { MaterialsRoutingModule } from './materials-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [MaterialComponent, ListMaterialsComponent],
   imports: [
-    CommonModule
+    SharedModule,
+    MaterialsRoutingModule
   ]
 })
 export class MaterialsModule { }
