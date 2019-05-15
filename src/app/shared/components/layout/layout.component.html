@@ -6,10 +6,14 @@
         <button mat-icon-button td-menu-button tdLayoutToggle *ngIf="isLoggedIn()">
             <mat-icon>menu</mat-icon>
         </button>
-        <td-layout-card-over [cardTitle]="actualSite" class="h-100" *ngIf="isLoggedIn(); else logIn">
-            <div class="pt-3 w-100 main-height">
-                <router-outlet></router-outlet>
-            </div>
+        <td-layout-card-over class="h-100" *ngIf="isLoggedIn(); else logIn">
+            <mat-card-title ><button mat-icon-button *ngIf="goBack" (click)="goBackFunction()"><mat-icon >arrow_back</mat-icon></button>{{actualSite}}</mat-card-title>
+            <mat-card-content>
+                <div class="pt-3 w-100 main-height">
+                    <router-outlet></router-outlet>
+                </div>
+            </mat-card-content>
+            
         </td-layout-card-over>
         <ng-template #logIn>
             <div fxLayout="row" fxLayoutAlign="center center" class="h-100">

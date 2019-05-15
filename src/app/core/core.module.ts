@@ -8,6 +8,7 @@ import { NotAuthGuard } from './services';
 import { StorageService } from './services/storage.service';
 import { UserService } from './services/user.service';
 import { UtilService } from './services/util.service';
+import { ProductService } from './services/product.service';
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,8 @@ import { UtilService } from './services/util.service';
     NotAuthGuard,
     StorageService,
     UserService,
-    UtilService
+    UtilService,
+    ProductService
   ]
 })
 export class CoreModule { }

@@ -13,14 +13,22 @@ export class LayoutComponent implements OnInit {
   public name: string;
   public email: string;
   public actualSite: string;
+  public goBack: string
   @ViewChild(TdLayoutComponent) layout: TdLayoutComponent;
   constructor(private authService: AuthService, private router: Router) { 
-    router.events.subscribe( val => {
+    this.router.events.subscribe( val => {
       if (val instanceof NavigationEnd) {
-        if(val.url === '/materials')
+        if(val.url.includes('/materials'))
           this.actualSite = 'Materiales';
-        if(val.url === '/products')
+        if(val.url.includes('/products') ){
           this.actualSite = 'Productos';
+        }
+        if (val.url.includes('/products') && val.url !== '/products') {
+          this.goBack = '/products'
+        }
+        if (val.url.includes('/materials') && val.url !== '/materials') {
+          this.goBack = '/materials'
+        }
       }
     })
   }
@@ -36,6 +44,13 @@ export class LayoutComponent implements OnInit {
 
   closeSidebar() {
     this.layout.close();
+  }
+
+  goBackFunction(){
+    if(this.goBack != null){
+      this.router.navigate([this.goBack]);
+      this.goBack = null
+    }
   }
 
 }

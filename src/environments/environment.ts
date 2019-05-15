@@ -6,6 +6,8 @@ export const environment = {
   BASE_URL: BASE_URL,
 
 
-  GET_USERS: BASE_URL + PORT + '/api/usuario'
+  GET_USERS: BASE_URL + PORT + '/api/usuario',
+  GET_PRODUCTS: BASE_URL + PORT + '/api/productos',
+  GET_MATERIALS: BASE_URL + PORT + '/api/materiales'
 };
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../core/services/product.service';
+import { AuthService } from '../../core/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-products',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListProductsComponent implements OnInit {
 
-  constructor() { }
+  products: any[] = [];
+  
+  constructor(private productService: ProductService, public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.productService.getProducts().subscribe(product => {
+      this.products = product.content;
+    });
+  }
+
+  goToProduct(productoId: number){
+    this.router.navigate([`products/product`, productoId]); 
   }
 
 }

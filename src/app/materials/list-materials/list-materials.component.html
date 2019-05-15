@@ -1,3 +1,11 @@
-<p>
-  list-materials works!
-</p>
+<mat-action-list>
+    <button (click)="goToMaterial(material.materialId)" mat-list-item *ngFor="let material of materials">
+      <img matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=128x128'" alt="">
+      <h3 matLine> {{material.materialId}}. {{material.nombre}} </h3>
+      <p matLine>
+        <span>Costo</span>
+        <span class="demo-2"> -- {{material.costo}} </span>
+      </p>
+    </button>
+  </mat-action-list>
+  
