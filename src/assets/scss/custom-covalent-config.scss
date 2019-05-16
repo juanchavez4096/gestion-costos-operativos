@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 @import '~@covalent/core/theming/all-theme';
-
+@import './app-theme.scss';
 
 // Define a custom typography config that overrides the font-family
 // or any typography level.
@@ -11,8 +11,8 @@ $typography: mat-typography-config(
 
 @include mat-core($typography); // $typography is an **optional** argument for the mat-core
 
-$primary: mat-palette($mat-orange, 800, 100, 900);
-$accent:  mat-palette($mat-light-blue, 600, 100, 900);
+$primary: mat-palette($app-primary, 800, 100, 900);
+$accent:  mat-palette($app-accent, 600, 100, 900);
 
 $warn:    mat-palette($mat-red, 600, 100, 900);
 

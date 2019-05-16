@@ -3,14 +3,16 @@ import { ProductComponent } from './product/product.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ListProductsComponent } from './list-products/list-products.component';
-import { MaterialModule } from './dependencies';
+import { MaterialModule, CovalentModule } from './dependencies';
+import { AddComponent } from './add/add.component';
 
 @NgModule({
-  declarations: [ProductComponent, ListProductsComponent],
+  declarations: [ProductComponent, ListProductsComponent, AddComponent],
   imports: [
     SharedModule,
     ProductsRoutingModule,
-    MaterialModule
+    MaterialModule,
+    CovalentModule
   ]
 })
 export class ProductsModule { }

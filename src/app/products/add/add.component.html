@@ -1,0 +1,16 @@
+<form fxLayout="column" fxLayoutAlign="start start" [formGroup]="productForm" (submit)="onSubmit(productForm)"
+  novalidate>
+  <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
+    <mat-label>Nombre</mat-label>
+    <input matInput type="text" placeholder="Pie de Limon" formControlName="nombre" required>
+    <mat-icon matSuffix>person</mat-icon>
+  </mat-form-field>
+
+  <input tdFileSelect type="file" accept="image/*" formControlName="imagen">
+
+  <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">AGREGAR</button>
+
+  <ng-template tdLoading="replaceTemplateSyntax" tdLoadingMode="determinate" tdLoadingType="linear" tdLoadingStrategy="replace"
+    tdLoadingColor="primary">
+  </ng-template>
+</form>

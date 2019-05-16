@@ -25,9 +25,15 @@ export class LayoutComponent implements OnInit {
         }
         if (val.url.includes('/products') && val.url !== '/products') {
           this.goBack = '/products'
+          if(val.url === '/products/add'){
+            this.actualSite = 'Añadir Productos';
+          }
         }
         if (val.url.includes('/materials') && val.url !== '/materials') {
           this.goBack = '/materials'
+          if(val.url === '/materials/add'){
+            this.actualSite = 'Añadir Materiales';
+          }
         }
       }
     })
@@ -50,6 +56,15 @@ export class LayoutComponent implements OnInit {
     if(this.goBack != null){
       this.router.navigate([this.goBack]);
       this.goBack = null
+    }
+  }
+
+  agregar(){
+    if(this.router.url === '/products'){
+      this.router.navigate(['/products/add'])
+    }
+    if(this.router.url === '/materials'){
+      this.router.navigate(['/materials/add'])
     }
   }
 

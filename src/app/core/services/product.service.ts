@@ -18,6 +18,10 @@ export class ProductService {
     return this.http.get(`${environment.GET_PRODUCTS}/byId?productoId=${productoId}`).pipe(map(this.extractData));
   }
 
+  addProduct(product: FormData) {
+    return this.http.post(`${environment.GET_PRODUCTS}/add`, product, {reportProgress: true, observe: 'events'});
+  }
+
   private extractData(res) {
     const body = res;
     return body;
