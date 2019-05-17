@@ -8,9 +8,10 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from './dependencies/material.module';
 import { CovalentModule } from './dependencies/covalent.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
-  declarations: [LayoutComponent, SidenavComponent],
+  declarations: [LayoutComponent, SidenavComponent, FileUploadComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -29,7 +30,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     RouterModule,
     LayoutComponent,
     FlexLayoutModule,
-    SidenavComponent
+    SidenavComponent,
+    FileUploadComponent
   ]
 })
 export class SharedModule { }

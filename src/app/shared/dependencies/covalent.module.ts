@@ -30,7 +30,7 @@ import { CovalentMessageModule } from '@covalent/core/message';
     CovalentDataTableModule,
     CovalentPagingModule,
     CovalentLoadingModule,
-    CovalentMessageModule,
+    CovalentMessageModule
   ],
   exports: [
     CovalentLayoutModule,

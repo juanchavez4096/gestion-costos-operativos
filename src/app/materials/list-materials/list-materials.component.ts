@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ListMaterialsComponent implements OnInit {
 
+  searchInputTerm: string;
   materials: any[] = [];
   
   constructor(private materialService: MaterialService, public auth: AuthService, private router: Router) { }
@@ -21,7 +22,14 @@ export class ListMaterialsComponent implements OnInit {
   }
 
   goToMaterial(materialId: number){
-    this.router.navigate([`materials/material`, materialId]);
+    this.router.navigate([`materials`, materialId]);
   } 
+
+  searchMaterial(event: string){
+    this.searchInputTerm = event;
+    this.materialService.searchMaterials(this.searchInputTerm).subscribe(material => {
+      this.materials = material.content;
+    })
+  }
 
 }

@@ -1,3 +1,5 @@
+<td-search-input placeholder="Buscar Producto" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500" (searchDebounce)="searchProduct($event)" (search)="searchProduct($event)" (clear)="searchInputTerm = ''">
+  </td-search-input>
 <mat-action-list>
   <button (click)="goToProduct(product.productoId)" mat-list-item *ngFor="let product of products">
     <img matListAvatar [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=128x128'" alt="">
@@ -6,5 +8,6 @@
       <span>Costo</span>
       <span class="demo-2"> -- {{product.costo}} </span>
     </p>
+    <mat-divider></mat-divider>
   </button>
 </mat-action-list>

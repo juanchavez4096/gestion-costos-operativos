@@ -5,6 +5,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ListProductsComponent } from './list-products/list-products.component';
 import { MaterialModule, CovalentModule } from './dependencies';
 import { AddComponent } from './add/add.component';
+import { FileUploadComponent } from '../shared/components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [ProductComponent, ListProductsComponent, AddComponent],
@@ -13,6 +14,6 @@ import { AddComponent } from './add/add.component';
     ProductsRoutingModule,
     MaterialModule,
     CovalentModule
-  ]
+  ],
 })
 export class ProductsModule { }

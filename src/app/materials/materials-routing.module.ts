@@ -6,7 +6,7 @@ import { MaterialComponent } from './material/material.component';
 
 const routes: Routes = [
   { path: '', component: ListMaterialsComponent, canActivate: [AuthGuard] },
-  { path: 'material/:id', component: MaterialComponent, canActivate: [AuthGuard] },
+  { path: ':id', component: MaterialComponent, canActivate: [AuthGuard] },
 
 ];
 

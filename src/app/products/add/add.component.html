@@ -3,10 +3,11 @@
   <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
     <mat-label>Nombre</mat-label>
     <input matInput type="text" placeholder="Pie de Limon" formControlName="nombre" required>
-    <mat-icon matSuffix>person</mat-icon>
+    <mat-icon matSuffix>category</mat-icon>
   </mat-form-field>
 
-  <input tdFileSelect type="file" accept="image/*" formControlName="imagen">
+  
+  <app-file-upload formControlName="imagen" [progress]="progress"></app-file-upload>
 
   <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">AGREGAR</button>
 

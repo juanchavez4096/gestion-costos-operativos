@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ListProductsComponent implements OnInit {
 
+  searchInputTerm: string;
   products: any[] = [];
   
   constructor(private productService: ProductService, public auth: AuthService, private router: Router) { }
@@ -21,7 +22,14 @@ export class ListProductsComponent implements OnInit {
   }
 
   goToProduct(productoId: number){
-    this.router.navigate([`products/product`, productoId]); 
+    this.router.navigate([`products`, productoId]); 
+  }
+
+  searchProduct(event: string){
+    this.searchInputTerm = event
+    this.productService.searchProducts(this.searchInputTerm).subscribe(product => {
+      this.products = product.content;
+    })
   }
 
 }
