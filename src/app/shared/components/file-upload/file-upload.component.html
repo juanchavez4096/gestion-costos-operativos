@@ -1,4 +1,13 @@
-<div>
-  <span>{{file ? file.name : 'Seleccione una imagen o arrastre la imagen aquí' }}</span>
-  <input tdFileSelect type="file" accept="image/*">
+<div fxLayout="column" fxLayoutAlign="center center">
+  
+  
+  <!-- <input tdFileSelect type="file" accept="image/*"> -->
+  <td-file-input [(ngModel)]="file" color="primary" (select)="emitFiles($event)"
+               accept="image/*">
+  <mat-icon>attach_file</mat-icon><span>Seleccione una Imagen...</span>
+</td-file-input>
+<br>
+<span>{{file ? file.name : 'Seleccione una imagen o arrastre la imagen aquí' }}</span>
+<br>
+<img [src]="imgURL" height="200" *ngIf="imgURL">
 </div>

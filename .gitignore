@@ -42,3 +42,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+out/gestion-costos-operativos-win32-x64/
+
+out/gestion-costos-operativos-linux-x64/

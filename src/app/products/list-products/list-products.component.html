@@ -3,7 +3,7 @@
 <mat-action-list>
   <button (click)="goToProduct(product.productoId)" mat-list-item *ngFor="let product of products">
     <img matListAvatar [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=128x128'" alt="">
-    <h3 matLine> {{product.productoId}}. {{product.nombre}} </h3>
+    <h3 matLine>{{product.nombre}} </h3>
     <p matLine>
       <span>Costo</span>
       <span class="demo-2"> -- {{product.costo}} </span>

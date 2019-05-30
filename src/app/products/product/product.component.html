@@ -1,17 +1,36 @@
 
-    <mat-card-header>
-      <mat-card-title>{{product.nombre}}</mat-card-title>
-      <mat-card-subtitle>Costo -- {{product.costo}}</mat-card-subtitle>
-    </mat-card-header>
+    
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>
+            <mat-card-title>{{product.nombre}}</mat-card-title>
+            <mat-card-subtitle>Costo -- {{product.costo}}</mat-card-subtitle>
+        </div>
+        
+        <div>
+            <button mat-button>Actualizar</button>
+        </div>
+      </div>
+      
+      
+    
     <img mat-card-image [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=500x500'" alt="">
     <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+          <td-search-input placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500" (searchDebounce)="searchMaterial($event)" (search)="searchMaterial($event)" (clear)="searchInputTerm = ''">
+            </td-search-input>
+            <button mat-button>Agregar</button>
+      </div>
+      
+      <mat-action-list>
+        <button (click)="goToMaterial(material.material.materialId)" mat-list-item *ngFor="let material of materials">
+          <img matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.material.materialId+'&size=128x128'" alt="">
+          <h3 matLine>{{material.material.nombre}}</h3>
+          <p matLine>
+            <span>Costo</span>
+            <span class="demo-2"> -- {{material.material.costo}}, </span>
+            <span class="demo-2">Cantidad -- {{material.cantidad}}{{material.tipoUnidad.unidad}} </span>
+          </p>
+          <mat-divider></mat-divider>
+        </button>
+      </mat-action-list>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>

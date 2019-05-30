@@ -16,7 +16,7 @@ function createWindow () {
   win.on('closed', function () {
     win = null
   })
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 }
 
 // Create window on electron intialization

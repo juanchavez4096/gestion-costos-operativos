@@ -1,4 +1,4 @@
-<form fxLayout="column" fxLayoutAlign="start start" [formGroup]="productForm" (submit)="onSubmit(productForm)"
+<form fxLayout="column" fxLayoutAlign="center center" [formGroup]="productForm" (submit)="onSubmit(productForm)"
   novalidate>
   <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
     <mat-label>Nombre</mat-label>
@@ -9,6 +9,7 @@
   
   <app-file-upload formControlName="imagen" [progress]="progress"></app-file-upload>
 
+  <br>
   <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">AGREGAR</button>
 
   <ng-template tdLoading="replaceTemplateSyntax" tdLoadingMode="determinate" tdLoadingType="linear" tdLoadingStrategy="replace"
