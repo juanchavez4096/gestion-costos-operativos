@@ -1,0 +1,12 @@
+@import "../../../assets/scss/custom-covalent-config.scss";
+
+.user-initials{
+    background: mat-color($primary);
+    border-radius: 50%;
+    font-size: 15px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}

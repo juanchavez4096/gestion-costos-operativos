@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-file-upload',
@@ -19,14 +20,12 @@ export class FileUploadComponent implements ControlValueAccessor {
   onChange: Function;
   public file: File | null = null;
   public imgURL: any;
-  private imagePath;
+  croppedImage: any = '';
+  @ViewChild('cropper')
+  cropper:ImageCropperComponent;
 
-  @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
-    const file = event && event.item(0);
-    this.onChange(file);
-    this.file = file;
-    this.preview();
-    
+  @HostListener('change', ['$event.target.files']) emitFiles(event: any): void {
+      this.file = event;
   }
 
   constructor( private host: ElementRef<HTMLInputElement> ) {
@@ -44,13 +43,26 @@ export class FileUploadComponent implements ControlValueAccessor {
   registerOnTouched( fn: Function ) {
   }
 
-  preview(){
+  preview(event: File){
     var reader = new FileReader();
-    this.imagePath = this.file;
-    reader.readAsDataURL(this.file); 
+    reader.readAsDataURL(event); 
     reader.onload = (_event) => { 
-      this.imgURL = reader.result; 
+      this.croppedImage = reader.result; 
     }
+  }
+
+  imageCropped(event: any) { 
+    this.onChange(event.file);
+    this.preview(event.file)
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
   }
 
 }

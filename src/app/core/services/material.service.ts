@@ -12,16 +12,12 @@ export class MaterialService {
 
   constructor(private http: HttpClient) { }
 
-  getMaterials() {
-    return this.http.get(`${environment.GET_MATERIALS}/all`).pipe(map(this.extractData));
-  }
-
   getMaterialsByProduct(productId: number, search: string) {
     return this.http.get(`${environment.GET_PRODUCTOMATERIAL}/all?productoId=${productId}&search=${search}`).pipe(map(this.extractData));
   }
 
-  searchMaterials(search: string) {
-    return this.http.get(`${environment.GET_MATERIALS}/all?search=${search}`).pipe(map(this.extractData));
+  getMaterials(page: number, search: string) {
+    return this.http.get(`${environment.GET_MATERIALS}/all?search=${search}&page=${page}`).pipe(map(this.extractData));
   }
 
   getMaterial(materialId: number) {

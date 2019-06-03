@@ -1,8 +1,10 @@
-<td-search-input placeholder="Buscar Producto" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500" (searchDebounce)="searchProduct($event)" (search)="searchProduct($event)" (clear)="searchInputTerm = ''">
-  </td-search-input>
+<td-search-input placeholder="Buscar Producto" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500"
+  (searchDebounce)="searchProducts(0,$event)" (search)="searchProducts(0,$event)" (clear)="searchInputTerm = ''">
+</td-search-input>
 <mat-action-list>
-  <button (click)="goToProduct(product.productoId)" mat-list-item *ngFor="let product of products">
-    <img matListAvatar [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=128x128'" alt="">
+  <button (click)="goToProduct(product.productoId)" mat-list-item *ngFor="let product of products; let i = index">
+    <img [style.display]="product.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=128x128'" (load)="imageLoaded(i)" alt="">
+    <div *ngIf="!product.imageLoaded" mat-list-icon class="user-initials">{{product.nombre ? product.nombre.charAt(0).toUpperCase() : ''}}</div>
     <h3 matLine>{{product.nombre}} </h3>
     <p matLine>
       <span>Costo</span>
@@ -11,3 +13,6 @@
     <mat-divider></mat-divider>
   </button>
 </mat-action-list>
+<td-paging-bar #pagingBar [firstLast]="true" [pageSize]="pageSize" [total]="total" (change)="changePage($event)">
+    {{pagingBar.range}} de {{pagingBar.total}}
+</td-paging-bar>

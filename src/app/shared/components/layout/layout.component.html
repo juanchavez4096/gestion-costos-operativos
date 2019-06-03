@@ -7,7 +7,7 @@
             <mat-icon>menu</mat-icon>
         </button>
         <td-layout-card-over class="h-100" *ngIf="isLoggedIn(); else logIn">
-            <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
+            <mat-card-title fxLayout="row" fxLayoutAlign="space-between" style="margin-bottom: 32px"> 
                 <div>
                     <button mat-icon-button *ngIf="goBack" (click)="goBackFunction()">
                         <mat-icon>arrow_back</mat-icon>

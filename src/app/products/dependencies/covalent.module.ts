@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CovalentFileModule } from '@covalent/core/file';
 import { CovalentSearchModule } from '@covalent/core/search';
+import { CovalentPagingModule } from '@covalent/core/paging';
 
 
 
 @NgModule({
   imports: [
     CovalentFileModule,
-    CovalentSearchModule
+    CovalentSearchModule,
+    CovalentPagingModule
   ],
   exports: [
     CovalentFileModule,
-    CovalentSearchModule
+    CovalentSearchModule,
+    CovalentPagingModule
   ]
 })
 export class CovalentModule { }

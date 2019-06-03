@@ -10,12 +10,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts() {
-    return this.http.get(`${environment.GET_PRODUCTS}/all`).pipe(map(this.extractData));
-  }
-
-  searchProducts(search: string) {
-    return this.http.get(`${environment.GET_PRODUCTS}/all?search=${search}`).pipe(map(this.extractData));
+  getProducts(page: number,search: string) {
+    return this.http.get(`${environment.GET_PRODUCTS}/all?search=${search}&page=${page}`).pipe(map(this.extractData));
   }
 
   getProduct(productoId: number) {

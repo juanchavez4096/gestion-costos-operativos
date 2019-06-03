@@ -9,6 +9,7 @@ import { MaterialModule } from './dependencies/material.module';
 import { CovalentModule } from './dependencies/covalent.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [LayoutComponent, SidenavComponent, FileUploadComponent],
@@ -20,7 +21,9 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     RouterModule,
     FlexLayoutModule,
     MaterialModule,
-    CovalentModule
+    CovalentModule,
+    ImageCropperModule
+    
   ],
   exports: [
     CommonModule,
@@ -31,7 +34,8 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     LayoutComponent,
     FlexLayoutModule,
     SidenavComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ImageCropperModule
   ]
 })
 export class SharedModule { }

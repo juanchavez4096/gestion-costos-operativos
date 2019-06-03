@@ -1,10 +1,11 @@
-<td-search-input placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500" (searchDebounce)="searchMaterial($event)" (search)="searchMaterial($event)" (clear)="searchInputTerm = ''">
+<td-search-input placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500" (searchDebounce)="searchMaterials(0, $event)" (search)="searchMaterials(0, $event)" (clear)="searchInputTerm = ''">
 </td-search-input>
 <mat-action-list>
-  <button (click)="goToMaterial(material.materialId)" mat-list-item *ngFor="let material of materials">
-    <img matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=128x128'" alt="">
+  <button (click)="goToMaterial(material.materialId)" mat-list-item *ngFor="let material of materials; let i = index">
+    <img [style.display]="material.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=128x128'" (load)="imageLoaded(i)" alt="">
       
-    <ng-template matListAvatar>{{material.nombre.chartAt(0)}}</ng-template>
+    <div *ngIf="!material.imageLoaded" mat-list-icon class="user-initials">{{material.nombre ? material.nombre.charAt(0).toUpperCase() : ''}}</div>
+    
     <h3 matLine> {{material.materialId}}. {{material.nombre}} </h3>
     <p matLine>
       <span>Costo</span>
@@ -13,3 +14,6 @@
     <mat-divider></mat-divider>
   </button>
 </mat-action-list>
+<td-paging-bar #pagingBar [firstLast]="true" [pageSize]="pageSize" [total]="total" (change)="changePage($event)">
+    {{pagingBar.range}} de {{pagingBar.total}}
+</td-paging-bar>
