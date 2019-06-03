@@ -1,0 +1,49 @@
+<form fxLayout="column" fxLayoutAlign="center center" [formGroup]="materialForm" (submit)="onSubmit(materialForm)"
+  novalidate>
+  <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
+    <mat-label>Nombre</mat-label>
+    <input matInput type="text" placeholder="Harina" formControlName="nombre" required>
+    <mat-icon matSuffix>category</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
+    <mat-label>Costo</mat-label>
+    <input matInput type="text" mask="dot_separator.2" placeholder="5000" formControlName="costo" [validation]="true"
+      required>
+    <mat-icon matSuffix>attach_money</mat-icon>
+  </mat-form-field>
+
+  <div fxFlex="1 1 100" fxLayout="row" fxLayoutAlign="center center" class="w-100">
+    <mat-form-field appearance="standard">
+      <mat-label>Cantidad</mat-label>
+      <input matInput type="text" inputmode="numeric"   mask="000000000" placeholder="5000" formControlName="cantidad"  required>
+      <mat-icon matSuffix>currency</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Tipo de Unidad</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let unidad of unidades" [value]="unidad.tipoUnidadId">
+          {{unidad.tipo}} ({{unidad.unidad}})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+  <!-- <div fxLayout="row" fxLayoutAlign="space-between">
+    <td-search-input placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500"
+      (searchDebounce)="searchMaterial($event)" (search)="searchMaterial($event)" (clear)="searchInputTerm = ''">
+    </td-search-input>
+    <button mat-button>Agregar material</button>
+  </div> -->
+
+
+  <!-- <app-file-upload class="h-100 w-100" formControlName="imagen" [progress]="progress"></app-file-upload> -->
+
+  <br>
+  <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">AGREGAR</button>
+
+  <ng-template tdLoading="replaceTemplateSyntax" tdLoadingMode="determinate" tdLoadingType="linear" tdLoadingStrategy="replace"
+    tdLoadingColor="primary">
+  </ng-template>
+</form>

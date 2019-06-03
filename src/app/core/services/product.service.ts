@@ -22,6 +22,14 @@ export class ProductService {
     return this.http.post(`${environment.GET_PRODUCTS}/add`, product, {reportProgress: true, observe: 'events'});
   }
 
+  updateProduct(product: any) {
+    return this.http.put(`${environment.GET_PRODUCTS}/update`, product);
+  }
+
+  deleteProduct(productoId: number) {
+    return this.http.delete(`${environment.GET_PRODUCTS}/delete?productoId=${productoId}`);
+  }
+
   private extractData(res) {
     const body = res;
     return body;

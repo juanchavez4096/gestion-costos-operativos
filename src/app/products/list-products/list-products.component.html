@@ -10,6 +10,10 @@
       <span>Costo</span>
       <span class="demo-2"> -- {{product.costo}} </span>
     </p>
+    <button mat-icon-button (click)="confirmDelete(product.productoId)">
+      <mat-icon>delete</mat-icon>
+    </button>
+    
     <mat-divider></mat-divider>
   </button>
 </mat-action-list>

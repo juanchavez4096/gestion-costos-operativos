@@ -4,9 +4,10 @@ import { ListMaterialsComponent } from './list-materials/list-materials.componen
 import { SharedModule } from '../shared/shared.module';
 import { MaterialsRoutingModule } from './materials-routing.module';
 import { MaterialModule, CovalentModule } from './dependencies';
+import { AddComponent } from './add/add.component';
 
 @NgModule({
-  declarations: [MaterialComponent, ListMaterialsComponent],
+  declarations: [MaterialComponent, ListMaterialsComponent, AddComponent],
   imports: [
     MaterialsRoutingModule,
     SharedModule,

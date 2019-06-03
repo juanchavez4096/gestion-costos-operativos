@@ -19,7 +19,6 @@ export class FileUploadComponent implements ControlValueAccessor {
   @Input() progress;
   onChange: Function;
   public file: File | null = null;
-  public imgURL: any;
   croppedImage: any = '';
   @ViewChild('cropper')
   cropper:ImageCropperComponent;

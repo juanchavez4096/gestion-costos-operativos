@@ -1,36 +1,53 @@
+<form fxLayout="row" fxLayoutAlign="space-between" [formGroup]="productForm" (submit)="onSubmit(productForm)"
+  novalidate>
 
-    
-      <div fxLayout="row" fxLayoutAlign="space-between">
-        <div>
-            <mat-card-title>{{product.nombre}}</mat-card-title>
-            <mat-card-subtitle>Costo -- {{product.costo}}</mat-card-subtitle>
-        </div>
-        
-        <div>
-            <button mat-button>Actualizar</button>
-        </div>
-      </div>
-      
-      
-    
-    <img mat-card-image [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=500x500'" alt="">
-    <mat-card-content>
-      <div fxLayout="row" fxLayoutAlign="space-between">
-          <td-search-input placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500" (searchDebounce)="searchMaterial($event)" (search)="searchMaterial($event)" (clear)="searchInputTerm = ''">
-            </td-search-input>
-            <button mat-button>Agregar</button>
-      </div>
-      
-      <mat-action-list>
-        <button (click)="goToMaterial(material.material.materialId)" mat-list-item *ngFor="let material of materials">
-          <img matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.material.materialId+'&size=128x128'" alt="">
-          <h3 matLine>{{material.material.nombre}}</h3>
-          <p matLine>
-            <span>Costo</span>
-            <span class="demo-2"> -- {{material.material.costo}}, </span>
-            <span class="demo-2">Cantidad -- {{material.cantidad}}{{material.tipoUnidad.unidad}} </span>
-          </p>
-          <mat-divider></mat-divider>
-        </button>
-      </mat-action-list>
-    </mat-card-content>
+
+
+
+  <div>
+    <mat-card-title>
+      <input matInput type="text" placeholder="Pie de Limon" formControlName="nombre" required>
+    </mat-card-title>
+    <mat-card-subtitle>Costo -- {{product.costo}}</mat-card-subtitle>
+  </div>
+
+  <div>
+    <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">ACTUALIZAR</button>
+  </div>
+</form>
+<div fxLayout="row" fxLayoutAlign="end end">
+  <button mat-icon-button (click)="confirmDelete(product.productoId)">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
+
+
+
+
+<div fxLayout="row" fxLayoutAlign="center center">
+  <img mat-card-image [style.max-width.px]="400" [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=500x500'"
+    alt="">
+
+</div>
+<mat-card-content>
+  <div fxLayout="row" fxLayoutAlign="space-between">
+    <td-search-input placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500"
+      (searchDebounce)="searchMaterial($event)" (search)="searchMaterial($event)" (clear)="searchInputTerm = ''">
+    </td-search-input>
+    <button mat-button>Agregar material</button>
+  </div>
+
+  <mat-action-list>
+    <button (click)="goToMaterial(material.material.materialId)" mat-list-item *ngFor="let material of materials">
+      <img matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.material.materialId+'&size=128x128'"
+        alt="">
+      <h3 matLine>{{material.material.nombre}}</h3>
+      <p matLine>
+        <span>Costo</span>
+        <span class="demo-2"> -- {{material.material.costo}}, </span>
+        <span class="demo-2">Cantidad -- {{material.cantidad}}{{material.tipoUnidad.unidad}} </span>
+      </p>
+      <mat-divider></mat-divider>
+    </button>
+  </mat-action-list>
+</mat-card-content>
