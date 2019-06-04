@@ -1,19 +1,34 @@
-<td-search-input placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500" (searchDebounce)="searchMaterials(0, $event)" (search)="searchMaterials(0, $event)" (clear)="searchInputTerm = ''">
+<td-search-input placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500"
+  (searchDebounce)="searchMaterials(0, $event)" (search)="searchMaterials(0, $event)" (clear)="searchInputTerm = ''">
 </td-search-input>
-<mat-action-list>
-  <button (click)="goToMaterial(material.materialId)" mat-list-item *ngFor="let material of materials; let i = index">
-    <img [style.display]="material.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=128x128'" (load)="imageLoaded(i)" alt="">
-      
-    <div *ngIf="!material.imageLoaded" mat-list-icon class="user-initials">{{material.nombre ? material.nombre.charAt(0).toUpperCase() : ''}}</div>
-    
-    <h3 matLine> {{material.materialId}}. {{material.nombre}} </h3>
-    <p matLine>
-      <span>Costo</span>
-      <span class="demo-2"> -- {{material.costo}} </span>
-    </p>
+<mat-list>
+  <mat-list-item matRipple *ngFor="let material of materials; let i = index">
+    <div class="list-item-w">
+      <div class="list-item-b" (click)="goToMaterial(material.materialId)">
+        <img [style.display]="material.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=128x128'"
+          (load)="imageLoaded(i)" alt="">
+
+        <div *ngIf="!material.imageLoaded" mat-list-icon class="user-initials">{{material.nombre ?
+          material.nombre.charAt(0).toUpperCase() : ''}}</div>
+
+        <div style="margin-left: 16px">
+          <h3 matLine style="margin: 0">{{material.nombre}} </h3>
+          <p matLine style="margin: 0">
+            <span>Costo</span>
+            <span class="demo-2"> -- {{material.costo}} </span>
+          </p>
+        </div>
+
+      </div>
+
+      <button mat-icon-button (click)="confirmDelete(material.materialId)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
     <mat-divider></mat-divider>
-  </button>
-</mat-action-list>
+  </mat-list-item>
+</mat-list>
 <td-paging-bar #pagingBar [firstLast]="true" [pageSize]="pageSize" [total]="total" (change)="changePage($event)">
-    {{pagingBar.range}} de {{pagingBar.total}}
+  {{pagingBar.range}} de {{pagingBar.total}}
 </td-paging-bar>

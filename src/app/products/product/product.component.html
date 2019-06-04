@@ -1,53 +1,57 @@
-<form fxLayout="row" fxLayoutAlign="space-between" [formGroup]="productForm" (submit)="onSubmit(productForm)"
-  novalidate>
-
-
-
-
-  <div>
-    <mat-card-title>
-      <input matInput type="text" placeholder="Pie de Limon" formControlName="nombre" required>
-    </mat-card-title>
-    <mat-card-subtitle>Costo -- {{product.costo}}</mat-card-subtitle>
+<div fxLayout="row" fxLayoutAlign="center center" class="pb-3">
+  <div fxFlex="1 1 30">
+    <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+      <img fxFlex="0 1 150px" [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=500x500'">
+    </div>
   </div>
-
-  <div>
-    <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">ACTUALIZAR</button>
+  <div fxFlex="1 1 70">
+    <form fxLayout="column" fxLayoutAlign="center start" [formGroup]="productForm" (submit)="onSubmit(productForm)"
+      novalidate>
+      <div fxFlex="0 1 100" class="w-100">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+          <mat-form-field fxFlex="1 1 70" class="w-100">
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-label>Nombre del Producto</mat-label>
+            <input matInput type="text" formControlName="nombre" required>
+            <mat-error>Debes colocarle un nombre</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="1 1 30" class="w-100">
+            <mat-icon matSuffix>money</mat-icon>
+            <mat-label>Precio</mat-label>
+            <input matInput type="text" readonly [value]="product.costo">
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="0 1 100" class="w-100 mb-3">
+        <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="end center">
+          <button fxFlex="0 1 auto" mat-flat-button color="warn" (click)="confirmDelete(product.productoId)">
+            ELIMINAR <mat-icon [inline]="true">delete</mat-icon>
+          </button>
+          <button fxFlex="0 1 auto" type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">ACTUALIZAR</button>
+        </div>
+      </div>
+    </form>
   </div>
-</form>
-<div fxLayout="row" fxLayoutAlign="end end">
-  <button mat-icon-button (click)="confirmDelete(product.productoId)">
-    <mat-icon>delete</mat-icon>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between">
+  <td-search-input fxFlex="0 1 80" placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true"
+    [debounce]="500" (searchDebounce)="searchMaterial($event)" (search)="searchMaterial($event)" (clear)="searchInputTerm = ''">
+  </td-search-input>
+  <button mat-fab color="primary" aria-label="Example icon-button with a heart icon">
+    <mat-icon>add</mat-icon>
   </button>
 </div>
 
-
-
-
-<div fxLayout="row" fxLayoutAlign="center center">
-  <img mat-card-image [style.max-width.px]="400" [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=500x500'"
-    alt="">
-
-</div>
-<mat-card-content>
-  <div fxLayout="row" fxLayoutAlign="space-between">
-    <td-search-input placeholder="Buscar Material" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500"
-      (searchDebounce)="searchMaterial($event)" (search)="searchMaterial($event)" (clear)="searchInputTerm = ''">
-    </td-search-input>
-    <button mat-button>Agregar material</button>
-  </div>
-
-  <mat-action-list>
-    <button (click)="goToMaterial(material.material.materialId)" mat-list-item *ngFor="let material of materials">
-      <img matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.material.materialId+'&size=128x128'"
-        alt="">
-      <h3 matLine>{{material.material.nombre}}</h3>
-      <p matLine>
-        <span>Costo</span>
-        <span class="demo-2"> -- {{material.material.costo}}, </span>
-        <span class="demo-2">Cantidad -- {{material.cantidad}}{{material.tipoUnidad.unidad}} </span>
-      </p>
-      <mat-divider></mat-divider>
-    </button>
-  </mat-action-list>
-</mat-card-content>
+<mat-action-list>
+  <button (click)="goToMaterial(material.material.materialId)" mat-list-item *ngFor="let material of materials">
+    <img matListAvatar [src]="'http://localhost:8080/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.material.materialId+'&size=128x128'"
+      alt="">
+    <h3 matLine>{{material.material.nombre}}</h3>
+    <p matLine>
+      <span>Costo</span>
+      <span class="demo-2"> -- {{material.material.costo}}, </span>
+      <span class="demo-2">Cantidad -- {{material.cantidad}}{{material.tipoUnidad.unidad}} </span>
+    </p>
+    <mat-divider></mat-divider>
+  </button>
+</mat-action-list>

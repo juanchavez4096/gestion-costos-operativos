@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { MaterialService } from '../../core/services/material.service';
 import { AuthService } from '../../core/services';
 import { Router } from '@angular/router';
 import { IPageChangeEvent } from '@covalent/core/paging';
+import { TdDialogService } from '@covalent/core/dialogs';
 
 @Component({
   selector: 'app-list-materials',
@@ -16,7 +17,9 @@ export class ListMaterialsComponent implements OnInit {
   total: number = 0;
   pageSize: number = 0;
   
-  constructor(private materialService: MaterialService, public auth: AuthService, private router: Router) { }
+  constructor(private materialService: MaterialService, public auth: AuthService, private router: Router,
+    private _dialogService: TdDialogService,
+    private _viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
     this.searchMaterials(0, '');
@@ -41,6 +44,34 @@ export class ListMaterialsComponent implements OnInit {
 
   changePage(event: IPageChangeEvent){
     this.searchMaterials(event.page-1, this.searchInputTerm);
+  }
+
+  confirmDelete(materialId: number){
+    this._dialogService.openConfirm({
+      message: 'Se borrará el material y no podrá ser devuelto. Los productos se actualizarán quitando el costo de éste material. También se borrará la imagen de este material. ¿Estás de acuerdo?',
+      disableClose: true,
+      viewContainerRef: this._viewContainerRef, //OPTIONAL
+      title: 'Confirmar', //OPTIONAL, hides if not provided
+      cancelButton: 'Rechazar', //OPTIONAL, defaults to 'CANCEL'
+      acceptButton: 'Aceptar', //OPTIONAL, defaults to 'ACCEPT'
+      width: '500px', //OPTIONAL, defaults to 400px
+    }).afterClosed().subscribe((accept: boolean) => {
+      if (accept) {
+        this.materialService.deleteMaterial(materialId).subscribe(event => {
+          this.searchMaterials(0, '');
+        }, error => {
+          this._dialogService.openAlert({
+            message: 'Ha ocurrido un error interno, intente de nuevo más tarde.',
+            disableClose: false, // defaults to false
+            viewContainerRef: this._viewContainerRef, //OPTIONAL
+            title: 'Error', //OPTIONAL, hides if not provided
+            closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
+            width: '400px', //OPTIONAL, defaults to 400px
+          });
+        })
+      }
+    });
+    
   }
 
 }

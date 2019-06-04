@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { UserService } from 'src/app/core/services/user.service';
@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { UtilService } from '../../core/services/util.service';
+import { TdDialogService } from '@covalent/core/dialogs';
 
 @Component({
   selector: 'app-login',
@@ -21,10 +22,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private fb: FormBuilder,
     private router: Router,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private _dialogService: TdDialogService,
+    private _viewContainerRef: ViewContainerRef
   ) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.email, Validators.required] ],
       password: ['', Validators.required]
     });
   }
@@ -39,6 +42,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: FormGroup) {
+    if (!this.loginForm.valid) {
+      this._dialogService.openAlert({
+        message: 'Existen errores en los datos que intenta enviar',
+        disableClose: false, // defaults to false
+        viewContainerRef: this._viewContainerRef, //OPTIONAL
+        title: 'Ingreso incorrecto', //OPTIONAL, hides if not provided
+        closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
+        width: '400px', //OPTIONAL, defaults to 400px
+      });
+      return;
+    }
     const values = form.value;
     this.loginForm.disable();
     this.userService.authenticate(values.username, values.password).pipe(takeUntil(this.destroy$)).subscribe(data => {
@@ -46,7 +60,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigate(['/products']);
     }, error => {
       this.loginForm.enable();
-      console.log(error);
+      this._dialogService.openAlert({
+        message: 'El email o la contraseña son inválidos',
+        disableClose: false, // defaults to false
+        viewContainerRef: this._viewContainerRef, //OPTIONAL
+        title: 'Ingreso incorrecto', //OPTIONAL, hides if not provided
+        closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
+        width: '400px', //OPTIONAL, defaults to 400px
+      });
     });
   }
 

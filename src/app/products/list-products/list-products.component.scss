@@ -9,4 +9,20 @@
     justify-content: center;
     color: white;
     font-weight: bold;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.list-item-w{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    width: 100%
+}
+
+.list-item-b{
+    width:80%;
+    display: flex; 
+    align-items:center; 
+    cursor: pointer
 }

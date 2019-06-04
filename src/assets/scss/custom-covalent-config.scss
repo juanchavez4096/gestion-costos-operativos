@@ -30,6 +30,11 @@ app-layout div.td-layout-card-over mat-card.mat-card{
   height: calc(100% - 64px);
 }
 
+app-layout td-layout-card-over div.td-layout-card-over{
+  max-width: 800px !important;
+}
+
+
 .bold{
   font-weight: 700;
 }

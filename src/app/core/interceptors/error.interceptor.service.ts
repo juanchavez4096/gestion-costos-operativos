@@ -31,6 +31,5 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   cleanResourceAndLogout() {
     this.authService.logout();
-    location.reload(true);
   }
 }

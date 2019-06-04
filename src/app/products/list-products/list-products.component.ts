@@ -57,8 +57,19 @@ export class ListProductsComponent implements OnInit {
       width: '500px', //OPTIONAL, defaults to 400px
     }).afterClosed().subscribe((accept: boolean) => {
       if (accept) {
-        // DO SOMETHING
-      } 
+        this.productService.deleteProduct(productoId).subscribe(event => {
+          this.searchProducts(0, '');
+        }, error => {
+          this._dialogService.openAlert({
+            message: 'Ha ocurrido un error interno, intente de nuevo más tarde.',
+            disableClose: false, // defaults to false
+            viewContainerRef: this._viewContainerRef, //OPTIONAL
+            title: 'Error', //OPTIONAL, hides if not provided
+            closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
+            width: '400px', //OPTIONAL, defaults to 400px
+          });
+        })
+      }
     });
     
   }
