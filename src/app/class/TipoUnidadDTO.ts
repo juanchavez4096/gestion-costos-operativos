@@ -3,7 +3,10 @@ export class TipoUnidadDTO {
     tipo: string;
     unidad: string;
     referenciaEnGramos: number
-    constructor() {
-        
+    constructor(tipoUnidadId: number, tipo: string, unidad: string, referenciaEnGramos: number) {
+        this.tipoUnidadId = tipoUnidadId;
+        this.tipo = tipo;
+        this.unidad = unidad;
+        this.referenciaEnGramos = referenciaEnGramos;
     }
 }

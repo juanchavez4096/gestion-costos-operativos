@@ -1,0 +1,45 @@
+<form [formGroup]="productoMaterialForm" (submit)="onSubmit(productoMaterialForm)" novalidate>
+
+  <h1 mat-dialog-title>Agregar Material</h1>
+
+  <div fxLayout="column" fxLayoutAlign="center center" mat-dialog-content>
+
+    <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
+      <mat-label>Material</mat-label>
+      <input type="text" matInput formControlName="material" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayWith">
+        <mat-option *ngFor="let material of filteredMaterials | async" [value]="material">
+          {{material.nombre}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+
+    <div fxFlex="1 1 100" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="25px" class="w-100">
+      <mat-form-field fxFlex="calc(50% - 25px)" appearance="standard">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="text" inputmode="numeric" mask="000000000" placeholder="5000" formControlName="cantidad"
+          required>
+        <mat-icon matSuffix>currency</mat-icon>
+      </mat-form-field>
+      <mat-form-field fxFlex="calc(50% - 25px)" appearance="standard" class="mr-0">
+        <mat-label>Tipo de Unidad</mat-label>
+        <mat-select  formControlName="tipoUnidadId">
+          <mat-option *ngFor="let unidad of unidades" [value]="unidad.tipoUnidadId">
+            {{unidad.tipo}} ({{unidad.unidad}})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <br>
+
+  </div>
+
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between">
+    <button mat-button type="button"  (click)="onNoClick()">Atras</button>
+    <button mat-stroked-button type="submit" [disabled]="productoMaterialForm.invalid">AGREGAR</button>
+  </div>
+
+</form>

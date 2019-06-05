@@ -5,7 +5,7 @@
                 <mat-card-title>Identifiquese</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <form fxLayout="column" fxLayoutAlign="start start" [formGroup]="loginForm" novalidate>
+                <form fxLayout="column" fxLayoutAlign="start start" [formGroup]="loginForm" (submit)="onSubmit(loginForm)" novalidate>
                     <mat-form-field appearance="fill" fxFlex="1 1 100" class="w-100">
                         <mat-label>Usuario</mat-label>
                         <input matInput type="email" placeholder="ejemplo@ejemplo.com" formControlName="username"
@@ -14,13 +14,13 @@
                     </mat-form-field>
                     <mat-form-field appearance="fill" fxFlex="1 1 100" class="w-100">
                         <mat-label>Contraseña</mat-label>
-                        <input (keyup.enter)="onSubmit(loginForm)" matInput placeholder="******" type="password"
+                        <input matInput placeholder="******" type="password"
                             formControlName="password" required>
                         <mat-icon matSuffix>lock</mat-icon>
                     </mat-form-field>
                     <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px" class="w-100">
-                        <button mat-button>RECUPERAR CONTRASEÑA</button>
-                        <button (click)="onSubmit(loginForm)" [disabled]="loginForm.invalid" mat-raised-button color="primary">INICIAR</button>
+                        <button mat-button type="button">RECUPERAR CONTRASEÑA</button>
+                        <button type="submit"  [disabled]="loginForm.invalid" mat-raised-button color="primary">INICIAR</button>
                     </div>
 
                 </form>

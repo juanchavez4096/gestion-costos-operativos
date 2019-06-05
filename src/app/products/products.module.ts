@@ -5,9 +5,15 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ListProductsComponent } from './list-products/list-products.component';
 import { MaterialModule, CovalentModule } from './dependencies';
 import { AddComponent } from './add/add.component';
+import { AddProductoMaterialComponent } from './add-producto-material/add-producto-material.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 
 @NgModule({
-  declarations: [ProductComponent, ListProductsComponent, AddComponent],
+  entryComponents: [AddProductoMaterialComponent],
+  providers: [
+    
+  ],
+  declarations: [ProductComponent, ListProductsComponent, AddComponent, AddProductoMaterialComponent],
   imports: [
     SharedModule,
     ProductsRoutingModule,

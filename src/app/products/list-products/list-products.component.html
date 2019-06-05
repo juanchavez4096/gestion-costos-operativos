@@ -5,15 +5,14 @@
   <mat-list-item matRipple *ngFor="let product of products; let i = index" class="">
     <div class="list-item-w">
       <div class="list-item-b" (click)="goToProduct(product.productoId)">
-        <img [style.display]="product.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8080/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=128x128'"
+        <img [style.display]="product.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8081/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=128x128'"
           (load)="imageLoaded(i)" alt="">
         <div *ngIf="!product.imageLoaded" mat-list-icon class="user-initials">{{product.nombre ?
           product.nombre.charAt(0).toUpperCase() : ''}}</div>
         <div style="margin-left: 16px">
           <h3 matLine style="margin: 0">{{product.nombre}} </h3>
           <p matLine style="margin: 0">
-            <span>Costo</span>
-            <span class="demo-2"> -- {{product.costo}} </span>
+            <span>Costo : {{product.costo}} </span>
           </p>
         </div>
 

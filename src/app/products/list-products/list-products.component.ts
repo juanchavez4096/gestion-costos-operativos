@@ -4,6 +4,8 @@ import { AuthService } from '../../core/services';
 import { Router } from '@angular/router';
 import { IPageChangeEvent } from '@covalent/core/paging';
 import { TdDialogService } from '@covalent/core/dialogs';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-list-products',
@@ -12,6 +14,7 @@ import { TdDialogService } from '@covalent/core/dialogs';
 })
 export class ListProductsComponent implements OnInit {
 
+  public environment = environment;
   pageSize: number = 0;
   total: number = 0;
   searchInputTerm: string = '';
@@ -43,7 +46,6 @@ export class ListProductsComponent implements OnInit {
 
   changePage(event: IPageChangeEvent){
     this.searchProducts(event.page-1, this.searchInputTerm);
-    
   }
 
   confirmDelete(productoId: number){

@@ -28,13 +28,15 @@ export class LayoutComponent implements OnInit {
           if(val.url === '/products/add'){
             this.actualSite = 'Añadir Productos';
           }
-        }
-        if (val.url.includes('/materials') && val.url !== '/materials') {
+        }else if (val.url.includes('/materials') && val.url !== '/materials') {
           this.goBack = '/materials'
           if(val.url === '/materials/add'){
             this.actualSite = 'Añadir Materiales';
           }
+        }else {
+          this.goBack = null;
         }
+        
       }
     })
   }

@@ -13,12 +13,16 @@ export class MaterialService {
 
   constructor(private http: HttpClient) { }
 
-  getProductoMaterialByProductId(productId: number, search: string) {
-    return this.http.get(`${environment.GET_PRODUCTOMATERIAL}/all?productoId=${productId}&search=${search}`).pipe(map(this.extractData));
+  getTipoUnidad() {
+    return this.http.get(`${environment.GET_MATERIALS}/allTipoUnidad`).pipe(map(this.extractData));
+  }
+
+  getProductoMaterialByProductId(page: number, productId: number, search: string) {
+    return this.http.get(`${environment.GET_PRODUCTOMATERIAL}/all?productoId=${productId}&search=${search}&page=${page}`).pipe(map(this.extractData));
   }
 
   deleteProductoMaterial(productoMaterialId: number) {
-    return this.http.delete(`${environment.GET_MATERIALS}/delete?productoMaterialId=${productoMaterialId}`);
+    return this.http.delete(`${environment.GET_PRODUCTOMATERIAL}/delete?productoMaterialId=${productoMaterialId}`);
   }
 
   addProductoMaterial(addProductoMaterial: AddProductoMaterialDTO){
@@ -27,6 +31,10 @@ export class MaterialService {
 
   getMaterials(page: number, search: string) {
     return this.http.get(`${environment.GET_MATERIALS}/all?search=${search}&page=${page}`).pipe(map(this.extractData));
+  }
+
+  getAllMaterials(){
+    return this.http.get(`${environment.GET_MATERIALS}/allWithOutPage`).pipe(map(this.extractData));
   }
 
   getMaterial(materialId: number) {

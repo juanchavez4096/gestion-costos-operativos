@@ -34,6 +34,9 @@ export class AddComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.materialService.getTipoUnidad().subscribe(content => {
+      this.unidades = content;
+    })
   }
 
   ngOnDestroy() {

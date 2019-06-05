@@ -7,8 +7,11 @@ export class AddProductoMaterialDTO {
     tipoUnidad: TipoUnidadDTO;
     cantidad: number;
     
-    constructor(){
-        
+    constructor(materialId: number, productoId: number, tipoUnidad: TipoUnidadDTO, cantidad: number){
+        this.materialId = materialId;
+        this.productoId = productoId;
+        this.tipoUnidad = tipoUnidad;
+        this.cantidad = cantidad;
     }
 
 }
