@@ -2,13 +2,13 @@
   novalidate>
   <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
     <mat-label>Nombre</mat-label>
-    <input matInput type="text" placeholder="Harina" formControlName="nombre" required>
+    <input matInput type="text" placeholder="Harina" maxlength="50" formControlName="nombre" required>
     <mat-icon matSuffix>category</mat-icon>
   </mat-form-field>
 
   <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
     <mat-label>Costo</mat-label>
-    <input matInput type="text" mask="dot_separator.2" placeholder="5000" formControlName="costo" [validation]="true"
+    <input matInput type="text" mask="dot_separator.2" maxlength="50" placeholder="5000" formControlName="costo" [validation]="true"
       required>
     <mat-icon matSuffix>attach_money</mat-icon>
   </mat-form-field>
@@ -16,7 +16,7 @@
   <div fxFlex="1 1 100" fxLayout="row" fxLayoutAlign="center center" class="w-100">
     <mat-form-field appearance="standard">
       <mat-label>Cantidad</mat-label>
-      <input matInput type="text" inputmode="numeric"   mask="000000000" placeholder="5000" formControlName="cantidad"  required>
+      <input matInput type="text" inputmode="numeric"  mask="0{12}" placeholder="5000" formControlName="cantidad"  required>
       <mat-icon matSuffix>currency</mat-icon>
     </mat-form-field>
     <mat-form-field appearance="standard">
