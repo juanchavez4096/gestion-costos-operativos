@@ -6,7 +6,7 @@ import { MaterialService } from '../../core/services/material.service';
 import { AuthService } from '../../core/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService } from '@covalent/core/dialogs';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { takeUntil } from 'rxjs/operators';
 import { TipoUnidadDTO } from '../../class/TipoUnidadDTO';
 
@@ -69,7 +69,7 @@ export class MaterialComponent implements OnInit {
     }
     let values = form.value;
     
-    let materialDTO = new MaterialDTO(this.material.materialId, values.tipoUnidadId, values.nombre, values.costo, values.cantidadCompra);
+    let materialDTO = new MaterialDTO(this.material.materialId, new TipoUnidadDTO(values.tipoUnidadId, null, null, null) , values.nombre, values.costo, values.cantidad);
     this.materialForm.disable();
 
     this.materialService.updateMaterial(materialDTO).pipe(takeUntil(this.destroy$)).subscribe(event => {
