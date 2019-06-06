@@ -16,6 +16,7 @@ export class ListMaterialsComponent implements OnInit {
   materials: any[] = [];
   total: number = 0;
   pageSize: number = 0;
+  beginPage = false
   
   constructor(private materialService: MaterialService, public auth: AuthService, private router: Router,
     private _dialogService: TdDialogService,
@@ -23,6 +24,7 @@ export class ListMaterialsComponent implements OnInit {
 
   ngOnInit() {
     this.searchMaterials(0, '');
+    this.beginPage = true;
   }
 
   goToMaterial(materialId: number){
@@ -43,7 +45,11 @@ export class ListMaterialsComponent implements OnInit {
   }
 
   changePage(event: IPageChangeEvent){
-    this.searchMaterials(event.page-1, this.searchInputTerm);
+    if (!this.beginPage) {
+      this.searchMaterials(event.page-1, this.searchInputTerm);
+    }else{
+      this.beginPage = false;
+    }
   }
 
   confirmDelete(materialId: number){

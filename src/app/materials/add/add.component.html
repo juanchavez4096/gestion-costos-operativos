@@ -21,7 +21,7 @@
     </mat-form-field>
     <mat-form-field appearance="standard">
       <mat-label>Tipo de Unidad</mat-label>
-      <mat-select>
+      <mat-select formControlName="tipoUnidadId">
         <mat-option *ngFor="let unidad of unidades" [value]="unidad.tipoUnidadId">
           {{unidad.tipo}} ({{unidad.unidad}})
         </mat-option>
@@ -44,8 +44,8 @@
     <button mat-button>Agregar material</button>
   </div> -->
 
+  <app-file-upload class="h-100 w-100" formControlName="imagen" [progress]="progress"></app-file-upload>
 
-  <!-- <app-file-upload class="h-100 w-100" formControlName="imagen" [progress]="progress"></app-file-upload> -->
 
   <br>
   <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">AGREGAR</button>

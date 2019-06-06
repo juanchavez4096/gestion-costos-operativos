@@ -43,15 +43,19 @@ export class AddProductoMaterialComponent implements OnInit {
         map(name => name ? this._filter(name) : this.materials.slice())
       );
     });
-    this.materialService.getTipoUnidad().subscribe(content => {
-      this.unidades = content;
-    })
-
     
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  getTipoMaterialByTipoMaterialId(material: any){
+    
+    
+    this.materialService.getTipoUnidad(material.tipoUnidad.tipoUnidadId).subscribe(content => {
+      this.unidades = content;
+    })
   }
 
   
@@ -80,9 +84,7 @@ export class AddProductoMaterialComponent implements OnInit {
   }
 
   private _filter(name: string): any[] {
-    
     const filterValue = name.toLowerCase();
-
     return this.materials.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 

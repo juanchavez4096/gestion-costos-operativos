@@ -19,12 +19,14 @@ export class ListProductsComponent implements OnInit {
   total: number = 0;
   searchInputTerm: string = '';
   products: any[] = [];
+  beginPage = false;
   
   constructor(private productService: ProductService, public auth: AuthService, private router: Router, private _dialogService: TdDialogService,
     private _viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
     this.searchProducts(0,'');
+    this.beginPage = true;
   }
 
   goToProduct(productoId: number){
@@ -45,7 +47,12 @@ export class ListProductsComponent implements OnInit {
   }
 
   changePage(event: IPageChangeEvent){
-    this.searchProducts(event.page-1, this.searchInputTerm);
+    if (!this.beginPage) {
+      this.searchProducts(event.page-1, this.searchInputTerm);
+    }else{
+      this.beginPage = false;
+    }
+    
   }
 
   confirmDelete(productoId: number){

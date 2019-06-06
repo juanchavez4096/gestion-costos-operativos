@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AddProductoMaterialDTO } from '../../class/AddProductoMaterialDTO';
+import { MaterialDTO } from '../../class/MaterialDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,12 @@ export class MaterialService {
 
   constructor(private http: HttpClient) { }
 
-  getTipoUnidad() {
-    return this.http.get(`${environment.GET_MATERIALS}/allTipoUnidad`).pipe(map(this.extractData));
+  getTipoUnidad(tipoUnidadId: number) {
+    if (tipoUnidadId) {
+      return this.http.get(`${environment.GET_MATERIALS}/allTipoUnidad?tipoUnidadId=${tipoUnidadId}`).pipe(map(this.extractData));
+    }else{
+      return this.http.get(`${environment.GET_MATERIALS}/allTipoUnidad`).pipe(map(this.extractData));
+    } 
   }
 
   getProductoMaterialByProductId(page: number, productId: number, search: string) {
@@ -39,6 +44,14 @@ export class MaterialService {
 
   getMaterial(materialId: number) {
     return this.http.get(`${environment.GET_MATERIALS}/byId?materialId=${materialId}`).pipe(map(this.extractData));
+  }
+
+  addMaterial(formData: FormData){
+    return this.http.post(`${environment.GET_MATERIALS}/add`, formData, {reportProgress: true, observe: 'events'});
+  }
+
+  updateMaterial(material: MaterialDTO) {
+    return this.http.put(`${environment.GET_MATERIALS}/update`, material);
   }
 
   deleteMaterial(materialId: number) {

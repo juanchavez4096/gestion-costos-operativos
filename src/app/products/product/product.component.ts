@@ -10,6 +10,7 @@ import { TdDialogService } from '@covalent/core/dialogs';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { IPageChangeEvent } from '@covalent/core/paging';
 import { AddProductoMaterialComponent } from '../add-producto-material/add-producto-material.component';
+import { ProductoDTO } from '../../class/ProductoDTO';
 
 @Component({
   selector: 'app-product',
@@ -22,9 +23,10 @@ export class ProductComponent implements OnInit {
   total: number = 0;
   public productForm: FormGroup;
   public destroy$: Subject<boolean> = new Subject<boolean>();
-  product: any;
+  product: ProductoDTO;
   materials: any[];
   searchInputTerm: string = "";
+  beginPage = false;
   constructor(private productService: ProductService,
     private materialService: MaterialService,
     public auth: AuthService,
@@ -42,6 +44,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.getProductWithMaterials();
+    this.beginPage = true;
   }
 
   getProductWithMaterials(){
@@ -150,8 +153,11 @@ export class ProductComponent implements OnInit {
   }
 
   changePage(event: IPageChangeEvent){
-    this.searchMaterial(event.page-1, this.searchInputTerm);
-    
+    if (!this.beginPage) {
+      this.searchMaterial(event.page-1, this.searchInputTerm);
+    }else{
+      this.beginPage = false;
+    }
   }
 
   openDialog(){
@@ -171,5 +177,4 @@ export class ProductComponent implements OnInit {
   imageLoaded(i: number){
     this.materials[i].imageLoaded = true;
   }
-
 }

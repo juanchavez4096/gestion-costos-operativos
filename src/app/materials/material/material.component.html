@@ -1,3 +1,56 @@
-<p>
-  material works!
-</p>
+<div *ngIf="material">
+  <div fxLayout="row" fxLayoutAlign="center center" class="pb-3">
+    <div fxFlex="1 1 30">
+      <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+        <img fxFlex="0 1 150px"  [src]="'http://localhost:8081/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=500x500'"
+          alt="">
+      </div>
+    </div>
+    <div fxFlex="1 1 70">
+      <form fxLayout="column" fxLayoutAlign="center start" [formGroup]="materialForm" novalidate (submit)="onSubmit(materialForm)">
+        <div fxFlex="0 1 100" class="w-100">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+            <mat-form-field fxFlex="1 1 50" class="w-100">
+              <mat-icon matSuffix>edit</mat-icon>
+              <mat-label>Nombre del Material</mat-label>
+              <input matInput type="text" formControlName="nombre" maxlength="50" required>
+              <mat-error>Debes colocarle un nombre</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="1 1 50" class="w-100">
+              <mat-icon matSuffix>attach_money</mat-icon>
+              <mat-label>Costo de Compra</mat-label>
+              <input matInput type="text" mask="dot_separator.2" maxlength="50" placeholder="5000" formControlName="costo"
+                [validation]="true" required>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+            <mat-form-field appearance="standard">
+              <mat-label>Cantidad</mat-label>
+              <input matInput type="text" inputmode="numeric" mask="0{12}" placeholder="5000" formControlName="cantidad"
+                required>
+              <mat-icon matSuffix>currency</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+              <mat-label>Tipo de Unidad</mat-label>
+              <mat-select formControlName="tipoUnidadId">
+                <mat-option *ngFor="let unidad of unidades" [value]="unidad.tipoUnidadId">
+                  {{unidad.tipo}} ({{unidad.unidad}})
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div fxFlex="0 1 100" class="w-100 mb-3">
+          <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="end center">
+            <button type="button" fxFlex="0 1 auto" mat-flat-button color="warn" (click)="confirmDelete(material.materialId)">
+              ELIMINAR <mat-icon [inline]="true">delete</mat-icon>
+            </button>
+            <button type="submit" fxFlex="0 1 auto" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">ACTUALIZAR</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

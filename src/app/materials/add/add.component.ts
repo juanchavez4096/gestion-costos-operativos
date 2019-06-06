@@ -5,6 +5,9 @@ import { MaterialService } from '../../core/services/material.service';
 import { AuthService } from '../../core/services';
 import { Router } from '@angular/router';
 import { TdLoadingService } from '@covalent/core/loading';
+import { takeUntil } from 'rxjs/operators';
+import { HttpEventType } from '@angular/common/http';
+import { MaterialDTO } from '../../class/MaterialDTO';
 
 @Component({
   selector: 'app-add',
@@ -29,12 +32,13 @@ export class AddComponent implements OnInit {
       nombre: ['', Validators.required],
       costo: ['', Validators.required],
       cantidad: ['', Validators.required],
-
+      tipoUnidadId: ['', Validators.required],
+      imagen: ['']
     });
   }
 
   ngOnInit() {
-    this.materialService.getTipoUnidad().subscribe(content => {
+    this.materialService.getTipoUnidad(null).subscribe(content => {
       this.unidades = content;
     })
   }
@@ -50,29 +54,30 @@ export class AddComponent implements OnInit {
     }
     const values = form.value;
     this.materialForm.disable();
+    let materialDTO = new MaterialDTO(null, values.tipoUnidadId, values.nombre, values.costo, values.cantidad)
     let formData: FormData = new FormData();
-    formData.append('nombre', values.nombre)
-    formData.append('imagen', values.imagen)
+    formData.append('materialDTO', JSON.stringify(materialDTO));
+    formData.append('imagen', values.imagen);
     this._loadingService.register('replaceTemplateSyntax');
-    /*this.productService.addProduct(formData).pipe(takeUntil(this.destroy$)).subscribe(event => {
+    this.materialService.addMaterial(formData).pipe(takeUntil(this.destroy$)).subscribe(event => {
       if ( event.type === HttpEventType.UploadProgress ) {
         this.progress = Math.round((100 * event.loaded) / event.total);
         this._loadingService.setValue('replaceTemplateSyntax', this.progress);
       }
       if ( event.type === HttpEventType.Response ) {
         console.log(event.body);
-        this.productForm.reset();
+        this.materialForm.reset();
         this.progress = 0;
         this._loadingService.resolve('replaceTemplateSyntax')
-        this.router.navigate(['/products']);
+        this.router.navigate(['/materials']);
       }
       
     }, error => {
-      this.productForm.enable();
+      this.materialForm.enable();
       this.progress = 0;
       this._loadingService.resolve('replaceTemplateSyntax')
       console.log(error);
-    });*/
+    });
   }
 
 }
