@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AddProductoMaterialDTO } from '../../class/AddProductoMaterialDTO';
 import { MaterialDTO } from '../../class/MaterialDTO';
+import { ModifyProductoMaterialDTO } from '../../class/ModifyProductoMaterialDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +27,20 @@ export class MaterialService {
     return this.http.get(`${environment.GET_PRODUCTOMATERIAL}/all?productoId=${productId}&search=${search}&page=${page}`).pipe(map(this.extractData));
   }
 
+  getProductoMaterialByProductMaterialId(productMaterialId: number) {
+    return this.http.get(`${environment.GET_PRODUCTOMATERIAL}/byId?productoMaterialId=${productMaterialId}`).pipe(map(this.extractData));
+  }
+
   deleteProductoMaterial(productoMaterialId: number) {
     return this.http.delete(`${environment.GET_PRODUCTOMATERIAL}/delete?productoMaterialId=${productoMaterialId}`);
   }
 
   addProductoMaterial(addProductoMaterial: AddProductoMaterialDTO){
     return this.http.post(`${environment.GET_PRODUCTOMATERIAL}/add`, addProductoMaterial);
+  }
+
+  updateProductoMaterial(modifyProductoMaterialDTO: ModifyProductoMaterialDTO) {
+    return this.http.put(`${environment.GET_PRODUCTOMATERIAL}/update`, modifyProductoMaterialDTO);
   }
 
   getMaterials(page: number, search: string) {

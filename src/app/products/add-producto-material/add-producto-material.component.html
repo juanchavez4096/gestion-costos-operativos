@@ -1,12 +1,12 @@
 <form [formGroup]="productoMaterialForm" (submit)="onSubmit(productoMaterialForm)" novalidate>
 
-  <h1 mat-dialog-title>Agregar Material</h1>
+  <h1 mat-dialog-title>{{data.productoMaterialId ? 'Actualizar Material' : 'Agregar Material'}}</h1>
 
   <div fxLayout="column" fxLayoutAlign="center center" mat-dialog-content>
 
     <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
       <mat-label>Material</mat-label>
-      <input type="text" matInput formControlName="material" [matAutocomplete]="auto">
+      <input type="text" matInput formControlName="material" [readonly]="data.productoMaterialId" [matAutocomplete]="auto">
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayWith" (optionSelected)='getTipoMaterialByTipoMaterialId($event.option.value)'>
         <mat-option *ngFor="let material of filteredMaterials | async" [value]="material">
           {{material.nombre}}
@@ -39,7 +39,7 @@
 
   <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between">
     <button mat-button type="button"  (click)="onNoClick()">Atras</button>
-    <button mat-stroked-button type="submit" [disabled]="productoMaterialForm.invalid">AGREGAR</button>
+    <button mat-stroked-button type="submit" [disabled]="productoMaterialForm.invalid">{{data.productoMaterialId ? 'ACTUALIZAR' : 'AGREGAR'}}</button>
   </div>
 
 </form>

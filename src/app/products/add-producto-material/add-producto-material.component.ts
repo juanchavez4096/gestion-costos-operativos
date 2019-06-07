@@ -7,7 +7,8 @@ import { MaterialService } from '../../core/services/material.service';
 import { AddProductoMaterialDTO } from '../../class/AddProductoMaterialDTO';
 import { TipoUnidadDTO } from '../../class/TipoUnidadDTO';
 import { takeUntil, startWith, map } from 'rxjs/operators';
- 
+import { ModifyProductoMaterialDTO } from '../../class/ModifyProductoMaterialDTO';
+
 
 
 @Component({
@@ -19,67 +20,89 @@ export class AddProductoMaterialComponent implements OnInit {
 
   public productoMaterialForm: FormGroup;
   public materials: any[];
+  public productoMaterial: any;
   public unidades: any[];
   public destroy$: Subject<boolean> = new Subject<boolean>();
   filteredMaterials: Observable<any[]>;
 
-  constructor( public dialogRef: MatDialogRef<AddProductoMaterialComponent>,
+  constructor(public dialogRef: MatDialogRef<AddProductoMaterialComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder,
     private materialService: MaterialService) {
-      this.productoMaterialForm = this.fb.group({
-        material: ['', [Validators.required, RequireMatch]],
-        tipoUnidadId: ['', Validators.required],
-        cantidad: ['', Validators.required]
-      });
-     }
+    this.productoMaterialForm = this.fb.group({
+      material: ['', [Validators.required, RequireMatch]],
+      tipoUnidadId: ['', Validators.required],
+      cantidad: ['', Validators.required]
+    });
+  }
 
   ngOnInit() {
     this.materialService.getAllMaterials().subscribe(content => {
       this.materials = content;
       this.filteredMaterials = this.productoMaterialForm.get('material').valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.materials.slice())
-      );
+        .pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name) : this.materials.slice())
+        );
     });
-    
+
+    if (this.data.productoMaterialId) {
+      this.materialService.getProductoMaterialByProductMaterialId(this.data.productoMaterialId).subscribe(content => {
+        this.productoMaterial = content;
+        this.productoMaterialForm.get('material').setValue(this.productoMaterial.material);
+        this.getTipoMaterialByTipoMaterialId(this.productoMaterial);
+        this.productoMaterialForm.get('tipoUnidadId').setValue(this.productoMaterial.tipoUnidad.tipoUnidadId);
+        this.productoMaterialForm.get('cantidad').setValue(this.productoMaterial.cantidad);
+      })
+    }
+
+
+
+
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  getTipoMaterialByTipoMaterialId(material: any){
-    
-    
+  getTipoMaterialByTipoMaterialId(material: any) {
     this.materialService.getTipoUnidad(material.tipoUnidad.tipoUnidadId).subscribe(content => {
       this.unidades = content;
     })
   }
 
-  
 
-  onSubmit(form: FormGroup){
+
+  onSubmit(form: FormGroup) {
     if (!form.valid) {
       return;
     }
-    form.get
     const values = form.value;
     this.productoMaterialForm.disable();
-    let addProductoMaterialDTO: AddProductoMaterialDTO = new AddProductoMaterialDTO(values.material.materialId, this.data.productoId, new TipoUnidadDTO(values.tipoUnidadId, null, null, null), values.cantidad)
-    console.log(addProductoMaterialDTO);
-    
-    this.materialService.addProductoMaterial(addProductoMaterialDTO).pipe(takeUntil(this.destroy$)).subscribe(event => {
+    if(this.data.productoMaterialId){
+      let modifyProductoMaterialDTO: ModifyProductoMaterialDTO = new ModifyProductoMaterialDTO(this.data.productoMaterialId, new TipoUnidadDTO(values.tipoUnidadId, null, null, null), values.cantidad)
+      this.materialService.updateProductoMaterial(modifyProductoMaterialDTO).pipe(takeUntil(this.destroy$)).subscribe(event => {
         this.productoMaterialForm.reset();
         this.dialogRef.close(true);
-    }, error => {
-      this.productoMaterialForm.enable();
-      console.log(error);
-    });
+      }, error => {
+        this.productoMaterialForm.enable();
+        console.log(error);
+      });
+    }else{
+      let addProductoMaterialDTO: AddProductoMaterialDTO = new AddProductoMaterialDTO(values.material.materialId, this.data.productoId, new TipoUnidadDTO(values.tipoUnidadId, null, null, null), values.cantidad)
+
+      this.materialService.addProductoMaterial(addProductoMaterialDTO).pipe(takeUntil(this.destroy$)).subscribe(event => {
+        this.productoMaterialForm.reset();
+        this.dialogRef.close(true);
+      }, error => {
+        this.productoMaterialForm.enable();
+        console.log(error);
+      });
+    }
+    
   }
 
-  displayWith(obj?: any): string | undefined {    
+  displayWith(obj?: any): string | undefined {
     return obj ? obj.nombre : undefined;
   }
 

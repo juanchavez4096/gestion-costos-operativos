@@ -160,11 +160,11 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  openDialog(){
+  openDialog(productoMaterialId: number){
     const dialogRef = this.dialog.open(AddProductoMaterialComponent, {
       width: '400px',
       disableClose: false,
-      data: {productoId: this.product.productoId, added: false},
+      data: {productoId: this.product.productoId, productoMaterialId: productoMaterialId, added: false},
     });
 
     dialogRef.afterClosed().subscribe(result => {
