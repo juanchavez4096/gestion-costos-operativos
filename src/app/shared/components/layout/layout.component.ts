@@ -13,7 +13,8 @@ export class LayoutComponent implements OnInit {
   public name: string;
   public email: string;
   public actualSite: string;
-  public goBack: string
+  public goBack: string;
+  public preferences = false;
   @ViewChild(TdLayoutComponent) layout: TdLayoutComponent;
   constructor(private authService: AuthService, private router: Router) { 
     this.router.events.subscribe( val => {
@@ -22,6 +23,9 @@ export class LayoutComponent implements OnInit {
           this.actualSite = 'Materiales';
         if(val.url.includes('/products') ){
           this.actualSite = 'Productos';
+        }
+        if(val.url.includes('/preferencias') ){
+          this.actualSite = 'Preferencias';
         }
         if (val.url.includes('/products') && val.url !== '/products') {
           this.goBack = '/products'

@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'materials',
     loadChildren: './materials/materials.module#MaterialsModule'
   },
+  {
+    path: 'preferencias',
+    loadChildren: './preferencias/preferencias.module#PreferenciasModule'
+  },
 ];
 
 @NgModule({

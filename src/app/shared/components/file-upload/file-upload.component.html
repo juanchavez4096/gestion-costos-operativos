@@ -1,35 +1,17 @@
-<div fxLayout="row wrap" fxLayoutWrap="25px" fxLayoutAlign="center start" class="w-100" [style.height.px]="500">
+<div fxLayout="row wrap" fxLayoutWrap="25px" fxLayoutAlign="center start" class="w-100" [style.max-height.px]="800">
   <div fxFlex="0 1 calc(100% - 25px)" class="text-center">
     <td-file-input [(ngModel)]="file" color="primary" (select)="emitFiles($event)" (change)="emitFiles($event)" accept="image/*">
       <mat-icon>attach_file</mat-icon><span>Seleccione una Imagen...</span>
     </td-file-input>
   </div>
-  <div fxFlex="0 1 calc(512px - 25px)">
+  <div *ngIf="file" fxFlex="0 1 calc(512px - 25px)">
     <image-cropper #cropper [imageChangedEvent]="file" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
       [resizeToWidth]="256" format="png" (imageCropped)="imageCropped($event)" [outputType]="'file'"
       ></image-cropper>
   </div>
-  <div fxFlex="0 1 calc(100% - 25px)">
+
+  <p *ngIf="file" fxFlex="0 1 calc(100% - 25px)" fxLayout="column"  fxLayoutAlign="center center">Vista Previa</p>
+  <div  *ngIf="file" fxFlex="0 1 calc(100% - 25px)" fxLayout="column"  fxLayoutAlign="center center">
     <img [src]="croppedImage" *ngIf="croppedImage">
   </div>
-
-
-  <!-- <input tdFileSelect type="file" accept="image/*"> -->
-
-  <!-- <input type="file" accept="image/*" (change)="fileChangeEvent($event)" /> -->
-
-
-  <!-- <div fxLayout="column" fxLayoutAlign="start start" style="height: 500px">
-    <div fxFlex="auto" class="h-100 w-100 bg-info">
-
-    </div>
-  </div> -->
-  <!-- <div fxLayout="column" fxLayoutAlign="center center" class="w-100 h-100"> -->
-  <!-- <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" -->
-  <!-- [aspectRatio]="1 / 1" [resizeToWidth]="128" format="png" (imageCropped)="imageCropped($event)" -->
-  <!-- ></image-cropper> -->
-  <!-- </div> -->
-
-
-
 </div>
