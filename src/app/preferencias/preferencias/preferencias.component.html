@@ -2,27 +2,26 @@
   novalidate>
   
   <mat-slide-toggle appearance="standard" fxFlex="1 1 100" class="w-100" color="primary" formControlName="iva">
-        Agregar Iva a Productos
-      </mat-slide-toggle>
+    Agregar Iva a Productos
+  </mat-slide-toggle>
+  <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
+    <mat-label>Valor del IVA</mat-label>
+    <input matInput type="text" mask="percent" sufix="%" placeholder="16%" formControlName="valorIva">
+  </mat-form-field> 
   <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
     <mat-label>Porcentaje Ganancia</mat-label>
-    <input matInput type="text" mask="dot_separator.2" sufix="%" maxlength="3" placeholder="30%" formControlName="porcentajeGanancia" [validation]="true"
-      required>
-    <mat-icon matSuffix>category</mat-icon>
+    <input matInput type="text" mask="percent" sufix="%" placeholder="30%" formControlName="porcentajeGanancia">
+    <mat-hint>Min: 0 - Max: 30</mat-hint>
   </mat-form-field>
-  
     <mat-slide-toggle appearance="standard" fxFlex="1 1 100" class="w-100" color="primary" formControlName="mostrarPrecioDolar">
       Mostrar precio en dolares a los productos
     </mat-slide-toggle>
-  
-  
   <mat-slide-toggle appearance="standard" fxFlex="1 1 100" class="w-100" color="primary" formControlName="actualizarDolarAuto">
     Actualizar el dolar automáticamente
   </mat-slide-toggle>
   <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
     <mat-label>Precio del dolar</mat-label>
-    <input matInput type="text" maxlength="50" mask="dot_separator.2" placeholder="5000" formControlName="precioDolar" [validation]="true" required>
-    <mat-icon matSuffix>category</mat-icon>
+    <input matInput type="text" maxlength="50" mask="dot_separator.2" sufix="Bs" placeholder="5000" formControlName="precioDolar" [validation]="true" required>
   </mat-form-field>
   <br>
   <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">GUARDAR</button>

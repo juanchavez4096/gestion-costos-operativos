@@ -18,9 +18,22 @@
               <mat-error>Debes colocarle un nombre</mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="1 1 30" class="w-100">
+              <mat-label>Precio de venta</mat-label>
+              <input matInput type="text" readonly [value]="product.precioVenta + 'Bs'">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="0 1 100" class="w-100">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+            <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-icon matSuffix>attach_money</mat-icon>
-              <mat-label>Precio</mat-label>
-              <input matInput type="text" readonly [value]="product.costo">
+              <mat-label>Costo de producción</mat-label>
+              <input matInput type="text" readonly [value]="product.costoProduccion + 'Bs'">
+            </mat-form-field>
+            <mat-form-field fxFlex="1 1 50" class="w-100">
+              <mat-icon matSuffix>attach_money</mat-icon>
+              <mat-label>Ganancia</mat-label>
+              <input matInput type="text" readonly [value]="product.ganancia + 'Bs'">
             </mat-form-field>
           </div>
         </div>

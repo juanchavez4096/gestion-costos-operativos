@@ -13,6 +13,14 @@ export class UserService {
     return this.http.post(`${environment.GET_USERS}/login`, { email, password }).pipe(map(this.extractData));
   }
 
+  myEmpresa() {
+    return this.http.get(`${environment.GET_EMPRESA}/myEmpresa`).pipe(map(this.extractData));
+  }
+
+  updateEmpresaPreferences(preferencias: any) {
+    return this.http.put(`${environment.GET_EMPRESA}/changePreferences`, preferencias).pipe(map(this.extractData));
+  }
+
   private getHeaders() {
     return { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
   }

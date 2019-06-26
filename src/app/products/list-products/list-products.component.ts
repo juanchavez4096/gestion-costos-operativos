@@ -51,6 +51,7 @@ export class ListProductsComponent implements OnInit {
       this.searchProducts(event.page-1, this.searchInputTerm);
     }else{
       this.beginPage = false;
+
     }
     
   }
