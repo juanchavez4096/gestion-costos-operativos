@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Historial de Precios: {{data.producto.nombre}}</h1>
+<ngx-charts-line-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="productoHistory"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [xAxisTickFormatting]="dateTickFormatting"
+  [yAxis]="showYAxis"
+  [yAxisTickFormatting]="numberFormatting"
+  [legend]="showLegend"
+  [legendTitle]="'Leyenda'"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  
+  (select)="onSelect($event)">
+</ngx-charts-line-chart>

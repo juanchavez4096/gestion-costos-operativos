@@ -125,5 +125,4 @@ export class MaterialComponent implements OnInit {
       this.unidades = content;
     })
   }
-
 }

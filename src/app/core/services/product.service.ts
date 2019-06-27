@@ -14,6 +14,10 @@ export class ProductService {
     return this.http.get(`${environment.GET_PRODUCTS}/all?search=${search}&page=${page}`).pipe(map(this.extractData));
   }
 
+  getProductsHistory(productoId: number) {
+    return this.http.get(`${environment.GET_PRODUCTS}/last10History?productoId=${productoId}`).pipe(map(this.extractData));
+  }
+
   getProduct(productoId: number) {
     return this.http.get(`${environment.GET_PRODUCTS}/byId?productoId=${productoId}`).pipe(map(this.extractData));
   }

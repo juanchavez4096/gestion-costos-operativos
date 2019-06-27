@@ -17,10 +17,12 @@
                 required>
               <mat-error>Debes colocarle un nombre</mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex="1 1 30" class="w-100">
-              <mat-label>Precio de venta</mat-label>
-              <input matInput type="text" readonly [value]="product.precioVenta + 'Bs'">
-            </mat-form-field>
+            <mat-form-field  fxFlex="1 1 30" class="w-100">
+                <mat-icon matSuffix>edit</mat-icon>
+                <mat-label>Depreciación</mat-label>
+                <input matInput type="text" formControlName="depreciacion" mask="percent" sufix="%" placeholder="0%">   
+              </mat-form-field>
+            
           </div>
         </div>
         <div fxFlex="0 1 100" class="w-100">
@@ -37,8 +39,29 @@
             </mat-form-field>
           </div>
         </div>
+        <div fxFlex="0 1 100" class="w-100">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+              <mat-form-field *ngIf="empresa.mostrarPrecioDolar" fxFlex="1 1 70" class="w-100">
+                <mat-icon matSuffix>attach_money</mat-icon>
+                <mat-label>Precio de venta en dolares</mat-label>
+                <input matInput type="text" readonly [value]="product.precioVentaDolares + '$'">
+              </mat-form-field>
+              <mat-form-field *ngIf="empresa.mostrarPrecioDolar" fxFlex="1 1 30" class="w-100">
+                  <mat-label>Precio de venta</mat-label>
+                  <input matInput type="text" readonly [value]="product.precioVenta + 'Bs'">
+                </mat-form-field>
+                <mat-form-field *ngIf="!empresa.mostrarPrecioDolar" fxFlex="1 1 100" class="w-100">
+                    <mat-label>Precio de venta</mat-label>
+                    <input matInput type="text" readonly [value]="product.precioVenta + 'Bs'">
+                  </mat-form-field>
+            
+            </div>
+          </div>
         <div fxFlex="0 1 100" class="w-100 mb-3">
           <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="end center">
+              <button type="button" fxFlex="0 1 auto" mat-flat-button color="primary" (click)="openHistoryDialog()">
+                  HISTORIAL PRECIOS 
+                </button>
             <button type="button" fxFlex="0 1 auto" mat-flat-button color="warn" (click)="confirmDelete(product.productoId)">
               ELIMINAR <mat-icon [inline]="true">delete</mat-icon>
             </button>

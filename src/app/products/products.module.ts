@@ -6,14 +6,14 @@ import { ListProductsComponent } from './list-products/list-products.component';
 import { MaterialModule, CovalentModule } from './dependencies';
 import { AddComponent } from './add/add.component';
 import { AddProductoMaterialComponent } from './add-producto-material/add-producto-material.component';
-import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
-  entryComponents: [AddProductoMaterialComponent],
+  entryComponents: [AddProductoMaterialComponent, HistoryComponent],
   providers: [
     
   ],
-  declarations: [ProductComponent, ListProductsComponent, AddComponent, AddProductoMaterialComponent],
+  declarations: [ProductComponent, ListProductsComponent, AddComponent, AddProductoMaterialComponent, HistoryComponent],
   imports: [
     SharedModule,
     ProductsRoutingModule,

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ProductService } from '../../core/services/product.service';
-import { AuthService } from '../../core/services';
+import { AuthService, UserService } from '../../core/services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MaterialService } from '../../core/services/material.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -11,6 +11,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { IPageChangeEvent } from '@covalent/core/paging';
 import { AddProductoMaterialComponent } from '../add-producto-material/add-producto-material.component';
 import { ProductoDTO } from '../../class/ProductoDTO';
+import { HistoryComponent } from '../history/history.component';
 
 @Component({
   selector: 'app-product',
@@ -27,6 +28,7 @@ export class ProductComponent implements OnInit {
   materials: any[];
   searchInputTerm: string = "";
   beginPage = false;
+  empresa: any;
   constructor(private productService: ProductService,
     private materialService: MaterialService,
     public auth: AuthService,
@@ -36,9 +38,11 @@ export class ProductComponent implements OnInit {
     private _dialogService: TdDialogService,
     private _viewContainerRef: ViewContainerRef,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private userService: UserService) {
     this.productForm = this.fb.group({
-      nombre: ['', Validators.required]
+      nombre: ['', Validators.required],
+      depreciacion: ['', Validators.required]
     });
   }
 
@@ -48,14 +52,19 @@ export class ProductComponent implements OnInit {
   }
 
   getProductWithMaterials(){
-    this.productService.getProduct(this.route.snapshot.params.id).subscribe(product => {
-      this.product = product;
-      if (this.product == null) {
-        this.router.navigate(['/products']);
-      }
-      this.searchMaterial(0, '');
-      this.productForm.get('nombre').setValue(this.product.nombre);
-    });
+
+    this.userService.myEmpresa().subscribe(empresa => {
+      this.empresa = empresa;
+      this.productService.getProduct(this.route.snapshot.params.id).subscribe(product => {
+        this.product = product;
+        if (this.product == null) {
+          this.router.navigate(['/products']);
+        }
+        this.searchMaterial(0, '');
+        this.productForm.get('nombre').setValue(this.product.nombre);
+        this.productForm.get('depreciacion').setValue(this.product.depreciacion);
+      });
+    })
   }
 
   goToMaterial(materialId: number) {
@@ -81,9 +90,8 @@ export class ProductComponent implements OnInit {
 
     this.productService.updateProduct(values).pipe(takeUntil(this.destroy$)).subscribe(event => {
       this.productForm.reset();
-      this.product.nombre = values.nombre;
-      this.productForm.get('nombre').setValue(this.product.nombre);
-      this.openSnackBar('Nombre del producto actualizado.');
+      this.getProductWithMaterials();
+      this.openSnackBar('Producto actualizado.');
       this.productForm.enable();
     }, error => {
       this.productForm.enable();
@@ -165,6 +173,20 @@ export class ProductComponent implements OnInit {
       width: '400px',
       disableClose: false,
       data: {productoId: this.product.productoId, productoMaterialId: productoMaterialId, added: false},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.getProductWithMaterials();
+      };
+    });
+  }
+
+  openHistoryDialog(){
+    const dialogRef = this.dialog.open(HistoryComponent, {
+      width: '800px',
+      disableClose: false,
+      data: {producto: this.product, added: false},
     });
 
     dialogRef.afterClosed().subscribe(result => {
