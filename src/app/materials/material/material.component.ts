@@ -26,6 +26,7 @@ export class MaterialComponent implements OnInit {
   searchInputTerm: string = "";
   beginPage = false;
   unidades: TipoUnidadDTO[];
+  materialImageLoadedVar = false;
   constructor(
     private materialService: MaterialService,
     public auth: AuthService,
@@ -124,5 +125,9 @@ export class MaterialComponent implements OnInit {
     this.materialService.getTipoUnidad(material.tipoUnidad.tipoUnidadId).subscribe(content => {
       this.unidades = content;
     })
+  }
+
+  materialImageLoaded(){
+    this.materialImageLoadedVar = true;
   }
 }

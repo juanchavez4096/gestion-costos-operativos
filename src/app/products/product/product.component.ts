@@ -29,6 +29,7 @@ export class ProductComponent implements OnInit {
   searchInputTerm: string = "";
   beginPage = false;
   empresa: any;
+  productImageLoadedVar = false;
   constructor(private productService: ProductService,
     private materialService: MaterialService,
     public auth: AuthService,
@@ -141,7 +142,7 @@ export class ProductComponent implements OnInit {
       if (accept) {
         this.materialService.deleteProductoMaterial(productoMaterialId).subscribe(event => {
           this.getProductWithMaterials();
-        }, error => {
+        }, (error) => {
           this._dialogService.openAlert({
             message: 'Ha ocurrido un error interno, intente de nuevo más tarde.',
             disableClose: false, // defaults to false
@@ -198,5 +199,9 @@ export class ProductComponent implements OnInit {
 
   imageLoaded(i: number){
     this.materials[i].imageLoaded = true;
+  }
+
+  productImageLoaded(){
+    this.productImageLoadedVar = true;
   }
 }

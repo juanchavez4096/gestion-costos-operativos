@@ -2,8 +2,15 @@
   <div fxLayout="row" fxLayoutAlign="center center" class="pb-3">
     <div fxFlex="1 1 30">
       <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
-        <img fxFlex="0 1 150px"  [src]="'http://localhost:8081/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=500x500'"
-          alt="">
+        <img [style.display]="materialImageLoadedVar ? 'block' : 'none'" class="rounded-circle" fxFlex="0 1 150px"  [src]="'http://localhost:8081/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=500x500'"
+          alt="" (load)="materialImageLoaded()">
+
+        <div *ngIf="!materialImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background">
+          <div fxLayout="column" [style.height.px]="150" fxLayoutAlign="center center">
+            <div class="initials" fxFlex="0 1 auto">{{material.nombre ? material.nombre.charAt(0).toUpperCase() : ''}}</div>
+          </div>
+        </div>
+
       </div>
     </div>
     <div fxFlex="1 1 70">

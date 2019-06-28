@@ -13,6 +13,12 @@
     height: 32px !important;
 }
 
+.initials{
+    color: white;
+    font-weight: bold;
+    font-size: 3rem !important;
+}
+
 .list-item-w{
     display: flex;
     justify-content: space-between;
@@ -25,4 +31,8 @@
     display: flex; 
     align-items:center; 
     cursor: pointer
+}
+
+.primary-background{
+    background: mat-color($primary);
 }

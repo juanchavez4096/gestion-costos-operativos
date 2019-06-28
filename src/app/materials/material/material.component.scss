@@ -1,0 +1,11 @@
+@import "../../../assets/scss/custom-covalent-config.scss";
+
+.primary-background{
+    background: mat-color($primary);
+}
+
+.initials{
+    color: white;
+    font-weight: bold;
+    font-size: 3rem !important;
+}
