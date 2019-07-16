@@ -11,11 +11,12 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ReporteComponent } from './components/reporte/reporte.component';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 @NgModule({
   entryComponents: [ReporteComponent],
   declarations: [LayoutComponent, SidenavComponent, FileUploadComponent, ReporteComponent],
-  providers: [],
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'es-VE'},],
   imports: [
     CommonModule,
     ReactiveFormsModule,

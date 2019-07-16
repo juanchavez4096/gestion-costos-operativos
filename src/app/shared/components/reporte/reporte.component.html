@@ -4,17 +4,19 @@
 
   <div fxLayout="column" fxLayoutAlign="center center" mat-dialog-content>
 
-    <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
-      <input matInput [matDatepicker]="dpd" placeholder="Desde" formControlName="desde">
+    <mat-form-field  fxFlex="1 1 100" class="w-100">
+      <input matInput [max]="maxDateDesde" [matDatepicker]="dpd" placeholder="Desde" formControlName="desde">
       <mat-datepicker-toggle matSuffix [for]="dpd"></mat-datepicker-toggle>
       <mat-datepicker #dpd></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
-      <input matInput [matDatepicker]="dph" placeholder="Hasta" formControlName="hasta">
+    <mat-form-field  fxFlex="1 1 100" class="w-100">
+      <input matInput  [max]="maxDateHasta" [matDatepicker]="dph" placeholder="Hasta" formControlName="hasta">
       <mat-datepicker-toggle matSuffix [for]="dph"></mat-datepicker-toggle>
       <mat-datepicker #dph></mat-datepicker>
     </mat-form-field>
+
+    <label *ngIf="reporteForm.errors">{{ reporteForm.errors?.dates  }}</label>
 
 
     <!-- <div fxFlex="1 1 100" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="25px" class="w-100">
