@@ -1,7 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { TdLayoutComponent } from '@covalent/core/layout';
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+
+import { MatDialog } from '@angular/material';
+import { ReporteComponent } from '../reporte/reporte.component';
+
 
 @Component({
   selector: 'app-layout',
@@ -16,7 +20,8 @@ export class LayoutComponent implements OnInit {
   public goBack: string;
   public preferences = false;
   @ViewChild(TdLayoutComponent) layout: TdLayoutComponent;
-  constructor(private authService: AuthService, private router: Router) { 
+  @ViewChild('child') child: ElementRef;
+  constructor(private authService: AuthService, private router: Router, public dialog: MatDialog) { 
     this.router.events.subscribe( val => {
       if (val instanceof NavigationEnd) {
         if(val.url.includes('/materials'))
@@ -74,4 +79,12 @@ export class LayoutComponent implements OnInit {
     }
   }
 
+  reporte(){
+    
+    const dialogRef = this.dialog.open(ReporteComponent, {
+      width: '400px',
+      disableClose: false,
+      data: {reportType: this.actualSite},
+    });
+  }
 }

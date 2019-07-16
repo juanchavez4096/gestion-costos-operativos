@@ -1,14 +1,14 @@
-<td-layout>
+<td-layout >
     <td-navigation-drawer flex sidenavTitle="Gestion de Costos Operativos" [name]="name" [email]="email">
         <app-sidenav (optionClick)="closeSidebar()"></app-sidenav>
     </td-navigation-drawer>
-    <td-layout-nav toolbarTitle="Gestion de Costos Operativos">
+    <td-layout-nav toolbarTitle="Gestion de Costos Operativos" >
         <button mat-icon-button td-menu-button tdLayoutToggle *ngIf="isLoggedIn()">
             <mat-icon>menu</mat-icon>
         </button>
         <td-layout-card-over class="h-100" *ngIf="isLoggedIn(); else logIn">
-            <mat-card-title fxLayout="row" fxLayoutAlign="space-between" style="margin-bottom: 32px">
-                <div>
+            <mat-card-title fxLayout="row" fxLayoutAlign="space-between" style="margin-bottom: 32px" >
+                <div >
                     <button mat-icon-button *ngIf="goBack" (click)="goBackFunction()">
                         <mat-icon>arrow_back</mat-icon>
                     </button>
@@ -16,13 +16,19 @@
                     {{actualSite}}
 
                 </div>
-                <button *ngIf="!goBack && actualSite !== 'Preferencias'" mat-mini-fab color="accent" (click)="agregar()">
-                    <mat-icon>add</mat-icon>
-                </button>
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
+                    <button *ngIf="!goBack && actualSite !== 'Preferencias'" mat-raised-button color="primary" (click)="reporte()">
+                        Reporte
+                    </button>
+                    <button *ngIf="!goBack && actualSite !== 'Preferencias'" mat-mini-fab color="accent" (click)="agregar()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                
             </mat-card-title>
-            <mat-card-content class="max-height-card">
+            <mat-card-content class="max-height-card" #child id="child">
                 <div class="pt-3 w-100 main-height">
-                    <router-outlet></router-outlet>
+                    <router-outlet ></router-outlet>
                 </div>
             </mat-card-content>
 

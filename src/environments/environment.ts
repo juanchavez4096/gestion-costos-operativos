@@ -10,7 +10,8 @@ export const environment = {
   GET_PRODUCTS: BASE_URL + PORT + '/api/productos',
   GET_MATERIALS: BASE_URL + PORT + '/api/materiales',
   GET_PRODUCTOMATERIAL: BASE_URL + PORT + '/api/productoMaterial',
-  GET_EMPRESA: BASE_URL + PORT + '/api/empresa'
+  GET_EMPRESA: BASE_URL + PORT + '/api/empresa',
+  GET_PDF: BASE_URL + PORT + '/api/pdf'
   
 };
 

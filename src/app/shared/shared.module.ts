@@ -10,9 +10,12 @@ import { CovalentModule } from './dependencies/covalent.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ReporteComponent } from './components/reporte/reporte.component';
 
 @NgModule({
-  declarations: [LayoutComponent, SidenavComponent, FileUploadComponent],
+  entryComponents: [ReporteComponent],
+  declarations: [LayoutComponent, SidenavComponent, FileUploadComponent, ReporteComponent],
+  providers: [],
   imports: [
     CommonModule,
     ReactiveFormsModule,
