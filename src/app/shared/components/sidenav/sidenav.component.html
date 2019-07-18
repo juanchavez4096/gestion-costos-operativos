@@ -6,10 +6,10 @@
     <button [ngClass]="{'active' : actualSite === 'Materiales'}" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('materials')">
       <mat-icon>shopping_cart</mat-icon><span class="ml-3 pt-1">MATERIALES</span>
     </button>
-    <button [ngClass]="{'active' : actualSite === 'Administración'}" *ngIf="rol === 1" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('administration')">
+    <button [ngClass]="{'active' : actualSite === 'Administración'}" *ngIf="authService.getUserRoleId() === 1" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('administration')">
         <mat-icon>group</mat-icon><span class="ml-3 pt-1">ADMINISTRACIÓN</span>
       </button>
-    <button [ngClass]="{'active' : actualSite === 'Preferencias'}" *ngIf="rol === 1" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('preferencias')">
+    <button [ngClass]="{'active' : actualSite === 'Preferencias'}" *ngIf="authService.getUserRoleId() === 1" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('preferencias')">
       <mat-icon>settings</mat-icon><span class="ml-3 pt-1">PREFERENCIAS</span>
     </button>
     <button [ngClass]="{'active' : actualSite === 'Ayuda'}" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('ayuda')">

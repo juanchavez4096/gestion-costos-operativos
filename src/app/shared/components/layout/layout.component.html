@@ -1,6 +1,6 @@
 <td-layout >
-    <td-navigation-drawer flex sidenavTitle="Gestion de Costos Operativos" [name]="name" [email]="email">
-        <app-sidenav (optionClick)="closeSidebar()" [actualSite]="actualSite"></app-sidenav>
+    <td-navigation-drawer flex sidenavTitle="Gestion de Costos Operativos" [name]="authService.getUserDisplayName()" [email]="authService.getUserEmail()">
+        <app-sidenav (optionClick)="closeSidebar($event)" [actualSite]="actualSite"></app-sidenav>
     </td-navigation-drawer>
     <td-layout-nav toolbarTitle="Gestion de Costos Operativos" >
         <button mat-icon-button td-menu-button tdLayoutToggle *ngIf="isLoggedIn()">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -7,22 +7,25 @@ import { Router } from '@angular/router';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit {
-
-  public rol: number
+export class SidenavComponent implements OnInit, OnDestroy {
 
   @Output() optionClick = new EventEmitter<any>();
   @Input() public actualSite: string;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.rol = this.authService.getUserRoleId();
+    //this.rol = this.authService.getUserRoleId();
+  }
+
+  ngOnDestroy() {
+    //this.rol = null;
   }
 
   logOut() {
     localStorage.clear();
     this.authService.logout();
-    this.optionClick.next();
+    this.optionClick.next('out');
+    //this.rol = null;
   }
 
   changeOption(option: string) {

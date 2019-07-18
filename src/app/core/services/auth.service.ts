@@ -20,10 +20,10 @@ export class AuthService {
   constructor(private router: Router, private storageService: StorageService, private http: HttpClient) {
   }
 
-  logout() {
+  logout() {    
     this.saveStateAndCleanResorces();
-    // this.destroy$.next(true);
-    // this.destroy$.unsubscribe();
+    //this.destroy$.next(true);
+    //this.destroy$.unsubscribe();
     this.router.navigate(['/login']);
   }
 
