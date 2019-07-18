@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { TdLayoutComponent } from '@covalent/core/layout';
 import { Router, NavigationEnd } from '@angular/router';
@@ -16,7 +16,7 @@ import { ReporteComponent } from '../reporte/reporte.component';
 export class LayoutComponent implements OnInit {
   public name: string;
   public email: string;
-  public actualSite: string;
+  @Input()public actualSite: string;
   public goBack: string;
   public preferences = false;
   @ViewChild(TdLayoutComponent) layout: TdLayoutComponent;
@@ -32,6 +32,12 @@ export class LayoutComponent implements OnInit {
         if(val.url.includes('/preferencias') ){
           this.actualSite = 'Preferencias';
         }
+        if(val.url.includes('/ayuda') ){
+          this.actualSite = 'Ayuda';
+        }
+        if(val.url.includes('/administration') ){
+          this.actualSite = 'Administración';
+        }
         if (val.url.includes('/products') && val.url !== '/products') {
           this.goBack = '/products'
           if(val.url === '/products/add'){
@@ -42,7 +48,13 @@ export class LayoutComponent implements OnInit {
           if(val.url === '/materials/add'){
             this.actualSite = 'Añadir Materiales';
           }
-        }else {
+        }else if(val.url.includes('/administration') && val.url !== '/administration') {
+          this.goBack = '/administration'
+          if(val.url === '/administration/add'){
+            this.actualSite = 'Añadir usuario';
+          }
+        }
+        else {
           this.goBack = null;
         }
         
@@ -77,6 +89,10 @@ export class LayoutComponent implements OnInit {
     if(this.router.url === '/materials'){
       this.router.navigate(['/materials/add'])
     }
+    if(this.router.url === '/administration'){
+      this.router.navigate(['/administration/add'])
+    }
+    
   }
 
   reporte(){

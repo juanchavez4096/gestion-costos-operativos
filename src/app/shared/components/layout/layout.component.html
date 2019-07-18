@@ -1,13 +1,13 @@
 <td-layout >
     <td-navigation-drawer flex sidenavTitle="Gestion de Costos Operativos" [name]="name" [email]="email">
-        <app-sidenav (optionClick)="closeSidebar()"></app-sidenav>
+        <app-sidenav (optionClick)="closeSidebar()" [actualSite]="actualSite"></app-sidenav>
     </td-navigation-drawer>
     <td-layout-nav toolbarTitle="Gestion de Costos Operativos" >
         <button mat-icon-button td-menu-button tdLayoutToggle *ngIf="isLoggedIn()">
             <mat-icon>menu</mat-icon>
         </button>
         <td-layout-card-over class="h-100" *ngIf="isLoggedIn(); else logIn">
-            <mat-card-title fxLayout="row" fxLayoutAlign="space-between" style="margin-bottom: 32px" >
+            <mat-card-title fxLayout="row" fxLayoutAlign="space-between" [ngClass]="{'other': actualSite !== 'Ayuda'}"  >
                 <div >
                     <button mat-icon-button *ngIf="goBack" (click)="goBackFunction()">
                         <mat-icon>arrow_back</mat-icon>
@@ -17,10 +17,10 @@
 
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
-                    <button *ngIf="!goBack && actualSite !== 'Preferencias'" mat-raised-button color="primary" (click)="reporte()">
+                    <button *ngIf="!goBack && actualSite !== 'Preferencias' && actualSite !== 'Ayuda'" mat-raised-button color="primary" (click)="reporte()">
                         Reporte
                     </button>
-                    <button *ngIf="!goBack && actualSite !== 'Preferencias'" mat-mini-fab color="accent" (click)="agregar()">
+                    <button *ngIf="!goBack && actualSite !== 'Preferencias' && actualSite !== 'Ayuda'" mat-mini-fab color="accent" (click)="agregar()">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>

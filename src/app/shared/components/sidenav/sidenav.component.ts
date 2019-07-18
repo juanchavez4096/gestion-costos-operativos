@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -8,10 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
+
+  public rol: number
+
   @Output() optionClick = new EventEmitter<any>();
+  @Input() public actualSite: string;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.rol = this.authService.getUserRoleId();
   }
 
   logOut() {

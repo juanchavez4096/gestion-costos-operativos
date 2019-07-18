@@ -21,6 +21,30 @@ export class UserService {
     return this.http.put(`${environment.GET_EMPRESA}/changePreferences`, preferencias).pipe(map(this.extractData));
   }
 
+  forgotPassword(email: string){
+    return this.http.get(`${environment.GET_USERS}/forgotPassword?email=${email}`).pipe(map(this.extractData));
+  }
+
+  changeForgottenPassword(email: string, codigoVerificacion: string, password: string){
+    return this.http.get(`${environment.GET_USERS}/changeForgottenPassword?email=${email}&password=${password}&codigoVerificacion=${codigoVerificacion}`).pipe(map(this.extractData));
+  }
+
+  addUser(user: FormData) {
+    return this.http.post(`${environment.GET_USERS}/add`, user, {reportProgress: true, observe: 'events'});
+  }
+
+  getUsers(page: number,search: string) {
+    return this.http.get(`${environment.GET_USERS}/all?search=${search}&page=${page}`).pipe(map(this.extractData));
+  }
+
+  getUser(userId: number) {
+    return this.http.get(`${environment.GET_USERS}/byId?usuarioId=${userId}`).pipe(map(this.extractData));
+  }
+
+  changeStatus(userId: number) {
+    return this.http.get(`${environment.GET_USERS}/changeStatus?usuarioId=${userId}`);
+  }
+
   private getHeaders() {
     return { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
   }

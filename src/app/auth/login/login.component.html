@@ -19,7 +19,7 @@
                         <mat-icon matSuffix>lock</mat-icon>
                     </mat-form-field>
                     <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px" class="w-100">
-                        <button mat-button type="button">RECUPERAR CONTRASEÑA</button>
+                        <button mat-button type="button" (click)="goForgotPassword()">RECUPERAR CONTRASEÑA</button>
                         <button type="submit"  [disabled]="loginForm.invalid" mat-raised-button color="primary">INICIAR</button>
                     </div>
 

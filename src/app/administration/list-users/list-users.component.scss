@@ -1,0 +1,28 @@
+@import "../../../assets/scss/custom-covalent-config.scss";
+
+.user-initials{
+    background: mat-color($primary);
+    border-radius: 50%;
+    font-size: 15px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.list-item-w{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    width: 100%
+}
+
+.list-item-b{
+    width:80%;
+    display: flex; 
+    align-items:center; 
+    cursor: pointer
+}

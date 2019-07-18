@@ -18,8 +18,6 @@ export class PdfService {
     });
   }
 
-  
-
   private extractData(res) {
     const body = res;
     return body;

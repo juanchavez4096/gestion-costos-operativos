@@ -1,14 +1,20 @@
 <div fxLayout="column" fxLayoutALign="start center" class="h-100">
   <mat-nav-list class="pt-0" fxFlex="calc(100% - 30px)">
-    <button mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('products')">
+    <button [ngClass]="{'active' : actualSite === 'Productos'}" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('products')">
       <mat-icon>category</mat-icon><span class="ml-3 pt-1">PRODUCTOS</span>
     </button>
-    <button mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('materials')">
+    <button [ngClass]="{'active' : actualSite === 'Materiales'}" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('materials')">
       <mat-icon>shopping_cart</mat-icon><span class="ml-3 pt-1">MATERIALES</span>
     </button>
-    <button mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('preferencias')">
+    <button [ngClass]="{'active' : actualSite === 'Administración'}" *ngIf="rol === 1" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('administration')">
+        <mat-icon>group</mat-icon><span class="ml-3 pt-1">ADMINISTRACIÓN</span>
+      </button>
+    <button [ngClass]="{'active' : actualSite === 'Preferencias'}" *ngIf="rol === 1" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('preferencias')">
       <mat-icon>settings</mat-icon><span class="ml-3 pt-1">PREFERENCIAS</span>
     </button>
+    <button [ngClass]="{'active' : actualSite === 'Ayuda'}" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('ayuda')">
+        <mat-icon>help</mat-icon><span class="ml-3 pt-1">AYUDA</span>
+      </button>
     <button mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2 text-danger" (click)="logOut()">
       <mat-icon>exit_to_app</mat-icon><span class="ml-3 pt-1">CERRAR SESIÓN</span>
     </button>

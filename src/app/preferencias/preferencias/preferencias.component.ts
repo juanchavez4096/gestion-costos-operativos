@@ -7,6 +7,7 @@ import { UserService } from '../../core/services/user.service';
 import { AuthService } from '../../core/services';
 import { HttpEventType } from '@angular/common/http';
 import { TdLoadingService } from '@covalent/core/loading';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-preferencias',
@@ -24,6 +25,7 @@ export class PreferenciasComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private _loadingService: TdLoadingService,
+    private _snackBar: MatSnackBar
   ) {
     this.preferenciasForm = this.fb.group({
       iva: [true, Validators.required],
@@ -67,6 +69,7 @@ export class PreferenciasComponent implements OnInit, OnDestroy {
     this.userService.updateEmpresaPreferences(values).pipe(takeUntil(this.destroy$)).subscribe(event => {
       
         this.preferenciasForm.enable();
+        this.openSnackBar('Preferencias actualizadas.');
         
         this._loadingService.resolve('replaceTemplateSyntax');
       
@@ -76,6 +79,10 @@ export class PreferenciasComponent implements OnInit, OnDestroy {
       this._loadingService.resolve('replaceTemplateSyntax')
       console.log(error);
     });
+  }
+
+  openSnackBar(texto: string) {
+    this._snackBar.open(texto, 'Ok', {duration: 3000});
   }
 
 }

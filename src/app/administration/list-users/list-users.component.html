@@ -1,0 +1,33 @@
+<td-search-input placeholder="Buscar Usuario" [(ngModel)]="searchInputTerm" [showUnderline]="true" [debounce]="500"
+  (searchDebounce)="searchUsers(0,$event)" (search)="searchUsers(0,$event)" (clear)="searchInputTerm = ''">
+</td-search-input>
+<mat-list>
+  <mat-list-item matRipple *ngFor="let user of users; let i = index" class="">
+    <div class="list-item-w">
+      <div class="list-item-b" (click)="goToUser(user.usuarioId)">
+        <img [style.display]="user.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8081/api/usuario/file/download?token='+auth.getToken(true)+'&usuarioId='+user.usuarioId+'&size=128x128'"
+          (load)="imageLoaded(i)" alt="">
+        <div *ngIf="!user.imageLoaded" mat-list-icon class="user-initials">{{user.nombre ?
+          user.nombre.charAt(0).toUpperCase() : ''}}</div>
+        <div style="margin-left: 16px">
+          <h3 matLine style="margin: 0">{{user.nombre}} </h3>
+          <p matLine style="margin: 0">
+            <span>{{user.email}}</span>
+            <span> -- Tipo de Usuario : {{user.tipoUsuario.tipo}}</span>
+          </p>
+        </div>
+
+
+      </div>
+
+      <mat-checkbox class="example-margin" (click)="changeStatus(user.usuarioId)" [(ngModel)]="user.enabled">{{user.enabled ? 'Habilitado' : 'Deshabilitado' }}</mat-checkbox>
+      
+    </div>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+
+
+</mat-list>
+<td-paging-bar #pagingBar [firstLast]="true" [pageSize]="pageSize" [total]="total" (change)="changePage($event)">
+  {{pagingBar.range}} de {{pagingBar.total}}
+</td-paging-bar>

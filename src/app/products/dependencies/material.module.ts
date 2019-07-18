@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {
-   MatCardModule, MatListModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTooltipModule, MatRippleModule, MatSnackBarModule, MatDialogModule, MatAutocompleteModule, MatSelectModule
+   MatCardModule, MatListModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTooltipModule, MatRippleModule, MatSnackBarModule, MatDialogModule, MatAutocompleteModule, MatSelectModule, MatDatepickerModule
 } from '@angular/material';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -20,7 +20,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatAutocompleteModule,
     MatSelectModule,
     NgxMaskModule.forRoot(),
-    NgxChartsModule
+    NgxChartsModule,
+    MatDatepickerModule
   ],
   exports: [
     MatListModule,
@@ -36,7 +37,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatAutocompleteModule,
     MatSelectModule,
     NgxMaskModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatDatepickerModule
   ]
 })
 export class MaterialModule { }

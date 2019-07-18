@@ -13,27 +13,27 @@ export class ReporteComponent implements OnInit {
 
   public reporteForm: FormGroup;
 
-  
+
   maxDateHasta = new Date();
   maxDateDesde = new Date();
-  
+
 
   constructor(public dialogRef: MatDialogRef<ReporteComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private pdfService: PdfService) { 
-      
-      this.reporteForm = this.fb.group({
-        desde: ['', [Validators.required]],
-        hasta: ['', Validators.required]
-      }, {validator: this.dateLessThan('desde', 'hasta')});
-    }
+    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private pdfService: PdfService) {
+
+    this.reporteForm = this.fb.group({
+      desde: ['', [Validators.required]],
+      hasta: ['', Validators.required]
+    }, { validator: this.dateLessThan('desde', 'hasta') });
+  }
 
   ngOnInit() {
-    
+
 
   }
 
   dateLessThan(from: string, to: string) {
-    return (group: FormGroup): {[key: string]: any} => {
+    return (group: FormGroup): { [key: string]: any } => {
       let f = group.controls[from];
       let t = group.controls[to];
       if (f.value >= t.value) {
@@ -43,9 +43,9 @@ export class ReporteComponent implements OnInit {
       }
       return {};
     }
-}
+  }
 
-  onSubmit(form: FormGroup){
+  onSubmit(form: FormGroup) {
     if (!form.valid) {
       return;
     }
@@ -53,13 +53,13 @@ export class ReporteComponent implements OnInit {
 
     this.pdfService.generatePdf(values.desde, values.hasta, this.data.reportType).subscribe(data => {
       console.log(data);
-        var blob = new Blob([data], {type: 'application/pdf'});
-        console.log(blob);
-        saveAs(blob, this.data.reportType + ".pdf");
-      
+      var blob = new Blob([data], { type: 'application/pdf' });
+      console.log(blob);
+      saveAs(blob, this.data.reportType + ".pdf");
+
     });
 
-    
+
   }
 
 }

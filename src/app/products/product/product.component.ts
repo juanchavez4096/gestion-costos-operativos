@@ -204,4 +204,8 @@ export class ProductComponent implements OnInit {
   productImageLoaded(){
     this.productImageLoadedVar = true;
   }
+
+  changeImg(){
+    
+  }
 }

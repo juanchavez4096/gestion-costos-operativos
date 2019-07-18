@@ -54,7 +54,7 @@ export class AddComponent implements OnInit {
     }
     const values = form.value;
     this.materialForm.disable();
-    let materialDTO = new MaterialDTO(null, values.tipoUnidadId, values.nombre, values.costo, values.cantidad)
+    let materialDTO = new MaterialDTO(null, values.tipoUnidadId, values.nombre, values.costo, values.cantidad, null)
     let formData: FormData = new FormData();
     formData.append('materialDTO', JSON.stringify(materialDTO));
     formData.append('imagen', values.imagen);

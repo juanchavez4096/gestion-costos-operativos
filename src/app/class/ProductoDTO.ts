@@ -4,14 +4,16 @@ export class ProductoDTO {
     costo: number;
     nombre: string;
     depreciacion: number;
-    imageLoaded: boolean
+    imageLoaded: boolean;
+    fechaCreacion: Date
     
-    constructor(productoId: number, costo: number, nombre: string, depreciacion: number, imageLoaded: boolean){
+    constructor(productoId: number, costo: number, nombre: string, depreciacion: number, imageLoaded: boolean, fechaCreacion: Date){
         this.productoId = productoId;
         this.costo = costo;
         this.nombre = nombre;
         this.depreciacion = depreciacion;
         this.imageLoaded = imageLoaded;
+        this.fechaCreacion = fechaCreacion;
     }
 
 }

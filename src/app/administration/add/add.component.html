@@ -1,0 +1,29 @@
+<form fxLayout="column" fxLayoutAlign="center center" [formGroup]="userForm" (submit)="onSubmit(userForm)"
+  novalidate>
+  <mat-form-field fxFlex="1 1 100" class="w-100">
+    <mat-label>Nombre</mat-label>
+    <input matInput type="text" maxlength="50" placeholder="José Rafael" formControlName="nombre" required>
+  </mat-form-field>
+
+  <mat-form-field fxFlex="1 1 100" class="w-100">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" maxlength="99" placeholder="ejemplo@algo.com" formControlName="email" required>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+      <mat-label>Tipo de Usuario</mat-label>
+      <mat-select formControlName="tipoUsuario">
+        <mat-option *ngFor="let tipo of tipos" [value]="tipo.tipoId">
+          {{tipo.tipo}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  <app-file-upload class="h-100 w-100" formControlName="imagen" [progress]="progress"></app-file-upload>
+
+  <br>
+  <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">AGREGAR</button>
+
+  <ng-template tdLoading="replaceTemplateSyntax" tdLoadingMode="determinate" tdLoadingType="linear" tdLoadingStrategy="replace"
+    tdLoadingColor="primary">
+  </ng-template>
+</form>

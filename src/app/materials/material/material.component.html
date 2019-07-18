@@ -2,7 +2,8 @@
   <div fxLayout="row" fxLayoutAlign="center center" class="pb-3">
     <div fxFlex="1 1 30">
       <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
-        <img [style.display]="materialImageLoadedVar ? 'block' : 'none'" class="rounded-circle" fxFlex="0 1 150px"  [src]="'http://localhost:8081/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=500x500'"
+        <img [style.display]="materialImageLoadedVar ? 'block' : 'none'" class="rounded-circle" fxFlex="0 1 150px"
+          [src]="'http://localhost:8081/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=500x500'"
           alt="" (load)="materialImageLoaded()">
 
         <div *ngIf="!materialImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background">
@@ -26,25 +27,33 @@
             <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-icon matSuffix>attach_money</mat-icon>
               <mat-label>Costo de Compra</mat-label>
-              <input matInput type="text" mask="dot_separator.2" sufix="Bs" maxlength="50" placeholder="5000" formControlName="costo"
-                [validation]="true" required>
+              <input matInput type="text" mask="dot_separator.2" sufix="Bs" maxlength="50" placeholder="5000"
+                formControlName="costo" [validation]="true" required>
             </mat-form-field>
           </div>
 
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-            <mat-form-field appearance="standard">
+            <mat-form-field appearance="standard" fxFlex="1 1 60" class="w-100">
               <mat-label>Cantidad</mat-label>
               <input matInput type="text" inputmode="numeric" mask="0{12}" placeholder="5000" formControlName="cantidad"
                 required>
               <mat-icon matSuffix>currency</mat-icon>
             </mat-form-field>
-            <mat-form-field appearance="standard">
+            <mat-form-field appearance="standard" fxFlex="1 1 40" class="w-100">
               <mat-label>Tipo de Unidad</mat-label>
               <mat-select formControlName="tipoUnidadId">
                 <mat-option *ngFor="let unidad of unidades" [value]="unidad.tipoUnidadId">
                   {{unidad.tipo}} ({{unidad.unidad}})
                 </mat-option>
               </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="15px">
+            <mat-form-field appearance="standard">
+              <mat-label>Fecha de creación</mat-label>
+              <input matInput [matDatepicker]="dph" readonly [value]="material.fechaCreacion">
+              <mat-datepicker #dph readonly></mat-datepicker>
             </mat-form-field>
           </div>
 

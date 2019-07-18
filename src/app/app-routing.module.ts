@@ -23,6 +23,14 @@ const routes: Routes = [
     path: 'preferencias',
     loadChildren: './preferencias/preferencias.module#PreferenciasModule'
   },
+  {
+    path: 'ayuda',
+    loadChildren: './ayuda/ayuda.module#AyudaModule'
+  },
+  {
+    path: 'administration',
+    loadChildren: './administration/administration.module#AdministrationModule'
+  },
 ];
 
 @NgModule({

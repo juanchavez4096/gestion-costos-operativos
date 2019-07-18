@@ -70,12 +70,15 @@ export class MaterialComponent implements OnInit {
     }
     let values = form.value;
     
-    let materialDTO = new MaterialDTO(this.material.materialId, new TipoUnidadDTO(values.tipoUnidadId, null, null, null) , values.nombre, values.costo, values.cantidad);
+    let materialDTO = new MaterialDTO(this.material.materialId, new TipoUnidadDTO(values.tipoUnidadId, null, null, null) , values.nombre, values.costo, values.cantidad, null);
     this.materialForm.disable();
 
     this.materialService.updateMaterial(materialDTO).pipe(takeUntil(this.destroy$)).subscribe(event => {
       this.materialForm.reset();
+      
+      let fechaCreacion = this.material.fechaCreacion
       this.material = materialDTO;
+      this.material.fechaCreacion = fechaCreacion;
       this.materialForm.get('nombre').setValue(this.material.nombre);
       this.materialForm.get('costo').setValue(this.material.costo);
       this.materialForm.get('cantidad').setValue(this.material.cantidadCompra);
