@@ -20,6 +20,7 @@ export class SidenavComponent implements OnInit {
   }
 
   logOut() {
+    localStorage.clear();
     this.authService.logout();
     this.optionClick.next();
   }

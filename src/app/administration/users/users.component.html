@@ -2,12 +2,12 @@
   <div fxLayout="row" fxLayoutAlign="center center" class="pb-3">
     <div fxFlex="1 1 30">
       <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
-        
-        
-            <img [style.display]="userImageLoadedVar ? 'block' : 'none'" class="rounded-circle " fxFlex="0 1 150px"  [src]="'http://localhost:8081/api/usuario/file/download?token='+auth.getToken(true)+'&usuarioId='+user.usuarioId+'&size=500x500'"
-            alt="" (load)="userImageLoaded()">
 
-        
+
+        <img [style.display]="userImageLoadedVar ? 'block' : 'none'" class="rounded-circle " fxFlex="0 1 150px" [src]="'http://localhost:8081/api/usuario/file/download?token='+auth.getToken(true)+'&usuarioId='+user.usuarioId+'&size=500x500'"
+          alt="" (load)="userImageLoaded()">
+
+
         <div *ngIf="!userImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background">
           <div fxLayout="column" [style.height.px]="150" fxLayoutAlign="center center">
             <div class="initials" fxFlex="0 1 auto">{{user.nombre ? user.nombre.charAt(0).toUpperCase() : ''}}</div>
@@ -19,72 +19,39 @@
       <div fxLayout="column" fxLayoutAlign="center start">
         <div fxFlex="0 1 100" class="w-100">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-            <mat-form-field fxFlex="1 1 70" class="w-100">
-              <mat-icon matSuffix>edit</mat-icon>
+            <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-label>Nombre del Usuario</mat-label>
-              <input matInput >
-              <mat-error>Debes colocarle un nombre</mat-error>
-            </mat-form-field>
-            <mat-form-field fxFlex="1 1 30" class="w-100">
-              <mat-icon matSuffix>edit</mat-icon>
-              <mat-label>Depreciación</mat-label>
-              <input matInput type="text" formControlName="depreciacion" mask="percent" sufix="%" placeholder="0%">
-            </mat-form-field>
-
-          </div>
-        </div>
-        <div fxFlex="0 1 100" class="w-100">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-            <mat-form-field fxFlex="1 1 50" class="w-100">
-              <mat-icon matSuffix>attach_money</mat-icon>
-              <mat-label>Costo de producción</mat-label>
-              <input matInput type="text" readonly [value]="product.costoProduccion + 'Bs'">
+              <input matInput readonly [value]="user.nombre">
             </mat-form-field>
             <mat-form-field fxFlex="1 1 50" class="w-100">
-              <mat-icon matSuffix>attach_money</mat-icon>
-              <mat-label>Ganancia</mat-label>
-              <input matInput type="text" readonly [value]="product.ganancia + 'Bs'">
+              <mat-label>Email</mat-label>
+              <input matInput type="text" readonly [value]="user.email">
             </mat-form-field>
           </div>
         </div>
         <div fxFlex="0 1 100" class="w-100">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-            <mat-form-field *ngIf="empresa.mostrarPrecioDolar" fxFlex="1 1 50" class="w-100">
-              <mat-icon matSuffix>attach_money</mat-icon>
-              <mat-label>Precio de venta en dolares</mat-label>
-              <input matInput type="text" readonly [value]="product.precioVentaDolares + '$'">
-            </mat-form-field>
-            <mat-form-field *ngIf="empresa.mostrarPrecioDolar" fxFlex="1 1 50" class="w-100">
-              <mat-label>Precio de venta</mat-label>
-              <input matInput type="text" readonly [value]="product.precioVenta + 'Bs'">
-            </mat-form-field>
-            <mat-form-field *ngIf="!empresa.mostrarPrecioDolar" fxFlex="1 1 100" class="w-100">
-              <mat-label>Precio de venta</mat-label>
-              <input matInput type="text" readonly [value]="product.precioVenta + 'Bs'">
-            </mat-form-field>
 
-          </div>
-        </div>
-        <div fxFlex="0 1 100" class="w-100">
-          <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="15px">
-            <mat-form-field appearance="standard">
+            <mat-form-field fxFlex="1 1 50" class="w-100">
+              <mat-label>Tipo de Usuario</mat-label>
+              <input matInput type="text" readonly [value]="user.tipoUsuario.tipo">
+            </mat-form-field>
+            <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-label>Fecha de creación</mat-label>
-              <input matInput [matDatepicker]="dph" readonly [value]="product.fechaCreacion">
+              <input matInput [matDatepicker]="dph" readonly [value]="user.fechaCreacion">
               <mat-datepicker #dph readonly></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
 
         <div fxFlex="0 1 100" class="w-100 mb-3">
-          <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="end center">
-            <button type="button" fxFlex="0 1 auto" mat-flat-button color="primary" (click)="openHistoryDialog()">
-              HISTORIAL PRECIOS
-            </button>
-            <button type="button" fxFlex="0 1 auto" mat-flat-button color="warn" (click)="confirmDelete(product.productoId)">
-              ELIMINAR <mat-icon [inline]="true">delete</mat-icon>
-            </button>
-            <button type="submit" fxFlex="0 1 auto" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">ACTUALIZAR</button>
+          <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="15px">
+            <mat-slide-toggle appearance="standard" fxFlex="1 1 100" class="w-100" color="primary" (click)="changeStatus(user.usuarioId)" [(ngModel)]="user.enabled">
+              {{user.enabled ? 'Habilitado' : 'Deshabilitado'}}
+            </mat-slide-toggle>
           </div>
+            
+          
         </div>
       </div>
     </div>
