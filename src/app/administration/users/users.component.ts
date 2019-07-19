@@ -109,6 +109,7 @@ export class UsersComponent implements OnInit {
       this.openSnackBar('Usuario actualizado.');
     }, error => {
       if (error.error.status === 409) {
+        this.getUser();
         this._dialogService.openAlert({
           message: error.error.message,
           disableClose: false, // defaults to false

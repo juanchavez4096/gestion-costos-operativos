@@ -76,14 +76,7 @@ export class MaterialComponent implements OnInit {
     this.materialService.updateMaterial(materialDTO).pipe(takeUntil(this.destroy$)).subscribe(event => {
       this.materialForm.reset();
       
-      let fechaCreacion = this.material.fechaCreacion
-      this.material = materialDTO;
-      this.material.fechaCreacion = fechaCreacion;
-      this.materialForm.get('nombre').setValue(this.material.nombre);
-      this.materialForm.get('costo').setValue(this.material.costo);
-      this.materialForm.get('cantidad').setValue(this.material.cantidadCompra);
-      this.materialForm.get('tipoUnidadId').setValue(this.material.tipoUnidad.tipoUnidadId);
-      this.openSnackBar('Material actualizado.');
+      this.getMaterial();
       this.materialForm.enable();
     }, error => {
       this.materialForm.enable();

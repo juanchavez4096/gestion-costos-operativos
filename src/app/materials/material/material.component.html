@@ -49,12 +49,23 @@
             </mat-form-field>
           </div>
 
-          <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="15px">
-            <mat-form-field appearance="standard">
-              <mat-label>Fecha de creación</mat-label>
-              <input matInput [matDatepicker]="dph" readonly [value]="material.fechaCreacion">
-              <mat-datepicker #dph readonly></mat-datepicker>
-            </mat-form-field>
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+              <mat-form-field fxFlex="1 1 25" class="w-100">
+                  <mat-label>Fecha de creación</mat-label>
+                  <input matInput type="text" readonly [value]="material.fechaCreacion | date:'MM/dd/yy h:mm a'">
+                </mat-form-field>
+                <mat-form-field fxFlex="1 1 25" class="w-100">
+                  <mat-label>Creado por</mat-label>
+                  <input matInput type="text" readonly [value]="material.creadoPor.nombre">
+                </mat-form-field>
+                <mat-form-field fxFlex="1 1 25" class="w-100">
+                  <mat-label>Fecha de actualización</mat-label>
+                  <input matInput type="text" readonly [value]="material.fechaActualizacion | date:'MM/dd/yy h:mm a'">
+                </mat-form-field>
+                <mat-form-field fxFlex="1 1 25" class="w-100">
+                  <mat-label>Actualizado por</mat-label>
+                  <input matInput type="text" readonly [value]="material.actualizadoPor.nombre">
+                </mat-form-field>
           </div>
 
         </div>

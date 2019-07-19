@@ -2,12 +2,13 @@
   <div fxLayout="row" fxLayoutAlign="center center" class="pb-3">
     <div fxFlex="1 1 30">
       <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
-        
-        
-            <img [style.display]="productImageLoadedVar ? 'block' : 'none'" class="rounded-circle " fxFlex="0 1 150px"  [src]="'http://localhost:8081/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=500x500'"
-            alt="" (load)="productImageLoaded()">
 
-        
+
+        <img [style.display]="productImageLoadedVar ? 'block' : 'none'" class="rounded-circle " fxFlex="0 1 150px"
+          [src]="'http://localhost:8081/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=500x500'"
+          alt="" (load)="productImageLoaded()">
+
+
         <div *ngIf="!productImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background">
           <div fxLayout="column" [style.height.px]="150" fxLayoutAlign="center center">
             <div class="initials" fxFlex="0 1 auto">{{product.nombre ? product.nombre.charAt(0).toUpperCase() : ''}}</div>
@@ -67,11 +68,22 @@
           </div>
         </div>
         <div fxFlex="0 1 100" class="w-100">
-          <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="15px">
-            <mat-form-field appearance="standard">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+            <mat-form-field fxFlex="1 1 25" class="w-100">
               <mat-label>Fecha de creación</mat-label>
-              <input matInput [matDatepicker]="dph" readonly [value]="product.fechaCreacion">
-              <mat-datepicker #dph readonly></mat-datepicker>
+              <input matInput type="text" readonly [value]="product.fechaCreacion | date:'MM/dd/yy h:mm a'">
+            </mat-form-field>
+            <mat-form-field fxFlex="1 1 25" class="w-100">
+              <mat-label>Creado por</mat-label>
+              <input matInput type="text" readonly [value]="product.creadoPor.nombre">
+            </mat-form-field>
+            <mat-form-field fxFlex="1 1 25" class="w-100">
+              <mat-label>Fecha de actualización</mat-label>
+              <input matInput type="text" readonly [value]="product.fechaActualizacion | date:'MM/dd/yy h:mm a'">
+            </mat-form-field>
+            <mat-form-field fxFlex="1 1 25" class="w-100">
+              <mat-label>Actualizado por</mat-label>
+              <input matInput type="text" readonly [value]="product.actualizadoPor.nombre">
             </mat-form-field>
           </div>
         </div>
