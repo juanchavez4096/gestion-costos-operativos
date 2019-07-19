@@ -11,7 +11,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   @Output() optionClick = new EventEmitter<any>();
   @Input() public actualSite: string;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     //this.rol = this.authService.getUserRoleId();
@@ -30,6 +30,22 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   changeOption(option: string) {
     this.router.navigate([`/${option}`]);
+    this.optionClick.next();
+  }
+
+  goToPerfil(){
+    let token = this.authService.getToken(true).split('.');
+    let userId;
+    if (token.length === 3) {
+      const dataToken = JSON.parse(atob(token[1]));
+      try {
+        userId = Object.keys(dataToken).filter(key => key === 'sub').length > 0 ? dataToken['sub'] : null;
+      } catch (err) {
+
+      }
+    }
+    
+    this.router.navigate([`administration`, userId]); 
     this.optionClick.next();
   }
 

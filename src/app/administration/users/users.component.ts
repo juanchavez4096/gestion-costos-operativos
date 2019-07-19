@@ -12,7 +12,7 @@ import { IPageChangeEvent } from '@covalent/core/paging';
 import { ProductoDTO } from '../../class/ProductoDTO';
 
 @Component({
-  selector: 'app-users', 
+  selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
@@ -20,14 +20,14 @@ export class UsersComponent implements OnInit {
 
   pageSize: number = 0;
   total: number = 0;
-  public productForm: FormGroup;
+  public userForm: FormGroup;
   public destroy$: Subject<boolean> = new Subject<boolean>();
   user: any;
   empresa: any;
   userImageLoadedVar = false;
   constructor(
     public auth: AuthService,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private _dialogService: TdDialogService,
@@ -35,15 +35,19 @@ export class UsersComponent implements OnInit {
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
     private userService: UserService) {
-    
+    this.userForm = this.fb.group({
+      nombre: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
+
   }
 
   ngOnInit() {
     this.getUser();
-    
+
   }
 
-  getUser(){
+  getUser() {
 
     this.userService.myEmpresa().subscribe(empresa => {
       this.empresa = empresa;
@@ -51,20 +55,56 @@ export class UsersComponent implements OnInit {
         this.user = user;
         if (this.user == null) {
           this.router.navigate(['/administration']);
+        } else {
+          this.userForm.get('nombre').setValue(user.nombre);
+          this.userForm.get('email').setValue(user.email);
         }
       });
     })
   }
 
-  openSnackBar(texto: string) {
-    this._snackBar.open(texto, 'Ok', {duration: 3000});
+  onSubmit(form: FormGroup) {
+    if (!form.valid) {
+      return;
+    }
+    let values = form.value;
+    
+    this.userForm.disable();
+
+    this.userService.updateUser(values.nombre, values.email).pipe(takeUntil(this.destroy$)).subscribe(event => {
+      this.userForm.reset();
+      this.openSnackBar('Usuario actualizado.');
+      if (values.email !== this.user.email) {
+        this._dialogService.openAlert({
+          message: 'Debe volver a iniciar sesión para ver los cambios del nuevo email',
+          disableClose: false, // defaults to false
+          //viewContainerRef: this._viewContainerRef, //OPTIONAL
+          title: 'Cambio de email', //OPTIONAL, hides if not provided
+          closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
+          width: '400px', //OPTIONAL, defaults to 400px
+        });
+        this.auth.logout()
+      }
+      this.getUser();
+      
+      
+      this.userForm.enable();
+    }, error => {
+      this.userForm.enable();
+      console.log(error);
+    });
   }
 
-  userImageLoaded(){
+
+  openSnackBar(texto: string) {
+    this._snackBar.open(texto, 'Ok', { duration: 3000 });
+  }
+
+  userImageLoaded() {
     this.userImageLoadedVar = true;
   }
 
-  changeStatus(userId: number){
+  changeStatus(userId: number) {
     this.userService.changeStatus(userId).subscribe(event => {
       this.openSnackBar('Usuario actualizado.');
     }, error => {
@@ -77,7 +117,7 @@ export class UsersComponent implements OnInit {
           closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
           width: '400px', //OPTIONAL, defaults to 400px
         });
-      }else{
+      } else {
         this._dialogService.openAlert({
           message: 'Ha ocurrido un error interno, intente de nuevo más tarde.',
           disableClose: false, // defaults to false
@@ -87,7 +127,7 @@ export class UsersComponent implements OnInit {
           width: '400px', //OPTIONAL, defaults to 400px
         });
       }
-      
+
     })
-}
+  }
 }

@@ -45,6 +45,10 @@ export class UserService {
     return this.http.get(`${environment.GET_USERS}/changeStatus?usuarioId=${userId}`);
   }
 
+  updateUser(nombre: string, email: string) {
+    return this.http.get(`${environment.GET_USERS}/updateUser?nombre=${nombre}&email=${email}`);
+  }
+
   private getHeaders() {
     return { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
   }

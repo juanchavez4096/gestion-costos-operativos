@@ -12,6 +12,9 @@
     <button [ngClass]="{'active' : actualSite === 'Preferencias'}" *ngIf="authService.getUserRoleId() === 1" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('preferencias')">
       <mat-icon>settings</mat-icon><span class="ml-3 pt-1">PREFERENCIAS</span>
     </button>
+    <button [ngClass]="{'active' : actualSite === 'Perfil'}"  mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="goToPerfil()">
+        <mat-icon>account_circle</mat-icon><span class="ml-3 pt-1">PERFIL</span>
+      </button>
     <button [ngClass]="{'active' : actualSite === 'Ayuda'}" mat-button fxLayout="row" fxLayoutAlign="start center" class="w-100 py-2" (click)="changeOption('ayuda')">
         <mat-icon>help</mat-icon><span class="ml-3 pt-1">AYUDA</span>
       </button>

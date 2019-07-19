@@ -16,22 +16,23 @@
       </div>
     </div>
     <div fxFlex="1 1 70">
-      <div fxLayout="column" fxLayoutAlign="center start">
+      <form fxLayout="column" fxLayoutAlign="center start" [formGroup]="userForm" novalidate (submit)="onSubmit(userForm)">
         <div fxFlex="0 1 100" class="w-100">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
             <mat-form-field fxFlex="1 1 50" class="w-100">
+              <mat-icon *ngIf="user.email === auth.getUserEmail()" matSuffix>edit</mat-icon>
               <mat-label>Nombre del Usuario</mat-label>
-              <input matInput readonly [value]="user.nombre">
+              <input matInput formControlName="nombre" [readonly]="user.email !== auth.getUserEmail()" >
             </mat-form-field>
             <mat-form-field fxFlex="1 1 50" class="w-100">
+              <mat-icon *ngIf="user.email === auth.getUserEmail()" matSuffix>edit</mat-icon>
               <mat-label>Email</mat-label>
-              <input matInput type="text" readonly [value]="user.email">
+              <input matInput type="text" formControlName="email" [readonly]="user.email !== auth.getUserEmail()" >
             </mat-form-field>
           </div>
         </div>
         <div fxFlex="0 1 100" class="w-100">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-
             <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-label>Tipo de Usuario</mat-label>
               <input matInput type="text" readonly [value]="user.tipoUsuario.tipo">
@@ -46,14 +47,20 @@
 
         <div fxFlex="0 1 100" class="w-100 mb-3">
           <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="15px">
-            <mat-slide-toggle appearance="standard" fxFlex="1 1 100" class="w-100" color="primary" (click)="changeStatus(user.usuarioId)" [(ngModel)]="user.enabled">
+            <mat-slide-toggle *ngIf="auth.getUserRoleId() === 1" appearance="standard" fxFlex="1 1 100" class="w-100" color="primary" (click)="changeStatus(user.usuarioId)" [(ngModel)]="user.enabled" [ngModelOptions]="{standalone: true}">
               {{user.enabled ? 'Habilitado' : 'Deshabilitado'}}
             </mat-slide-toggle>
           </div>
             
           
         </div>
-      </div>
+        <div fxFlex="0 1 100" class="w-100 mb-3">
+          <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="end center">
+            <button type="submit" fxFlex="0 1 auto" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">ACTUALIZAR</button>
+          </div>
+        </div>
+
+      </form>
     </div>
   </div>
 </div>

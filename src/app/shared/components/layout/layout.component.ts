@@ -35,6 +35,10 @@ export class LayoutComponent implements OnInit {
         }
         if (val.url.includes('/administration')) {
           this.actualSite = 'Administración';
+          if (val.url === '/administration/'+this.getActualUserId()) {
+            this.actualSite = 'Perfil';
+          }
+          
         }
         if (val.url.includes('/products') && val.url !== '/products') {
           this.goBack = '/products'
@@ -48,6 +52,9 @@ export class LayoutComponent implements OnInit {
           }
         } else if (val.url.includes('/administration') && val.url !== '/administration') {
           this.goBack = '/administration'
+          if (val.url === '/administration/'+this.getActualUserId() && this.authService.getUserRoleId() === 2) {
+            this.goBack = '/products';
+          }
           if (val.url === '/administration/add') {
             this.actualSite = 'Añadir usuario';
           }
@@ -105,5 +112,19 @@ export class LayoutComponent implements OnInit {
       disableClose: false,
       data: { reportType: this.actualSite },
     });
+  }
+
+  getActualUserId(){
+    let token = this.authService.getToken(true).split('.');
+    let userId;
+    if (token.length === 3) {
+      const dataToken = JSON.parse(atob(token[1]));
+      try {
+        userId = Object.keys(dataToken).filter(key => key === 'sub').length > 0 ? dataToken['sub'] : null;
+      } catch (err) {
+
+      }
+    }
+    return userId;
   }
 }
