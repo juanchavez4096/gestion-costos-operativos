@@ -35,7 +35,7 @@ export class LayoutComponent implements OnInit {
         }
         if (val.url.includes('/administration')) {
           this.actualSite = 'Administración';
-          if (val.url === '/administration/'+this.getActualUserId()) {
+          if (val.url === '/administration/perfil') {
             this.actualSite = 'Perfil';
           }
           
@@ -54,6 +54,9 @@ export class LayoutComponent implements OnInit {
           this.goBack = '/administration'
           if (val.url === '/administration/'+this.getActualUserId() && this.authService.getUserRoleId() === 2) {
             this.goBack = '/products';
+          }
+          if (val.url === '/administration/perfil') {
+            this.goBack = null;
           }
           if (val.url === '/administration/add') {
             this.actualSite = 'Añadir usuario';

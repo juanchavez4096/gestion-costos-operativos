@@ -12,6 +12,7 @@ import { TdDialogService } from '@covalent/core/dialogs';
 })
 export class ListMaterialsComponent implements OnInit {
 
+  random = Math.random();
   searchInputTerm: string;
   materials: any[] = [];
   total: number = 0;

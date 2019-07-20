@@ -67,6 +67,14 @@ export class MaterialService {
     return this.http.delete(`${environment.GET_MATERIALS}/delete?materialId=${materialId}`);
   }
 
+  uploadImage(material: FormData) {
+    return this.http.post(`${environment.GET_MATERIALS}/file/upload`, material, {reportProgress: true, observe: 'events'});
+  }
+
+  deleteImage(materialId: number) {
+    return this.http.delete(`${environment.GET_MATERIALS}/file/delete?materialId=${materialId}`);
+  }
+
 
   private extractData(res) {
     const body = res;

@@ -34,18 +34,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
   }
 
   goToPerfil(){
-    let token = this.authService.getToken(true).split('.');
-    let userId;
-    if (token.length === 3) {
-      const dataToken = JSON.parse(atob(token[1]));
-      try {
-        userId = Object.keys(dataToken).filter(key => key === 'sub').length > 0 ? dataToken['sub'] : null;
-      } catch (err) {
-
-      }
-    }
     
-    this.router.navigate([`administration`, userId]); 
+    
+    this.router.navigate([`administration/perfil`]); 
     this.optionClick.next();
   }
 

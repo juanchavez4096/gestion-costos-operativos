@@ -1,15 +1,15 @@
 <div *ngIf="product">
   <div fxLayout="row" fxLayoutAlign="center center" class="pb-3">
     <div fxFlex="1 1 30">
-      <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+      <div fxLayout="column" fxLayoutAlign="center center" class="w-100" [matMenuTriggerFor]="changePicture">
 
 
-        <img [style.display]="productImageLoadedVar ? 'block' : 'none'" class="rounded-circle " fxFlex="0 1 150px"
-          [src]="'http://localhost:8081/api/productos/file/download?token='+auth.getToken(true)+'&productoId='+product.productoId+'&size=500x500'"
+        <img [style.display]="productImageLoadedVar ? 'block' : 'none'" class="rounded-circle image" fxFlex="0 1 150px"
+          [src]="url"
           alt="" (load)="productImageLoaded()">
 
 
-        <div *ngIf="!productImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background">
+        <div *ngIf="!productImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background image-name">
           <div fxLayout="column" [style.height.px]="150" fxLayoutAlign="center center">
             <div class="initials" fxFlex="0 1 auto">{{product.nombre ? product.nombre.charAt(0).toUpperCase() : ''}}</div>
           </div>
@@ -115,7 +115,7 @@
     <mat-list-item matRipple *ngFor="let material of materials; let i = index" class="">
       <div class="list-item-w">
         <div class="list-item-b" (click)="openDialog(material.productoMaterialId)">
-          <img [style.display]="material.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8081/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.material.materialId+'&size=128x128'"
+          <img [style.display]="material.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8081/api/materiales/file/download?a='+random+'&token='+auth.getToken(true)+'&materialId='+material.material.materialId+'&size=128x128'"
             (load)="imageLoaded(i)" alt="">
           <div *ngIf="!material.imageLoaded" mat-list-icon class="user-initials">{{material.material.nombre ?
             material.material.nombre.charAt(0).toUpperCase() : ''}}</div>
@@ -143,3 +143,10 @@
     {{pagingBar.range}} de {{pagingBar.total}}
   </td-paging-bar>
 </div>
+
+
+<mat-menu #changePicture="matMenu" yPosition="below" xPosition="before">
+    <button mat-menu-item (click)="openModal(1)">Subir Imagen</button>
+  
+    <button mat-menu-item *ngIf="productImageLoadedVar" (click)="deleteImage()" class="text-danger">Borrar Imagen</button>
+  </mat-menu>

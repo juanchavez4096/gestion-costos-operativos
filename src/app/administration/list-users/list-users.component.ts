@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ListUsersComponent implements OnInit {
 
+  random = Math.random();
   public environment = environment;
   pageSize: number = 0;
   total: number = 0;

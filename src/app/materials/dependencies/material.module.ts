@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {
-   MatCardModule, MatListModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTooltipModule, MatSelectModule, MatRippleModule, MatDatepickerModule
+   MatCardModule, MatListModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTooltipModule, MatSelectModule, MatRippleModule, MatDatepickerModule, MatMenuModule
 } from '@angular/material';
 import {NgxMaskModule} from 'ngx-mask'
 
@@ -16,7 +16,8 @@ import {NgxMaskModule} from 'ngx-mask'
     MatSelectModule,
     NgxMaskModule.forRoot(),
     MatRippleModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatMenuModule
     
   ],
   exports: [
@@ -30,7 +31,8 @@ import {NgxMaskModule} from 'ngx-mask'
     MatSelectModule,
     NgxMaskModule,
     MatRippleModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatMenuModule
     
   ]
 })

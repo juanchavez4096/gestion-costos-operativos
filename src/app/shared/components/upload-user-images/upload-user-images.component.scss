@@ -1,0 +1,35 @@
+.drop-zone {
+    -webkit-animation: color-change-2x 2s linear alternate both;
+            animation: color-change-2x 2s linear alternate both;
+}
+
+.drag-avatar{
+  font-size: 35px;
+  color: #999999
+}
+
+.selected{
+  background-image: url(../../../../assets/images/icons/addpic.svg);
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position-y: 5px;
+}
+
+
+@-webkit-keyframes color-change-2x {
+  0% {
+    background: #f2f4f7;
+  }
+  100% {
+    background: #d7dde5;
+  }
+}
+@keyframes color-change-2x {
+  0% {
+    background: #f2f4f7;
+  }
+  100% {
+    background: #d7dde5;
+  }
+}

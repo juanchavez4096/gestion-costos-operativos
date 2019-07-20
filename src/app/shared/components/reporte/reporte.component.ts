@@ -56,7 +56,7 @@ export class ReporteComponent implements OnInit {
       var blob = new Blob([data], { type: 'application/pdf' });
       console.log(blob);
       saveAs(blob, this.data.reportType + ".pdf");
-
+      this.dialogRef.close();
     });
 
 

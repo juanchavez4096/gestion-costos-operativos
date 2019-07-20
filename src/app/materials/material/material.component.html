@@ -1,12 +1,12 @@
 <div *ngIf="material">
   <div fxLayout="row" fxLayoutAlign="center center" class="pb-3">
     <div fxFlex="1 1 30">
-      <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
-        <img [style.display]="materialImageLoadedVar ? 'block' : 'none'" class="rounded-circle" fxFlex="0 1 150px"
-          [src]="'http://localhost:8081/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=500x500'"
+      <div fxLayout="column" fxLayoutAlign="center center" class="w-100" [matMenuTriggerFor]="changePicture">
+        <img [style.display]="materialImageLoadedVar ? 'block' : 'none'" class="rounded-circle image" fxFlex="0 1 150px"
+          [src]="url"
           alt="" (load)="materialImageLoaded()">
 
-        <div *ngIf="!materialImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background">
+        <div *ngIf="!materialImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background image-name">
           <div fxLayout="column" [style.height.px]="150" fxLayoutAlign="center center">
             <div class="initials" fxFlex="0 1 auto">{{material.nombre ? material.nombre.charAt(0).toUpperCase() : ''}}</div>
           </div>
@@ -81,3 +81,9 @@
     </div>
   </div>
 </div>
+
+<mat-menu #changePicture="matMenu" yPosition="below" xPosition="before">
+    <button mat-menu-item (click)="openModal(1)">Subir Imagen</button>
+  
+    <button mat-menu-item *ngIf="materialImageLoadedVar" (click)="deleteImage()" class="text-danger">Borrar Imagen</button>
+  </mat-menu>

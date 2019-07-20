@@ -45,8 +45,16 @@ export class UserService {
     return this.http.get(`${environment.GET_USERS}/changeStatus?usuarioId=${userId}`);
   }
 
-  updateUser(nombre: string, email: string) {
-    return this.http.get(`${environment.GET_USERS}/updateUser?nombre=${nombre}&email=${email}`);
+  updateUser(usuarioId: number, nombre: string, email: string, tipoUsuario: number) {
+    return this.http.get(`${environment.GET_USERS}/updateUser?usuarioId=${usuarioId}&nombre=${nombre}&email=${email}&tipoUsuario=${tipoUsuario}`);
+  }
+
+  uploadImage(user: FormData) {
+    return this.http.post(`${environment.GET_USERS}/file/upload`, user, {reportProgress: true, observe: 'events'});
+  }
+
+  deleteImage() {
+    return this.http.delete(`${environment.GET_USERS}/file/delete`);
   }
 
   private getHeaders() {

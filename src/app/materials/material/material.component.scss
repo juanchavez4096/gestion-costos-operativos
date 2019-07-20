@@ -9,3 +9,13 @@
     font-weight: bold;
     font-size: 3rem !important;
 }
+
+.image:hover{
+    filter: brightness(0.75);
+    cursor: pointer;
+}
+
+.image-name:hover{
+    background-color: #DDDDDD;
+    cursor: pointer;
+}

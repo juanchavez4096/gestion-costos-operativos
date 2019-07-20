@@ -5,7 +5,7 @@
   <mat-list-item matRipple *ngFor="let material of materials; let i = index">
     <div class="list-item-w">
       <div class="list-item-b" (click)="goToMaterial(material.materialId)">
-        <img [style.display]="material.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8081/api/materiales/file/download?token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=128x128'"
+        <img [style.display]="material.imageLoaded ? 'block' : 'none'" matListAvatar [src]="'http://localhost:8081/api/materiales/file/download?a='+random+'&token='+auth.getToken(true)+'&materialId='+material.materialId+'&size=128x128'"
           (load)="imageLoaded(i)" alt="">
 
         <div *ngIf="!material.imageLoaded" mat-list-icon class="user-initials">{{material.nombre ?

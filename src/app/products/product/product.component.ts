@@ -12,6 +12,7 @@ import { IPageChangeEvent } from '@covalent/core/paging';
 import { AddProductoMaterialComponent } from '../add-producto-material/add-producto-material.component';
 import { ProductoDTO } from '../../class/ProductoDTO';
 import { HistoryComponent } from '../history/history.component';
+import { UploadUserImagesComponent } from '../../shared/components/upload-user-images/upload-user-images.component';
 
 @Component({
   selector: 'app-product',
@@ -20,6 +21,8 @@ import { HistoryComponent } from '../history/history.component';
 })
 export class ProductComponent implements OnInit {
 
+  url;
+  random = Math.random();
   pageSize: number = 0;
   total: number = 0;
   public productForm: FormGroup;
@@ -61,6 +64,7 @@ export class ProductComponent implements OnInit {
         if (this.product == null) {
           this.router.navigate(['/products']);
         }
+        this.url = 'http://localhost:8081/api/productos/file/download?a='+ Math.random() +'&token='+this.auth.getToken(true)+'&productoId='+product.productoId+'&size=500x500';
         this.searchMaterial(0, '');
         this.productForm.get('nombre').setValue(this.product.nombre);
         this.productForm.get('depreciacion').setValue(this.product.depreciacion);
@@ -205,7 +209,48 @@ export class ProductComponent implements OnInit {
     this.productImageLoadedVar = true;
   }
 
-  changeImg(){
-    
+  openModal(option: number) {
+    let dialogRef: any;
+    dialogRef = this.dialog.open(UploadUserImagesComponent, {
+      width: '40%',
+      height: '55%',
+      panelClass: 'instance-dialog',
+      disableClose: true,
+      data: { option, userImage: true, section: 'user', type: 'product', id: this.product.productoId },
+    });
+
+    dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe(result => {
+      this.getProductWithMaterials();
+    });
+  }
+
+  deleteImage() {
+    this.productService.deleteImage(this.product.productoId).subscribe(event => {
+      this.getProductWithMaterials();
+      this.productImageLoadedVar = false;
+      this.openSnackBar('Imagen Actualizada');
+    }, error => {
+      if (error.error.status === 409) {
+        this.getProductWithMaterials();
+        this._dialogService.openAlert({
+          message: error.error.message,
+          disableClose: false, // defaults to false
+          viewContainerRef: this._viewContainerRef, //OPTIONAL
+          title: 'No se pudo ejecutar cambio de estado', //OPTIONAL, hides if not provided
+          closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
+          width: '400px', //OPTIONAL, defaults to 400px
+        });
+      } else {
+        this._dialogService.openAlert({
+          message: 'Ha ocurrido un error interno, intente de nuevo más tarde.',
+          disableClose: false, // defaults to false
+          viewContainerRef: this._viewContainerRef, //OPTIONAL
+          title: 'Error', //OPTIONAL, hides if not provided
+          closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
+          width: '400px', //OPTIONAL, defaults to 400px
+        });
+      }
+
+    })
   }
 }

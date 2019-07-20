@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', component: ListUsersComponent, canActivate: [AuthGuard] },
   { path: 'add', component: AddComponent, canActivate: [AuthGuard] },
   { path: ':id', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'perfil', component: UsersComponent, canActivate: [AuthGuard] }
 
 ];
 

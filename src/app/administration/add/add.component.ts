@@ -26,7 +26,7 @@ export class AddComponent implements OnInit, OnDestroy {
       tipoId: 2,
       tipo: 'Usuario'
     }
-  ]
+  ];
 
   constructor(
     private userService: UserService,

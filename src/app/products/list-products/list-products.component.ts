@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ListProductsComponent implements OnInit {
 
+  random = Math.random();
   public environment = environment;
   pageSize: number = 0;
   total: number = 0;

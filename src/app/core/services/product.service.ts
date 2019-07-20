@@ -34,6 +34,14 @@ export class ProductService {
     return this.http.delete(`${environment.GET_PRODUCTS}/delete?productoId=${productoId}`);
   }
 
+  uploadImage(product: FormData) {
+    return this.http.post(`${environment.GET_PRODUCTS}/file/upload`, product, {reportProgress: true, observe: 'events'});
+  }
+
+  deleteImage(productoId: number) {
+    return this.http.delete(`${environment.GET_PRODUCTS}/file/delete?productoId=${productoId}`);
+  }
+
   private extractData(res) {
     const body = res;
     return body;

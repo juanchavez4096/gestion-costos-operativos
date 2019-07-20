@@ -1,14 +1,14 @@
 <div *ngIf="user">
   <div fxLayout="row" fxLayoutAlign="center center" class="pb-3">
     <div fxFlex="1 1 30">
-      <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+      <div fxLayout="column" fxLayoutAlign="center center" class="w-100" [matMenuTriggerFor]="changePicture" [ngClass]="{ 'disabled' : user.email !== auth.getUserEmail() }">
 
 
-        <img [style.display]="userImageLoadedVar ? 'block' : 'none'" class="rounded-circle " fxFlex="0 1 150px" [src]="'http://localhost:8081/api/usuario/file/download?token='+auth.getToken(true)+'&usuarioId='+user.usuarioId+'&size=500x500'"
-          alt="" (load)="userImageLoaded()">
+        <img [style.display]="userImageLoadedVar ? 'block' : 'none'" class="rounded-circle image" fxFlex="0 1 150px"
+          [src]="url" alt="" (load)="userImageLoaded()">
 
 
-        <div *ngIf="!userImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background">
+        <div *ngIf="!userImageLoadedVar" fxFlex="1 1 150px" [style.width.px]="150" class="rounded-circle primary-background image-name">
           <div fxLayout="column" [style.height.px]="150" fxLayoutAlign="center center">
             <div class="initials" fxFlex="0 1 auto">{{user.nombre ? user.nombre.charAt(0).toUpperCase() : ''}}</div>
           </div>
@@ -22,20 +22,24 @@
             <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-icon *ngIf="user.email === auth.getUserEmail()" matSuffix>edit</mat-icon>
               <mat-label>Nombre del Usuario</mat-label>
-              <input matInput formControlName="nombre" [readonly]="user.email !== auth.getUserEmail()" >
+              <input matInput formControlName="nombre" [readonly]="user.email !== auth.getUserEmail()">
             </mat-form-field>
             <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-icon *ngIf="user.email === auth.getUserEmail()" matSuffix>edit</mat-icon>
               <mat-label>Email</mat-label>
-              <input matInput type="text" formControlName="email" [readonly]="user.email !== auth.getUserEmail()" >
+              <input matInput type="text" formControlName="email" [readonly]="user.email !== auth.getUserEmail()">
             </mat-form-field>
           </div>
         </div>
         <div fxFlex="0 1 100" class="w-100">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-            <mat-form-field fxFlex="1 1 50" class="w-100">
+            <mat-form-field fxFlex="1 1 50" [ngClass]="{'readonly-wrapper': user.email === auth.getUserEmail()}" class="w-100 ">
               <mat-label>Tipo de Usuario</mat-label>
-              <input matInput type="text" readonly [value]="user.tipoUsuario.tipo">
+              <mat-select formControlName="tipoUsuario" [disabled]="user.email === auth.getUserEmail()" >
+                <mat-option *ngFor="let tipo of tipos" [value]="tipo.tipoId">
+                  {{tipo.tipo}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
             <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-label>Fecha de creación</mat-label>
@@ -47,12 +51,13 @@
 
         <div fxFlex="0 1 100" class="w-100 mb-3">
           <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="15px">
-            <mat-slide-toggle *ngIf="auth.getUserRoleId() === 1" appearance="standard" fxFlex="1 1 100" class="w-100" color="primary" (click)="changeStatus(user.usuarioId)" [(ngModel)]="user.enabled" [ngModelOptions]="{standalone: true}">
+            <mat-slide-toggle *ngIf="auth.getUserRoleId() === 1" appearance="standard" fxFlex="1 1 100" class="w-100"
+              color="primary" (click)="changeStatus(user.usuarioId)" [(ngModel)]="user.enabled" [ngModelOptions]="{standalone: true}">
               {{user.enabled ? 'Habilitado' : 'Deshabilitado'}}
             </mat-slide-toggle>
           </div>
-            
-          
+
+
         </div>
         <div fxFlex="0 1 100" class="w-100 mb-3">
           <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="end center">
@@ -63,4 +68,11 @@
       </form>
     </div>
   </div>
+
 </div>
+
+<mat-menu #changePicture="matMenu" yPosition="below" xPosition="before">
+  <button mat-menu-item (click)="openModal(1)">Subir Imagen</button>
+
+  <button mat-menu-item *ngIf="userImageLoadedVar" (click)="deleteImage()" class="text-danger">Borrar Imagen</button>
+</mat-menu>

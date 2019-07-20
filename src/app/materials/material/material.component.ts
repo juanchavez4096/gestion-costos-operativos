@@ -6,9 +6,10 @@ import { MaterialService } from '../../core/services/material.service';
 import { AuthService } from '../../core/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService } from '@covalent/core/dialogs';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { takeUntil } from 'rxjs/operators';
 import { TipoUnidadDTO } from '../../class/TipoUnidadDTO';
+import { UploadUserImagesComponent } from '../../shared/components/upload-user-images/upload-user-images.component';
 
 @Component({
   selector: 'app-material',
@@ -17,6 +18,7 @@ import { TipoUnidadDTO } from '../../class/TipoUnidadDTO';
 })
 export class MaterialComponent implements OnInit {
 
+  url;
   pageSize: number = 0;
   total: number = 0;
   public materialForm: FormGroup;
@@ -35,7 +37,8 @@ export class MaterialComponent implements OnInit {
     private fb: FormBuilder,
     private _dialogService: TdDialogService,
     private _viewContainerRef: ViewContainerRef,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) {
     this.materialForm = this.fb.group({
       nombre: ['', Validators.required],
       costo: ['', Validators.required],
@@ -55,6 +58,7 @@ export class MaterialComponent implements OnInit {
       if (this.material == null) {
         this.router.navigate(['/materials']);
       }
+      this.url = 'http://localhost:8081/api/materiales/file/download?a='+ Math.random() +'&token='+this.auth.getToken(true)+'&materialId='+material.materialId+'&size=500x500'
       this.getTipoMaterialByTipoMaterialId(this.material);
       this.materialForm.get('nombre').setValue(this.material.nombre);
       this.materialForm.get('costo').setValue(this.material.costo);
@@ -125,5 +129,50 @@ export class MaterialComponent implements OnInit {
 
   materialImageLoaded(){
     this.materialImageLoadedVar = true;
+  }
+
+  openModal(option: number) {
+    let dialogRef: any;
+    dialogRef = this.dialog.open(UploadUserImagesComponent, {
+      width: '40%',
+      height: '55%',
+      panelClass: 'instance-dialog',
+      disableClose: true,
+      data: { option, userImage: true, section: 'user', type: 'material', id: this.material.materialId },
+    });
+
+    dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe(result => {
+      this.getMaterial();
+    });
+  }
+
+  deleteImage() {
+    this.materialService.deleteImage(this.material.materialId).subscribe(event => {
+      this.openSnackBar('Imagen Actualizada');
+      this.getMaterial();
+      this.materialImageLoadedVar = false;
+    }, error => {
+      if (error.error.status === 409) {
+        this.getMaterial();
+        this._dialogService.openAlert({
+          message: error.error.message,
+          disableClose: false, // defaults to false
+          viewContainerRef: this._viewContainerRef, //OPTIONAL
+          title: 'No se pudo ejecutar cambio de estado', //OPTIONAL, hides if not provided
+          closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
+          width: '400px', //OPTIONAL, defaults to 400px
+        });
+      } else {
+        this._dialogService.openAlert({
+          message: 'Ha ocurrido un error interno, intente de nuevo más tarde.',
+          disableClose: false, // defaults to false
+          viewContainerRef: this._viewContainerRef, //OPTIONAL
+          title: 'Error', //OPTIONAL, hides if not provided
+          closeButton: 'Cerrar', //OPTIONAL, defaults to 'CLOSE'
+          width: '400px', //OPTIONAL, defaults to 400px
+        });
+      }
+
+    })
   }
 }

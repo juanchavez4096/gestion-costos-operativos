@@ -12,10 +12,11 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ReporteComponent } from './components/reporte/reporte.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { UploadUserImagesComponent } from './components/upload-user-images/upload-user-images.component';
 
 @NgModule({
-  entryComponents: [ReporteComponent],
-  declarations: [LayoutComponent, SidenavComponent, FileUploadComponent, ReporteComponent],
+  entryComponents: [ReporteComponent, UploadUserImagesComponent],
+  declarations: [LayoutComponent, SidenavComponent, FileUploadComponent, ReporteComponent, UploadUserImagesComponent],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'es-VE'},],
   imports: [
     CommonModule,

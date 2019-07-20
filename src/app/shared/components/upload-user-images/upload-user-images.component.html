@@ -1,0 +1,38 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="w-100 h-100">
+  <h4 class="font-roboto-normal-huge pt-2" [style.paddingLeft.px]="24"> Subir una imagen <mat-icon *ngIf="option !== 1" class="cursor-p card-top-title" [style.fontSize.px]="12"
+      matTooltip="Pick a color to set as a Background for your profile. Note that if you have a profile picture, it will be deleted">help</mat-icon>
+  </h4>
+  <mat-tab-group mat-align-tabs="start" class="h-100 w-100">
+    <mat-tab label="Subir imagen" class="h-100" *ngIf="option === 1">
+      <div fxLayout="column" fxLayoutAlign="center center" style="height: calc(100% - 50px) !important">
+        <div fxFlex="auto" class="h-100 w-100" tdFileDrop (fileDrop)="manageFile($event)" *ngIf="!imgExists">
+          <div fxLayout="column" fxLayoutAlign="center center" class="h-100">
+            <div fxFlex="0 1 auto">
+              <mat-icon class="drag-avatar">add_to_photos</mat-icon>
+            </div>
+            <h6 fxFlex="0 1 auto" class="font-roboto-bold-medium card-top-title">Arrastra una foto...</h6>
+            <td-file-input fxFlex="0 1 auto" color="accent" class="rounded-button" (select)="manageFile($event)" accept=".png,.jpg,.jpeg"
+              multiple="false">
+              <span>Selecciona una foto de tu computador</span>
+            </td-file-input>
+          </div>
+        </div>
+        <div fxFlex="auto" *ngIf="imgExists" class="h-100 w-100">
+          <div fxLayout="column" fxLayoutAlign="center center" class="h-100">
+            <image-cropper [imageFileChanged]="imageChangedEvent" [maintainAspectRatio]="true"
+              [aspectRatio]="1 / 1" [resizeToWidth]="128" format="png" (imageCropped)="imageCropped($event)"
+              [outputType]="'file'"></image-cropper>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" [style.height.px]="50" class="px-2 border-top">
+        <button *ngIf="imgExists" fxFlex="0 1 auto" mat-stroked-button color="warn" class="rounded-button" type="button"
+          (click)="imgExists = false; file = null" class="rounded-button">Elegir otra imagen</button>
+        <button fxFlex="0 1 95px" mat-flat-button color="accent" class="ml-auto rounded-button" type="button" (click)="changeAvatar()"
+          [disabled]="!imgExists">Subir</button>
+        <button fxFlex="0 1 95px" mat-stroked-button color="accent" type="button" (click)="close()" class="ml-4 rounded-button">Cerrar</button>
+      </div>
+    </mat-tab>
+    
+  </mat-tab-group>
+</div>
