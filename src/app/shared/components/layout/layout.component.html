@@ -17,10 +17,10 @@
 
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
-                    <button *ngIf="!goBack && actualSite !== 'Preferencias' && actualSite !== 'Ayuda'" mat-raised-button color="primary" (click)="reporte()">
+                    <button *ngIf="!goBack && actualSite !== 'Preferencias' && actualSite !== 'Ayuda' && actualSite !== 'Perfil'" mat-raised-button color="primary" (click)="reporte()">
                         Reporte
                     </button>
-                    <button *ngIf="!goBack && actualSite !== 'Preferencias' && actualSite !== 'Ayuda'" mat-mini-fab color="accent" (click)="agregar()">
+                    <button *ngIf="!goBack && actualSite !== 'Preferencias' && actualSite !== 'Ayuda' && actualSite !== 'Perfil'" mat-mini-fab color="accent" (click)="agregar()">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
