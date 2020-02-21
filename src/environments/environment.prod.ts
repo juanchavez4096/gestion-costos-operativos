@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:';
-const PORT = '8081';
+const BASE_URL = 'https://gestion-costos-operativos.herokuapp.com';
+const PORT = '';
 
 export const environment = {
   production: true,
