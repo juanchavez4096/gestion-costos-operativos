@@ -2,5 +2,7 @@ services:
   gestion-costos-operativos:
     container_name: gestion-costos-operativos
     build: .
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
     networks:
       - proxy-network

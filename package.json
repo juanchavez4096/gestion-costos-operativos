@@ -4,8 +4,8 @@
   "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "SET NODE_OPTIONS=--openssl-legacy-provider && ng serve --host 0.0.0.0",
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && ng build",
+    "start": "ng serve --host 0.0.0.0",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
