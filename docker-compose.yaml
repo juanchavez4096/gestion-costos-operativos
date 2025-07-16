@@ -1,0 +1,6 @@
+services:
+  gestion-costos-operativos:
+    container_name: gestion-costos-operativos
+    build: .
+    networks:
+      - proxy-network
