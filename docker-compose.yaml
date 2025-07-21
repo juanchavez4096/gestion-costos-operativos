@@ -4,7 +4,3 @@ services:
     build: .
     networks:
       - proxy-network
-      - front-end-gestion
-
-networks:
-  front-end-gestion:

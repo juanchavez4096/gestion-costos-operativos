@@ -1,7 +1,7 @@
 //const BASE_URL = 'http://localhost:';
 //const PORT = '8081';
 
-const BASE_URL = 'https://gestion-costos-operativos.herokuapp.com';
+const BASE_URL = 'https://gestion-back.local.mishumipet.lat';
 const PORT = '';
 
 export const environment = {
