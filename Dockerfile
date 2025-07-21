@@ -31,12 +31,14 @@ RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:${NGINX_VERSION} AS runner
 
+USER root
+RUN apk add --update nodejs
 # Use a built-in non-root user for security best practices
 USER nginx
 
 # Copy custom Nginx config
 COPY entrypoints.sh .
-RUN apk add --update nodejs
+
 COPY set-process-env.js .
 COPY src/environments/environment.base.ts .
 
