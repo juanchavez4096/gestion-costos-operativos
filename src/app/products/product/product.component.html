@@ -40,12 +40,12 @@
             <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-icon matSuffix>attach_money</mat-icon>
               <mat-label>Costo de producción</mat-label>
-              <input matInput type="text" readonly [value]="product.costoProduccion + 'Bs'">
+              <input matInput type="text" readonly [value]="'$'+ product.costoProduccion">
             </mat-form-field>
             <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-icon matSuffix>attach_money</mat-icon>
               <mat-label>Ganancia</mat-label>
-              <input matInput type="text" readonly [value]="product.ganancia + 'Bs'">
+              <input matInput type="text" readonly [value]="'$'+ product.ganancia">
             </mat-form-field>
           </div>
         </div>
@@ -58,11 +58,11 @@
             </mat-form-field>
             <mat-form-field *ngIf="empresa.mostrarPrecioDolar" fxFlex="1 1 50" class="w-100">
               <mat-label>Precio de venta</mat-label>
-              <input matInput type="text" readonly [value]="product.precioVenta + 'Bs'">
+              <input matInput type="text" readonly [value]="'$'+ product.precioVenta">
             </mat-form-field>
             <mat-form-field *ngIf="!empresa.mostrarPrecioDolar" fxFlex="1 1 100" class="w-100">
               <mat-label>Precio de venta</mat-label>
-              <input matInput type="text" readonly [value]="product.precioVenta + 'Bs'">
+              <input matInput type="text" readonly [value]="'$'+ product.precioVenta">
             </mat-form-field>
 
           </div>

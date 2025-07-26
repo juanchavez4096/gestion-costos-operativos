@@ -27,7 +27,7 @@
             <mat-form-field fxFlex="1 1 50" class="w-100">
               <mat-icon matSuffix>attach_money</mat-icon>
               <mat-label>Costo de Compra</mat-label>
-              <input matInput type="text" mask="dot_separator.2" sufix="Bs" maxlength="50" placeholder="5000"
+              <input matInput type="text" mask="dot_separator.2" prefix="$" maxlength="50" placeholder="5000"
                 formControlName="costo" [validation]="true" required>
             </mat-form-field>
           </div>

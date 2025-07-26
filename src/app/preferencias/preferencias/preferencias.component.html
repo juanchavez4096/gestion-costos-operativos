@@ -21,7 +21,7 @@
   </mat-slide-toggle>
   <mat-form-field appearance="standard" fxFlex="1 1 100" class="w-100">
     <mat-label>Precio del dolar</mat-label>
-    <input matInput type="text" maxlength="50" mask="dot_separator.2" sufix="Bs" placeholder="5000" formControlName="precioDolar" [validation]="true" required>
+    <input matInput type="text" maxlength="50" mask="dot_separator.2" prefix="$" placeholder="5000" formControlName="precioDolar" [validation]="true" required>
   </mat-form-field>
   <br>
   <button type="submit" mat-stroked-button color="accent" fxFlex="0 1 auto" fxFlexAlign="end">GUARDAR</button>

@@ -60,12 +60,12 @@ export class HistoryComponent implements OnInit {
   dateTickFormatting(val: any): String {
     if (val instanceof Date) {
       var options = { month: 'long',day:'numeric',year:'numeric'};
-      return (<Date>val).toLocaleString('es-VE', options);
+      return (<Date>val).toLocaleString('es-CL', options);
     }
   }
 
   numberFormatting(val:any): String{
-      return val+'Bs';
+      return '$'+val;
   }
   
 }
