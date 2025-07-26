@@ -48,8 +48,8 @@ export class PreferenciasComponent implements OnInit, OnDestroy {
     });
 
     this.preferenciasForm.controls['porcentajeGanancia'].valueChanges.pipe(takeUntil(this.destroy$), debounceTime(100)).subscribe(value => {
-      if (Number(value) > 30) {
-        this.preferenciasForm.get('porcentajeGanancia').setValue('30');
+      if (Number(value) < 0) {
+        this.preferenciasForm.get('porcentajeGanancia').setValue('0');
       }
     })
   }
